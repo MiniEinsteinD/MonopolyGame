@@ -45,4 +45,12 @@ public class Property extends Tile{
         return PRICE;
     }
 
+    /**
+     * Get the property's group
+     * @return the grouping that this property belongs to
+     */
+    public String getGroup(){
+        return GROUP;
+    }
+
 }

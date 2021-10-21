@@ -13,6 +13,7 @@ public class Monopoly {
     private Player activePlayer;
     private ArrayList<Player> players;
     private TwoDice dice;
+    private boolean running;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 8;
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("Red", "Green", "Blue", "Yellow",
@@ -58,10 +59,24 @@ public class Monopoly {
         }
 
         for (int i = 0; i < num_players; i++){
-            players.add(new Player(String.valueOf(i), COLORS.get(i)));
+            players.add(new Player(String.valueOf(i + 1), COLORS.get(i)));
         }
 
         System.out.println("Have fun :)");
+
+        int activePlayerIndex = 0;
+        String command;
+        while (running) {
+            System.out.println(String.format("Player {}'s turn! Enter a command:", players.get(activePlayerIndex)));
+            System.out.println("The recognized commands are ");
+
+            command = sc.nextLine();
+            switch (command){
+
+            }
+
+            activePlayerIndex = (activePlayerIndex + 1) % num_players;
+        }
     }
 
     public static void main(String[] args) {

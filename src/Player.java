@@ -114,7 +114,7 @@ public class Player{
      * A method that moves the player from his current position
      * @param steps, int value that represents how many steps the player has to move from their current position
      */
-    
+
     public void movePlayer(int steps){
         this.setPosition(position+steps);
     }

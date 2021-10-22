@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * The class player is responsible for the operations that the player
@@ -22,6 +23,15 @@ public class Player{
     public Player(String id, String color){
         this.ID = id;
         this.COLOR =color;
+    }
+
+
+    /**
+     * A getter for the player constant color
+     * @return a string that contains the color
+     */
+    public String getCOLOR() {
+        return COLOR;
     }
 
     /**
@@ -95,7 +105,7 @@ public class Player{
      * A method where the player pays a fine to the property owner if he is standing on other player's property
      * @param property, the property that the player is positioned on
      * @param owner, the player who owns the property
-     * @return true if the player has enough money to play the fine to the property owner; [paying the fine successfully]
+     * @return boolean, true if the player has enough money to play the fine to the property owner; [paying the fine successfully]
      *          else, return false [player losses the game since he has a negative balance]
      */
 
@@ -106,7 +116,11 @@ public class Player{
             owner.setWallet(owner.getWallet() + fine);
             return true;
         }
-        return false;
+        else{
+            this.wallet = wallet - fine;
+            owner.setWallet(owner.getWallet() + fine);
+            return false;
+        }
     }
 
     /**
@@ -116,5 +130,30 @@ public class Player{
 
     public void movePlayer(int steps){
         this.setPosition(position+steps);
+    }
+
+    /**
+     * A method that compares two player instances
+     * @param o, an object type variable.
+     * @return true if both player's entire attributes are equal;
+     *         else, it returns false
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return wallet == player.wallet && position == player.position && Objects.equals(ID, player.ID) && Objects.equals(properties, player.properties) && Objects.equals(COLOR, player.COLOR);
+    }
+
+    /**
+     * A method that generates a hash code for each player instance.
+     * @return an int hash code value for the object
+     */
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, wallet, properties, position, COLOR);
     }
 }

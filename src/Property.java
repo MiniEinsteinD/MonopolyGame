@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Property extends Tile{
 
     private Player owner;
@@ -63,5 +65,16 @@ public class Property extends Tile{
                 getPrice() + "\n    It is a part from: " + getGroup() +"group";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property property = (Property) o;
+        return PRICE == property.PRICE && owned == property.owned && Objects.equals(owner, property.owner) && Objects.equals(GROUP, property.GROUP);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(owner, GROUP, PRICE, owned);
+    }
 }

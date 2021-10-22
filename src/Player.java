@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * St# 101145902
  */
 public class Player{
-    private final String id;
+    private final String ID;
     private int wallet;
     private ArrayList<Property> properties = new ArrayList<>();
     private int position;
-    private final String color;
+    private final String COLOR;
 
     /**
      * Constructor for class player.
@@ -20,8 +20,8 @@ public class Player{
      * @param color, a constant string that represents the player color.
      */
     public Player(String id, String color){
-        this.id = id;
-        this.color=color;
+        this.ID = id;
+        this.COLOR =color;
     }
 
     /**
@@ -65,15 +65,14 @@ public class Player{
      * A method that prints the player's current state
      * @return a string that contains the player's state [properties owned, ID, color, balance, position]
      */
-
-    public String state() {//Make a print statement
+    @Override
+    public String toString() {
         String propertyDescription= "";
         for( Property p : properties){
-            propertyDescription = "\n\n    The property name is: " + p.getName() + "\n    The price of the property is: "+
-                    p.getPrice() + "\n    It is a part from: " + p.getGroup() +"group";
-        } //add it to property class
-        return "Your player ID is: "+ id + "\nYou balance is: " + wallet + "\nYou are at position: " + position +
-                "\nYour color is: " + color + "\n You own the following properties: " + propertyDescription;
+            propertyDescription = p.toString();
+        }
+        return "Your player ID is: "+ ID + "\nYour balance is: " + wallet + "\nYou are at position: " + position +
+                "\nYour color is: " + COLOR + "\nYou own the following properties: " + propertyDescription;
     }
 
     /**
@@ -101,7 +100,7 @@ public class Player{
      */
 
     public boolean payFine(Property property, Player owner){
-        int fine = (int) (property.getPrice() * 0.1); //change to fix percentage
+        int fine = (int) (property.getPrice() * Property.FINE_PERCENTAGE);
         if(wallet >= fine ){
             this.wallet = wallet - fine;
             owner.setWallet(owner.getWallet() + fine);

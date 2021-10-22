@@ -4,6 +4,8 @@ public class Property extends Tile{
     private final String GROUP;
     private final int PRICE;
     private boolean owned;
+    //Daniah Added
+    protected static final double FINE_PERCENTAGE = 0.1;
 
 
     public Property(String name, int price, String group){
@@ -52,5 +54,14 @@ public class Property extends Tile{
     public String getGroup(){
         return GROUP;
     }
+
+
+    //Daniah Added this since u were not in the meeting
+    @Override
+    public String toString() {//Make a print statement
+        return "\nYou own the following properties: " +  "\n\n    The property name is: " + getName() + "\n    The price of the property is: "+
+                getPrice() + "\n    It is a part from: " + getGroup() +"group";
+    }
+
 
 }

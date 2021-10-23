@@ -32,6 +32,7 @@ public class Monopoly {
         dice = new TwoDice();
         numSolventPlayers = 0;
         activePlayerIndex = 0;
+        running = false;
     }
 
     /**
@@ -209,6 +210,7 @@ public class Monopoly {
 
         System.out.println(". Have fun!");
 
+        running = true;
         gameLoop();
     }
 

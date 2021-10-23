@@ -1,12 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir
- * @version 0.3
+ * @version 0.5
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -14,7 +11,8 @@ public class Monopoly {
     private ArrayList<Player> players;
     private TwoDice dice;
     private boolean running;
-    private int numPlayers;
+    private int numSolventPlayers;
+    private int activePlayerIndex;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 8;
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
@@ -32,7 +30,8 @@ public class Monopoly {
         activePlayer = null;
         players = new ArrayList<>();
         dice = new TwoDice();
-        numPlayers = 0;
+        numSolventPlayers = 0;
+        activePlayerIndex = 0;
     }
 
     /**
@@ -46,7 +45,15 @@ public class Monopoly {
      * Buys a property for the active player.
      */
     private void buy() {
-
+        Tile t = TILES.get(activePlayer.getPosition());
+        if (t instanceof Property) {
+            boolean response = activePlayer.buyProperty((Property) t);
+            if (!response) {
+                System.out.println("Purchase failed. Are you sure you can afford it and no one owns it already?");
+            }
+        } else {
+            System.out.println("That is not for sale!");
+        }
     }
 
     /**
@@ -60,20 +67,49 @@ public class Monopoly {
                 );
     }
 
+    private void bankrupt(){
+        System.out.println("You're bankrupt!");
+        System.out.printf("The %s player loses the game.\n", activePlayer.getCOLOR());
+        numSolventPlayers--;
+    }
+
     /**
-     * Moves the player and prints the new location.
+     * Moves the player and prints the new location and pays any re.
      */
     private void move(){
-        System.out.printf("Moving {} player...\n", activePlayer.getColor());
+        System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
         activePlayer.movePlayer(dice.dieSum());
-        System.out.printf("You are now at tile %d - %s.\n",
+        System.out.printf(
+                "You are now at tile %d - %s.\n",
                 activePlayer.getPosition(),
                 TILES.get(activePlayer.getPosition()).getName()
         );
+
+        Tile tileAtPosition = TILES.get(activePlayer.getPosition());
+        if (tileAtPosition instanceof Property && !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
+
+            boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
+
+            System.out.printf("You paid a fine to %s.\n", ((Property) tileAtPosition).getOwner());
+
+            if (response) {
+                System.out.printf("New balance: %d\n", activePlayer.getWallet());
+            } else {
+                bankrupt();
+            }
+        }
     }
 
-    private void passTurn(int playerIndex){
-        activePlayer = players.get(playerIndex);
+    /**
+     * Passes the active player's turn to the next solvent player.
+     */
+    private void passTurn(){
+        activePlayerIndex = (activePlayerIndex + 1) % players.size();
+        activePlayer = players.get(activePlayerIndex);
+        while (activePlayer.getWallet() < 0) {
+            activePlayerIndex = (activePlayerIndex + 1) % players.size();
+            activePlayer = players.get(activePlayerIndex + 1);
+        }
     }
 
     /**
@@ -81,11 +117,10 @@ public class Monopoly {
      */
     private void gameLoop(){
         Scanner sc = new Scanner(System.in);
-        int activePlayerIndex = 0;
         boolean moved = false;
         String command;
 
-        System.out.printf("%s player's turn!\n", activePlayer.getColor());
+        System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
         System.out.println("===================================================================================");
         while (running) {
             System.out.println("Enter a command:");
@@ -117,21 +152,20 @@ public class Monopoly {
                     if (!moved || dice.isDouble()) {
                         System.out.println("You haven't rolled yet.");
                     } else {
-                        passTurn(activePlayerIndex);
-                        activePlayerIndex++;
+                        passTurn();
                         moved = false;
 
-                        System.out.printf("%s player's turn!\n", activePlayer.getColor());
+                        System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
                         System.out.println(
-                                "===================================================================================");
+                                "==================================================================================="
+                        );
                     }
                 default:
                     System.out.println("Command not recognized, please try again.");
 
-                    if (numPlayers == 1){
+                    if (numSolventPlayers == 1){
                         running = false;
-                        System.out.printf("Game over! %s player wins!\n",
-                                players.get(activePlayerIndex).getColor());
+                        System.out.printf("Game over! The %s player wins!\n", activePlayer.getCOLOR());
                     }
             }
         }
@@ -147,8 +181,11 @@ public class Monopoly {
         System.out.println("Welcome to Digital Monopoly!");
         System.out.println("===================================================================================");
 
-        System.out.printf("How many players would like to participate? Enter an integer between %d and %d:\n",
-                MIN_PLAYERS, MAX_PLAYERS);
+        System.out.printf(
+                "How many players would like to participate? Enter an integer between %d and %d:\n",
+                MIN_PLAYERS, MAX_PLAYERS
+        );
+        int numPlayers = 0;
         while(!valid) {
             try {
                 numPlayers = sc.nextInt();
@@ -156,11 +193,13 @@ public class Monopoly {
                     valid = true;
                 }
             } catch (InputMismatchException ime) {
-                System.out.printf("You did not input an integer. Enter an integer between %d and %d:\n",
-                        MIN_PLAYERS, MAX_PLAYERS);
+                System.out.printf(
+                        "You did not input an integer. Enter an integer between %d and %d:\n",
+                        MIN_PLAYERS, MAX_PLAYERS
+                );
             }
         }
-
+        numSolventPlayers = numPlayers;
         System.out.println("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
             System.out.print(COLORS.get(i));

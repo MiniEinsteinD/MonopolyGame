@@ -39,7 +39,7 @@ public class Monopoly {
      * Prints the state of the active player.
      */
     private void state() {
-        System.out.println("¯\\_(ツ)_/¯");
+        System.out.println(activePlayer);
     }
 
     /**
@@ -68,14 +68,27 @@ public class Monopoly {
                 );
     }
 
+    /**
+     * Prints that the active player is bankrupt and ends the game if there is one solvent player remaining.
+     */
     private void bankrupt(){
         System.out.println("You're bankrupt!");
         System.out.printf("The %s player loses the game.\n", activePlayer.getCOLOR());
         numSolventPlayers--;
+
+        if (numSolventPlayers == 1){
+            running = false;
+
+            int winnerIndex = 0;
+            while (players.get(winnerIndex).getWallet() < 0 && winnerIndex < players.size() - 1) {
+                winnerIndex++;
+            }
+            System.out.printf("Game over! The %s player wins!\n", players.get(winnerIndex).getCOLOR());
+        }
     }
 
     /**
-     * Moves the player and prints the new location and pays any re.
+     * Moves the player, prints the new location, and pays any rent.
      */
     private void move(){
         System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
@@ -163,11 +176,6 @@ public class Monopoly {
                     }
                 default:
                     System.out.println("Command not recognized, please try again.");
-
-                    if (numSolventPlayers == 1){
-                        running = false;
-                        System.out.printf("Game over! The %s player wins!\n", activePlayer.getCOLOR());
-                    }
             }
         }
     }

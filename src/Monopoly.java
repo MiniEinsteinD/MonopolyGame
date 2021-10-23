@@ -205,6 +205,7 @@ public class Monopoly {
             System.out.print(COLORS.get(i));
             players.add(new Player(String.valueOf(i + 1), COLORS.get(i)));
         }
+        activePlayer = players.get(activePlayerIndex);
 
         System.out.println(". Have fun!");
 

@@ -23,9 +23,11 @@ public class Monopoly {
      */
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
-                new Property("Temp1",1,"Train"),
-                new Property("Temp2",2,"Train"),
-                new Property("Temp3",3,"Train")
+                new Property("Temp1",1,"Residence"),
+                new Property("Temp2",2,"Engineering"),
+                new Property("Temp3",3,"Business"),
+                new Property("Temp3",4,"Architecture"),
+                new Property("Temp3",5,"Cafeteria")
         ));
         activePlayer = null;
         players = new ArrayList<>();
@@ -115,6 +117,12 @@ public class Monopoly {
             } else {
                 bankrupt();
             }
+        } else if (tileAtPosition instanceof Property) {
+            System.out.printf(
+                    "It is in group %s and costs %d.\n",
+                    ((Property) tileAtPosition).getGroup(),
+                    ((Property) tileAtPosition).getPrice()
+            );
         }
     }
 
@@ -178,6 +186,7 @@ public class Monopoly {
                                 "==================================================================================="
                         );
                     }
+                    break;
                 case "help":
                     System.out.println("state: Prints the state of the active player.");
                     System.out.println("roll: Rolls two dice to determine how many steps to move the active player, " +

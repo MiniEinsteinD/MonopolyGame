@@ -16,6 +16,7 @@ public class Player{
     private int position;
     private final String COLOR;
 
+
     /**
      * Constructor for class player.
      * @param id, a constant string that represents the player id.
@@ -131,15 +132,12 @@ public class Player{
 
     /**
      * A method that moves the player from his current position to the new position after rolling the die
-     * @param steps, int value that represents how many steps the player has to move from their current position
+     * @param , int value that represents how many steps the player has to move from their current position
      */
 
-    public void movePlayer(int steps){
-        int distance = position+steps;
-        if(distance > ){
-            this.setPosition(distance);
-        }
-
+    public void movePlayer(MoveEvent moveEvent){
+        int distance = (position+moveEvent.getSteps()) % ;
+        this.setPosition(distance);
     }
 
     /**

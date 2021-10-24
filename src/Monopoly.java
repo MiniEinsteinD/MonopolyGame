@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir
- * @version 0.5
+ * @version 1.0
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -114,7 +114,7 @@ public class Monopoly {
             );
         }
 
-        if (tileAtPosition instanceof Property && ((Property) tileAtPosition).getOwner() != null &&
+        if (tileAtPosition instanceof Property && !((Property) tileAtPosition).isOwned() &&
                 !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
 
             boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());

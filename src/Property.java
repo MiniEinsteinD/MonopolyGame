@@ -69,7 +69,7 @@ public class Property extends Tile{
      */
     @Override
     public String toString() {//Make a print statement
-        return "\nYou own the following properties: " +  "\n\n    The property name is: " + getName() + "\n    The price of the property is: "+
+        return "\n\n    The property name is: " + getName() + "\n    The price of the property is: "+
                 getPrice() + "\n    It is a part from: " + getGroup() +"group";
     }
 

@@ -92,7 +92,7 @@ public class Monopoly {
      */
     private void move(){
         System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
-        activePlayer.movePlayer(dice.dieSum());
+        activePlayer.movePlayer(new MoveEvent(this, dice.dieSum(), TILES.size()));
         System.out.printf(
                 "You are now at tile %d - %s.\n",
                 activePlayer.getPosition(),

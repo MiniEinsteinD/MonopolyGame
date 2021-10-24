@@ -114,7 +114,7 @@ public class Monopoly {
             );
         }
 
-        if (tileAtPosition instanceof Property && !((Property) tileAtPosition).isOwned() &&
+        if (tileAtPosition instanceof Property && ((Property) tileAtPosition).isOwned() &&
                 !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
 
             boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
@@ -240,7 +240,8 @@ public class Monopoly {
         }
         activePlayer = players.get(activePlayerIndex);
 
-        System.out.println(". Have fun!");
+        System.out.print("\n");
+        System.out.println("Have fun!");
 
         running = true;
         gameLoop();

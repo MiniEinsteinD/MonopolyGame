@@ -1,5 +1,11 @@
 import java.util.Objects;
 
+/**
+ * The property object represents the property tiles that the players interact with in the game.
+ *
+ * @author Ethan Houlahan 101145675
+ * @version 2.0
+ */
 public class Property extends Tile{
 
     private Player owner;
@@ -74,14 +80,15 @@ public class Property extends Tile{
      */
     @Override
     public boolean equals(Object p) {
-        if (p instanceof Property ) {
+        if (p instanceof Property) {
             Property o = (Property) p;
-            if (this.PRICE == o.getPrice() && this.GROUP.equals(o.getGroup()) && this.getName().equals(o.getName()) && this.owner == o.getOwner() && this.owned == o.isOwned()) {
+            if (this.PRICE == o.getPrice() && this.GROUP.equals(o.getGroup()) && this.getName().equals(o.getName()) && Objects.equals(this.owner,o.getOwner()) && this.owned == o.isOwned()) {
                 return true;
             }
         }
         return false;
     }
+
 
     /**
      * Get Property object hashcode

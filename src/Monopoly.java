@@ -98,13 +98,22 @@ public class Monopoly {
     private void move(){
         System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
         activePlayer.movePlayer(new MoveEvent(this, dice.dieSum(), TILES.size()));
-        System.out.printf(
-                "You are now at tile %d - %s.\n",
-                activePlayer.getPosition(),
-                TILES.get(activePlayer.getPosition()).getName()
-        );
 
         Tile tileAtPosition = TILES.get(activePlayer.getPosition());
+        if (tileAtPosition instanceof Property){
+            System.out.printf(
+                    "You are now at tile %d.\n%s\n",
+                    activePlayer.getPosition(),
+                    ((Property) tileAtPosition)
+            );
+        } else {
+            System.out.printf(
+                    "You are now at tile %d. - %s.\n",
+                    activePlayer.getPosition(),
+                    TILES.get(activePlayer.getPosition()).getName()
+            );
+        }
+
         if (tileAtPosition instanceof Property && ((Property) tileAtPosition).getOwner() != null &&
                 !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
 
@@ -117,12 +126,6 @@ public class Monopoly {
             } else {
                 bankrupt();
             }
-        } else if (tileAtPosition instanceof Property) {
-            System.out.printf(
-                    "It is in group %s and costs %d.\n",
-                    ((Property) tileAtPosition).getGroup(),
-                    ((Property) tileAtPosition).getPrice()
-            );
         }
     }
 

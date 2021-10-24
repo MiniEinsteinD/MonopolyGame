@@ -7,10 +7,11 @@ import java.util.Objects;
  *
  * @author Daniah Mohammed
  * St# 101145902
+ * @version 2.0
  */
 public class Player{
     private final String ID;
-    private int wallet;
+    private int wallet = 1500;
     private ArrayList<Property> properties = new ArrayList<>();
     private int position;
     private final String COLOR;
@@ -78,11 +79,16 @@ public class Player{
     @Override
     public String toString() {
         String propertyDescription= "";
-        for( Property p : properties){
-            propertyDescription = p.toString();
+        if(properties.isEmpty()){
+            propertyDescription = "\nYou own the following properties: \n    You do not own any properties yet";
+        }else {
+            for( Property p : properties){
+                propertyDescription = p.toString();
+            }
         }
+
         return "Your player ID is: "+ ID + "\nYour balance is: " + wallet + "\nYou are at position: " + position +
-                "\nYour color is: " + COLOR + "\nYou own the following properties: " + propertyDescription;
+                "\nYour color is: " + COLOR + propertyDescription;
     }
 
     /**

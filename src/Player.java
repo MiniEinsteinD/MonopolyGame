@@ -136,7 +136,7 @@ public class Player{
      */
 
     public void movePlayer(MoveEvent moveEvent){
-        int distance = (position+moveEvent.getSteps()) % ;
+        int distance = (position+moveEvent.getSteps()) % moveEvent.getPlayingBoardSize();
         this.setPosition(distance);
     }
 

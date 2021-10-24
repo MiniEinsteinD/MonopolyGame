@@ -23,16 +23,16 @@ public class Monopoly {
      */
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
-                new Property("Dundas",1,"Residence"),
-                new Property("Glengarry",2,"Residence"),
-                new Property("Grenville",3,"Residence"),
-                new Property("Architecture Building",4,"Architecture"),
-                new Property("University Center",5,"Cafeteria"),
-                new Property("Residence Cafe",1,"Cafeteria"),
-                new Property("Minto",2,"Engineering"),
-                new Property("Mackenzie",3,"Engineering"),
-                new Property("Dunton Tower",4,"Business"),
-                new Property("Nicol Building",5,"Business")
+                new Property("Dundas",100,"Residence"),
+                new Property("Glengarry",20,"Residence"),
+                new Property("Grenville",30,"Residence"),
+                new Property("Architecture Building",40,"Architecture"),
+                new Property("University Center",50,"Cafeteria"),
+                new Property("Residence Cafe",100,"Cafeteria"),
+                new Property("Minto",20,"Engineering"),
+                new Property("Mackenzie",30,"Engineering"),
+                new Property("Dunton Tower",40,"Business"),
+                new Property("Nicol Building",50,"Business")
         ));
         activePlayer = null;
         players = new ArrayList<>();

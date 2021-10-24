@@ -103,6 +103,7 @@ public class Player{
         if(!property.isOwned() && this.wallet >= property.getPrice() ){
             this.properties.add(property);
             this.wallet = wallet - property.getPrice();
+            property.setOwner(this);
             return true;
         }
         return false;

@@ -134,11 +134,12 @@ public class Player{
 
     /**
      * A method that moves the player from his current position to the new position after rolling the die
-     * @param moveEvent, a MoveEvent instance value that represents how many steps the player has to move from their current position
+     * @param steps, how many steps the player has to move from their current position
+     * @param playingBoardSize the size of the playing board
      */
 
-    public void movePlayer(MoveEvent moveEvent){
-        int distance = (position+moveEvent.getSteps()) % moveEvent.getPlayingBoardSize();
+    public void movePlayer(int steps, int playingBoardSize){
+        int distance = (position+steps) % playingBoardSize;
         this.setPosition(distance);
     }
 

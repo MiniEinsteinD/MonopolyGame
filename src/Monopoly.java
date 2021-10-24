@@ -102,7 +102,7 @@ public class Monopoly {
      */
     private void move(){
         System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
-        activePlayer.movePlayer(new MoveEvent(this, dice.dieSum(), TILES.size()));
+        activePlayer.movePlayer(dice.dieSum(), TILES.size());
 
         Tile tileAtPosition = TILES.get(activePlayer.getPosition());
         if (tileAtPosition instanceof Property){

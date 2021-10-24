@@ -62,7 +62,7 @@ public class Monopoly {
      */
     private void roll(){
         dice.roll();
-        System.out.printf("You rolled %d with %s!",
+        System.out.printf("You rolled %d with %s!\n",
                 dice.dieSum(),
                 dice.isDouble()? "doubles": "no doubles"
                 );
@@ -100,7 +100,8 @@ public class Monopoly {
         );
 
         Tile tileAtPosition = TILES.get(activePlayer.getPosition());
-        if (tileAtPosition instanceof Property && !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
+        if (tileAtPosition instanceof Property && ((Property) tileAtPosition).getOwner() != null &&
+                !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
 
             boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
 
@@ -138,7 +139,7 @@ public class Monopoly {
         System.out.println("===================================================================================");
         while (running) {
             System.out.println("Enter a command:");
-            System.out.println("The recognized commands are 'state', 'roll', 'buy', and 'pass'.");
+            System.out.println("The recognized commands are 'state', 'roll', 'buy', 'pass', and 'help'.");
 
             command = sc.nextLine();
             command = command.toLowerCase().trim();
@@ -174,6 +175,14 @@ public class Monopoly {
                                 "==================================================================================="
                         );
                     }
+                case "help":
+                    System.out.println("state: Prints the state of the active player.");
+                    System.out.println("roll: Rolls two dice to determine how many steps to move the active player," +
+                            "prints the new location, and pays any rent. If you rolled doubles, roll again.");
+                    System.out.println("buy: Buys a property for the active player. Does not work if you don't have " +
+                            "enough money, or the property is already owned.");
+                    System.out.println("pass: Passes the active player's turn to the next solvent player.");
+                    break;
                 default:
                     System.out.println("Command not recognized, please try again.");
             }
@@ -211,7 +220,7 @@ public class Monopoly {
         numSolventPlayers = numPlayers;
         System.out.println("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
-            System.out.print(COLORS.get(i));
+            System.out.print(COLORS.get(i) + "\t");
             players.add(new Player(String.valueOf(i + 1), COLORS.get(i)));
         }
         activePlayer = players.get(activePlayerIndex);

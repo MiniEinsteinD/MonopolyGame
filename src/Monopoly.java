@@ -51,6 +51,9 @@ public class Monopoly {
             boolean response = activePlayer.buyProperty((Property) t);
             if (!response) {
                 System.out.println("Purchase failed. Are you sure you can afford it and no one owns it already?");
+            } else {
+                System.out.println("You successfully bought the property!");
+                System.out.printf("New balance: %d\n", activePlayer.getWallet());
             }
         } else {
             System.out.println("That is not for sale!");
@@ -177,7 +180,7 @@ public class Monopoly {
                     }
                 case "help":
                     System.out.println("state: Prints the state of the active player.");
-                    System.out.println("roll: Rolls two dice to determine how many steps to move the active player," +
+                    System.out.println("roll: Rolls two dice to determine how many steps to move the active player, " +
                             "prints the new location, and pays any rent. If you rolled doubles, roll again.");
                     System.out.println("buy: Buys a property for the active player. Does not work if you don't have " +
                             "enough money, or the property is already owned.");

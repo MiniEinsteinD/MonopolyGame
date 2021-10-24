@@ -69,8 +69,18 @@ public class Property extends Tile{
      */
     @Override
     public String toString() {//Make a print statement
-        return "\n\n    The property name is: " + getName() + "\n    The price of the property is: "+
-                getPrice() + "\n    It is a part from: " + getGroup() +"group";
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n================================");
+        sb.append("\nThe property name is: " + getName() + "\nThe price of the property is: "+
+                getPrice() + "\nIt is a part of: " + getGroup() +" group");
+        if (this.isOwned()){
+            sb.append("\nOwned by: " + this.owner.getCOLOR() + "\n");
+            sb.append("================================\n");
+            return sb.toString();
+        }
+        sb.append("\nThis property is not owned yet!\n");
+        sb.append("================================\n");
+        return sb.toString();
     }
 
     /**

@@ -51,6 +51,9 @@ public class Monopoly {
             boolean response = activePlayer.buyProperty((Property) t);
             if (!response) {
                 System.out.println("Purchase failed. Are you sure you can afford it and no one owns it already?");
+            } else {
+                System.out.println("You successfully bought the property!");
+                System.out.printf("New balance: %d\n", activePlayer.getWallet());
             }
         } else {
             System.out.println("That is not for sale!");

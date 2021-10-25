@@ -79,13 +79,13 @@ public class Player{
      */
     @Override
     public String toString() {
-        String propertyDescription= "";
+        StringBuilder propertyDescription= new StringBuilder();
         if(properties.isEmpty()){
-            propertyDescription = "\n    You do not own any properties yet";
+            propertyDescription.append("\n    You do not own any properties yet") ;
         }else {
-            propertyDescription = "\nYou own the following properties: ";
+            propertyDescription.append("\nYou own the following properties: ") ;
             for( Property p : properties){
-                propertyDescription = p.toString();
+                propertyDescription.append(p.toString());
             }
         }
 

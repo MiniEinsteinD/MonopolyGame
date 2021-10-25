@@ -1,8 +1,10 @@
+/* Monopoly class */
+/* Ethan Leir 101146422 */
 import java.util.*;
 
 /**
  * A class to set up and play a game of Monopoly.
- * @author Ethan Leir
+ * @author Ethan Leir 101146422
  * @version 1.0
  */
 public class Monopoly {
@@ -252,6 +254,10 @@ public class Monopoly {
         gameLoop();
     }
 
+    /**
+     * Creates a Monopoly object and starts a game of Monopoly.
+     * @param args
+     */
     public static void main(String[] args) {
         Monopoly m = new Monopoly();
         m.start();

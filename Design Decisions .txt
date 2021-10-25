@@ -1,2 +1,4 @@
+
+Use abstract class for tiles for future functionality 
 **add a description of the choice of data structures and relevant operations**
 **providing an initial design and implementation for the Model part of the MVC**

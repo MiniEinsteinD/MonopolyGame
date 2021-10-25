@@ -84,6 +84,14 @@ public class Property extends Tile{
     }
 
     /**
+     * get the fine to be applied to a player
+     * @return the int value of the rent
+     */
+    public int getFine() {
+        return (int)(FINE_PERCENTAGE * PRICE);
+    }
+
+    /**
      * Check if another object is the same
      * @param p, object to be compared
      * @return true or false depending on the values of the other tile

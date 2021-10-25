@@ -119,7 +119,7 @@ public class Player{
      */
 
     public boolean payFine(Property property, Player owner){
-        int fine = (int) (property.getPrice() * Property.FINE_PERCENTAGE);
+        int fine = property.getFine();
         if(wallet >= fine ){
             this.wallet = wallet - fine;
             owner.setWallet(owner.getWallet() + fine);

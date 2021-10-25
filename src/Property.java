@@ -68,7 +68,7 @@ public class Property extends Tile{
      * @return String statement about a property tile
      */
     @Override
-    public String toString() {//Make a print statement
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n================================");
         sb.append("\nThe property name is: " + getName() + "\nThe price of the property is: "+

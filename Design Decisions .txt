@@ -1,4 +1,48 @@
 
-Use abstract class for tiles for future functionality 
+
+Project
+--------
+    - Decided on delegating the majority of the game input and output on the Monopoly class.
+    - This was done as to create a more optimal class for the implementation of the Graphical User Interface (GUI) that
+      is to be implemented in the next Milestone and continue later into the project.
+
+Monopoly
+---------
+    - Used to make all console dialog.
+
+    - Does not initialize everything in the constructor, because some attributes require player input. So, these
+      attributes are initialized by the players in the start().
+
+
+Player
+------
+    - Use final data types for ID and COLOR to prevent data manipulation by user.
+
+    - buyProperty() and payFine() return boolean values to indicate the method's success or failure so the Monopoly class can handle it.
+
+    - Feeds String dialog to the Monopoly class for output in the form of a StringBuilder.
+
+Tile
+-----
+    - Used an abstract class because we want to provide implementations of methods for future functionality
+
+    - Used an abstract class to prevent user from creating tile objects independently.
+
+    - In future builds of the project, intended on handling special Tiles such as Go, Jail, etc.
+
+Property (extends Tile)
+------------------------
+    - Use final data types for GROUP, PRICE, and FINE_PERCENTAGE to prevent data manipulation by user.
+
+    - Feeds String dialog to the Monopoly class for output in the form of a StringBuilder.
+
+Two Dice
+---------
+    - Didn't want to generate a single int number from 2-12 because the real world counterpart uses 2 six-sided dice,
+      the outcome of this is not evenly distributed.
+
+    - Two separate dice attributed negates this downside and provides an accurate simulation of the real world.
+
+
 **add a description of the choice of data structures and relevant operations**
 **providing an initial design and implementation for the Model part of the MVC**

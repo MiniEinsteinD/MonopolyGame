@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Daniah Mohammed
  * St# 101145902
- * @version 2.0
+ * @version 4.0
  */
 public class Player{
     private final String ID;

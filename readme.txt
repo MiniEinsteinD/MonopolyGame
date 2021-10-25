@@ -1,3 +1,4 @@
+(Umniyah Mohammed 101158792)
 
 This is the first deliverable (completely new), so there are no changes made to previous versions.
 
@@ -10,11 +11,9 @@ Description:
 ------------
 Our program is a text-based playable version of Monopoly.
 The commands available include displaying the state of the players, allowing players to 
-buy properties and pass turns.
+buy properties, roll, ask for help, and pass turns.
 Events such as landing on a property that is already owned by another player, the bankruptcy
-of a player,ect. are printed to the console when needed.
-**add a description of the choice of data structures and relevant operations**
-**providing an initial design and implementation for the Model part of the MVC**
+of a player, etc. are printed to the console when needed.
 
 
 Usage:

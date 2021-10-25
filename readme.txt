@@ -45,5 +45,5 @@ Authors:
 --------
 Daniah  Mohammed
 Umniyah Mohammed
-Ethan Lier
+Ethan Leir
 Ethan Houlahan

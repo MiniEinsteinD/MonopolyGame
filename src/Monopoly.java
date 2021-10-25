@@ -124,7 +124,7 @@ public class Monopoly {
 
             boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
 
-            System.out.printf("You paid a fine to %s.\n", ((Property) tileAtPosition).getOwner());
+            System.out.printf("You paid a fine to the %s player.\n", ((Property) tileAtPosition).getOwner().getCOLOR());
 
             if (response) {
                 System.out.printf("New balance: %d\n", activePlayer.getWallet());

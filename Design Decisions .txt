@@ -3,6 +3,7 @@
 Project
 --------
     - Decided on delegating the majority of the game input and output on the Monopoly class.
+
     - This was done as to create a more optimal class for the implementation of the Graphical User Interface (GUI) that
       is to be implemented in the next Milestone and continue later into the project.
 
@@ -13,12 +14,16 @@ Monopoly
     - Does not initialize everything in the constructor, because some attributes require player input. So, these
       attributes are initialized by the players in the start().
 
+    - Used ArrayLists in several attributes as we wanted operations to be handled under the cover and no reason to
+      include fast lookups through a specified key.
+
 
 Player
 ------
     - Use final data types for ID and COLOR to prevent data manipulation by user.
 
-    - buyProperty() and payFine() return boolean values to indicate the method's success or failure so the Monopoly class can handle it.
+    - buyProperty() and payFine() return boolean values to indicate the method's success or failure so the Monopoly
+      class can handle it.
 
     - Feeds String dialog to the Monopoly class for output in the form of a StringBuilder.
 

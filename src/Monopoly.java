@@ -13,12 +13,15 @@ public class Monopoly {
     private ArrayList<Player> players;
     private TwoDice dice;
     private boolean running;
+    private boolean moved;
+    private String eventString;
     private int numSolventPlayers;
     private int activePlayerIndex;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 8;
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
             "purple", "orange", "white", "black"));
+    private ArrayList<MonopolyView> views;
 
     /**
      * Constructs a Monopoly object.
@@ -42,42 +45,129 @@ public class Monopoly {
         numSolventPlayers = 0;
         activePlayerIndex = 0;
         running = false;
+        eventString = "";
+        views = new ArrayList<MonopolyView>();
+    }
+
+    /**
+     * Adds a MonopolyView to the list of views.
+     * @param mv MonopolyView, the view to be added.
+     */
+    public void addView(MonopolyView mv){
+        views.add(mv);
+    }
+
+    /**
+     * Removes a MonopolyView from the list of views.
+     * @param mv MonopolyView, the view to be removed.
+     */
+    public void removeView(MonopolyView mv){
+        views.remove(mv);
+    }
+
+    /**
+     * Get a String containing any events that took place as a result of the previous action.
+     * @return String, any events occurring as a result of the previous action.
+     */
+    public String getEventString() {
+        return eventString;
+    }
+
+    /**
+     * Get whether the game is still running.
+     * @return boolean, true if the game is running,
+     *                  false if the game has ended.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Get all of the players in the game.
+     * @return ArrayList<Player>, a list of all of the players in the game.
+     */
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    /**
+     * Get the number of players who aren't bankrupt.
+     * @return int, the number of solvent players.
+     */
+    public int getNumSolventPlayers() {
+        return numSolventPlayers;
+    }
+
+    /**
+     * Get the active player.
+     * @return Player, the active player.
+     */
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    /**
+     * Get all of the tiles on the board, listed in order.
+     * @return
+     */
+    public ArrayList<Tile> getTILES() {
+        return TILES;
     }
 
     /**
      * Prints the state of the active player.
      */
-    private void state() {
+    public void state() {
         System.out.println(activePlayer);
+        notifyViews();
     }
 
     /**
      * Buys a property for the active player.
      */
-    private void buy() {
-        Tile t = TILES.get(activePlayer.getPosition());
-        if (t instanceof Property) {
-            boolean response = activePlayer.buyProperty((Property) t);
-            if (!response) {
-                System.out.println("Purchase failed. Are you sure you can afford it and no one owns it already?");
-            } else {
-                System.out.println("You successfully bought the property!");
-                System.out.printf("New balance: %d\n", activePlayer.getWallet());
-            }
+    public void buy() {
+        if (!moved){
+            System.out.println("You haven't rolled yet.");
         } else {
-            System.out.println("That is not for sale!");
+            Tile t = TILES.get(activePlayer.getPosition());
+            if (t instanceof Property) {
+                boolean response = activePlayer.buyProperty((Property) t);
+                if (!response) {
+                    System.out.println("Purchase failed. Are you sure you can afford it and no one owns it already?");
+                } else {
+                    System.out.println("You successfully bought the property!");
+                    System.out.printf("New balance: %d\n", activePlayer.getWallet());
+                }
+            } else {
+                System.out.println("That is not for sale!");
+            }
         }
+        notifyViews();
+    }
+
+    /**
+     * Rolls two dice then moves the player based on the result.
+     */
+    public void roll(){
+        if (!moved || dice.isDouble()) {
+            generateRoll();
+            move();
+            moved = true;
+        } else {
+            System.out.println("You have already rolled.");
+        }
+        notifyViews();
     }
 
     /**
      * Rolls two dice and prints the outcome.
      */
-    private void roll(){
+    private void generateRoll(){
         dice.roll();
         System.out.printf("You rolled %d with %s!\n",
                 dice.dieSum(),
                 dice.isDouble()? "doubles": "no doubles"
-                );
+        );
     }
 
     /**
@@ -107,6 +197,8 @@ public class Monopoly {
         activePlayer.movePlayer(dice.dieSum(), TILES.size());
 
         Tile tileAtPosition = TILES.get(activePlayer.getPosition());
+
+        /*This should be updated when we add a Tile that isn't a property*/
         if (tileAtPosition instanceof Property){
             System.out.printf(
                     "You are now at tile %d.\n%s\n",
@@ -139,21 +231,56 @@ public class Monopoly {
     /**
      * Passes the active player's turn to the next solvent player.
      */
-    private void passTurn(){
-        activePlayerIndex = (activePlayerIndex + 1) % players.size();
-        activePlayer = players.get(activePlayerIndex);
-        while (activePlayer.getWallet() < 0) {
+    public void passTurn(){
+        if (!moved || dice.isDouble()) {
+            System.out.println("You haven't rolled yet.");
+        } else {
             activePlayerIndex = (activePlayerIndex + 1) % players.size();
-            activePlayer = players.get(activePlayerIndex + 1);
+            activePlayer = players.get(activePlayerIndex);
+            while (activePlayer.getWallet() < 0) {
+                activePlayerIndex = (activePlayerIndex + 1) % players.size();
+                activePlayer = players.get(activePlayerIndex + 1);
+            }
+            moved = false;
+
+            System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
+            System.out.println(
+                    "==================================================================================="
+            );
+
+            notifyViews();
         }
     }
 
     /**
-     * Plays a game of Monopoly until the victor is decided.
+     * Update the information in all of the Monopoly's views.
+     */
+    private void notifyViews(){
+        for (MonopolyView mv : views){
+            mv.update();
+        }
+    }
+
+    /**
+     * Display information on all of the different commands available to the player.
+     */
+    public void help(){
+        System.out.println("state: Prints the state of the active player.");
+        System.out.println("roll: Rolls two dice to determine how many steps to move the active player, " +
+                "prints the new location, and pays any rent. If you rolled doubles, roll again.");
+        System.out.println("buy: Buys a property for the active player. Does not work if you don't have " +
+                "enough money, or the property is already owned.");
+        System.out.println("pass: Passes the active player's turn to the next solvent player.");
+
+        notifyViews();
+    }
+
+    /**
+     * Plays a game of Monopoly until the victor is decided. DEPRECATED
      */
     private void gameLoop(){
         Scanner sc = new Scanner(System.in);
-        boolean moved = false;
+        moved = false;
         String command;
 
         System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
@@ -165,54 +292,33 @@ public class Monopoly {
             command = sc.nextLine();
             command = command.toLowerCase().trim();
             switch (command){
+                /*Call the method from controller. If the function has any print statements, erase them and append the
+                 * string builder instead. Update eventString with the result. Sorry, I feel like it would leave you
+                 * with too little to do if I resolved this myself.*/
                 case "state":
                     state();
                     break;
                 case "roll":
-                    if (!moved || dice.isDouble()) {
-                        roll();
-                        move();
-                        moved = true;
-                    } else {
-                        System.out.println("You have already rolled.");
-                    }
+                    roll();
                     break;
                 case "buy":
-                    if (!moved){
-                        System.out.println("You haven't rolled yet.");
-                    } else {
-                        buy();
-                    }
+                    buy();
                     break;
                 case "pass":
-                    if (!moved || dice.isDouble()) {
-                        System.out.println("You haven't rolled yet.");
-                    } else {
-                        passTurn();
-                        moved = false;
-
-                        System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
-                        System.out.println(
-                                "==================================================================================="
-                        );
-                    }
+                    passTurn();
                     break;
                 case "help":
-                    System.out.println("state: Prints the state of the active player.");
-                    System.out.println("roll: Rolls two dice to determine how many steps to move the active player, " +
-                            "prints the new location, and pays any rent. If you rolled doubles, roll again.");
-                    System.out.println("buy: Buys a property for the active player. Does not work if you don't have " +
-                            "enough money, or the property is already owned.");
-                    System.out.println("pass: Passes the active player's turn to the next solvent player.");
+                    help();
                     break;
                 default:
+                    /*DEPRECATED*/
                     System.out.println("Command not recognized, please try again.");
             }
         }
     }
 
     /**
-     * Initializes required fields and starts the game of Monopoly.
+     * Initializes required fields and starts the game of Monopoly. DEPRECATED
      */
     public void start(){
         Scanner sc = new Scanner(System.in);
@@ -228,6 +334,8 @@ public class Monopoly {
         int numPlayers = 0;
         while(!valid) {
             try {
+                /*Replace with buttons to select the number. All should use one ActionListener with the method of
+                 * passing in a value that was described in the first lecture of week 7.*/
                 numPlayers = sc.nextInt();
                 if (MIN_PLAYERS <= numPlayers && numPlayers <= MAX_PLAYERS) {
                     valid = true;
@@ -255,7 +363,7 @@ public class Monopoly {
     }
 
     /**
-     * Creates a Monopoly object and starts a game of Monopoly.
+     * Creates a Monopoly object and starts a game of Monopoly. DEPRECATED
      * @param args
      */
     public static void main(String[] args) {

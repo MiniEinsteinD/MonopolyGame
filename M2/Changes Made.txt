@@ -1,4 +1,7 @@
 UML Diagram Changes (From Milestone 1):
-
+    - Methods added to Monopoly to make assigning values to attributes and required logic happen within the Model
+    whenever a Controller is used for user input.
+    - Methods which need to be accessed by the Controller were made public.
+    - Added Getters for values that might be needed for the Views.
 
 Data Structure Changes (From Milestone 1):

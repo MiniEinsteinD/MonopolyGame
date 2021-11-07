@@ -17,8 +17,8 @@ public class Monopoly {
     private String eventString;
     private int numSolventPlayers;
     private int activePlayerIndex;
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 8;
+    protected static final int MIN_PLAYERS = 2;
+    protected static final int MAX_PLAYERS = 8;
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
             "purple", "orange", "white", "black"));
     private ArrayList<MonopolyView> views;
@@ -318,35 +318,9 @@ public class Monopoly {
     }
 
     /**
-     * Initializes required fields and starts the game of Monopoly. DEPRECATED
+     * Initializes required fields and starts a game of Monopoly with the chosen number of players.
      */
-    public void start(){
-        Scanner sc = new Scanner(System.in);
-        boolean valid = false;
-
-        System.out.println("Welcome to Digital Monopoly!");
-        System.out.println("===================================================================================");
-
-        System.out.printf(
-                "How many players would like to participate? Enter an integer between %d and %d:\n",
-                MIN_PLAYERS, MAX_PLAYERS
-        );
-        int numPlayers = 0;
-        while(!valid) {
-            try {
-                /*Replace with buttons to select the number. All should use one ActionListener with the method of
-                 * passing in a value that was described in the first lecture of week 7.*/
-                numPlayers = sc.nextInt();
-                if (MIN_PLAYERS <= numPlayers && numPlayers <= MAX_PLAYERS) {
-                    valid = true;
-                }
-            } catch (InputMismatchException ime) {
-                System.out.printf(
-                        "You did not input an integer. Enter an integer between %d and %d:\n",
-                        MIN_PLAYERS, MAX_PLAYERS
-                );
-            }
-        }
+    public void start(int numPlayers){
         numSolventPlayers = numPlayers;
         System.out.println("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
@@ -359,7 +333,7 @@ public class Monopoly {
         System.out.println("Have fun!");
 
         running = true;
-        gameLoop();
+        notifyViews();
     }
 
     /**
@@ -368,6 +342,6 @@ public class Monopoly {
      */
     public static void main(String[] args) {
         Monopoly m = new Monopoly();
-        m.start();
+        //m.start();
     }
 }

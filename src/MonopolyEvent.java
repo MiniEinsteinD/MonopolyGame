@@ -1,5 +1,8 @@
 import java.util.EventObject;
 
+/**
+ * @author Ethan Houlahan 101145675
+ */
 public class MonopolyEvent extends EventObject {
 
     private Player activePlayer;

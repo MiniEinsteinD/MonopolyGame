@@ -36,7 +36,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.setSize(new Dimension(300,600));
         numPlayerMenu.setLayout(new GridLayout());
 
-        for (int i = 2; Monopoly.MAX_PLAYERS > i && i > Monopoly.MIN_PLAYERS ;i++){
+        for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i ;i++){
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
             numButton.setSize(new Dimension(20,20));
@@ -46,10 +46,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         }
 
 
-        MonopolyController rollCont = new RollController(model, this);
-        MonopolyController buyCont = new BuyController(model, this);
-        MonopolyController passCont = new PassController(model, this);
-        MonopolyController stateCont = new PlayerStateController(model, this);
+        MonopolyController rollCont = new RollController(model);
+        MonopolyController buyCont = new BuyController(model);
+        MonopolyController passCont = new PassController(model);
+        MonopolyController stateCont = new PlayerStateController(model);
 
         //Button Initialization
         rollButton.setText("Roll Dice");
@@ -92,7 +92,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         if (e.getActivePlayer().getWallet() <= 0){
             walletStateText.setText("$" + e.getActivePlayer().getWallet());
             walletStateText.updateUI();
-            JOptionPane.showMessageDialog(this,"You Are Bankrupt!\nThanks for playing!");
+            JOptionPane.showMessageDialog(this,"You Are Bankrupt!\nThanks for playing!","Bankruptcy!",4);
         }else{
             walletStateText.setText("$" + e.getActivePlayer().getWallet());
             walletStateText.updateUI();

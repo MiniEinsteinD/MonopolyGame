@@ -12,10 +12,9 @@ public class NumOfPlayersController extends MonopolyController {
     /**
      * Creates a NumOfPlayersController object.
      * @param model Monopoly, the model to control.
-     * @param views ArrayList<View>, the views contained in the model.
      */
-    public NumOfPlayersController(Monopoly model, ArrayList<View> views) {
-        super(model, views);
+    public NumOfPlayersController(Monopoly model) {
+        super(model);
     }
 
     /**

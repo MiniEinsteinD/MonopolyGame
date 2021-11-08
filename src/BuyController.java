@@ -12,10 +12,9 @@ public class BuyController extends MonopolyController {
     /**
      * Creates a BuyController object.
      * @param model Monopoly, the model to control.
-     * @param views ArrayList<View>, the views contained in the model.
      */
-    public BuyController(Monopoly model, ArrayList<View> views) {
-        super(model, views);
+    public BuyController(Monopoly model) {
+        super(model);
     }
 
     /**

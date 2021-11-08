@@ -13,10 +13,9 @@ public class RollController extends MonopolyController{
     /**
      * A constructor that creates a RollController object.
      * @param model Monopoly, the model to control.
-     * @param views ArrayList<View>, the views contained in the model.
      */
-    public RollController(Monopoly model, ArrayList<View> views) {
-        super(model, views);
+    public RollController(Monopoly model) {
+        super(model);
     }
 
     /**

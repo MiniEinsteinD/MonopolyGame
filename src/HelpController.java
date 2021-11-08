@@ -12,10 +12,9 @@ public class HelpController extends MonopolyController {
     /**
      * Creates a HelpController object.
      * @param model Monopoly, the model to control.
-     * @param views ArrayList<View>, the views contained in the model.
      */
-    public HelpController(Monopoly model, ArrayList<View> views) {
-        super(model, views);
+    public HelpController(Monopoly model) {
+        super(model);
     }
 
     /**

@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir 101146422
- * @version 1.0
+ * @version 2.0
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -22,6 +22,7 @@ public class Monopoly {
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
             "purple", "orange", "white", "black"));
     private ArrayList<MonopolyView> views;
+
 
     /**
      * Constructs a Monopoly object.
@@ -107,7 +108,7 @@ public class Monopoly {
     }
 
     /**
-     * Get all of the tiles on the board, listed in order.
+     * Get all the tiles on the board, listed in order.
      * @return
      */
     public ArrayList<Tile> getTILES() {
@@ -118,7 +119,9 @@ public class Monopoly {
      * Prints the state of the active player.
      */
     public void state() {
-        System.out.println(activePlayer);
+        StringBuilder sb = new StringBuilder();
+        sb.append(activePlayer);
+        eventString = sb.toString();
         notifyViews();
     }
 
@@ -144,7 +147,6 @@ public class Monopoly {
             }
         }
         eventString = sb.toString();
-
         notifyViews();
     }
 
@@ -152,33 +154,35 @@ public class Monopoly {
      * Rolls two dice then moves the player based on the result.
      */
     public void roll(){
+        StringBuilder sb= new StringBuilder();
         if (!moved || dice.isDouble()) {
-            generateRoll();
-            move();
+            generateRoll(sb);
+            move(sb);
             moved = true;
         } else {
-            System.out.println("You have already rolled.");
+            sb.append("You have already rolled.");
         }
+        eventString = sb.toString();
         notifyViews();
     }
 
     /**
      * Rolls two dice and prints the outcome.
      */
-    private void generateRoll(){
+    private void generateRoll(StringBuilder sb){
         dice.roll();
-        System.out.printf("You rolled %d with %s!\n",
+        sb.append("You rolled %d with %s!\n",
                 dice.dieSum(),
-                dice.isDouble()? "doubles": "no doubles"
+                Integer.parseInt(dice.isDouble()? "doubles": "no doubles")
         );
     }
 
     /**
      * Prints that the active player is bankrupt and ends the game if there is one solvent player remaining.
      */
-    private void bankrupt(){
-        System.out.println("You're bankrupt!");
-        System.out.printf("The %s player loses the game.\n", activePlayer.getCOLOR());
+    private void bankrupt(StringBuilder sb){
+        sb.append("You're bankrupt!\n");
+        sb.append("The " + activePlayer.getCOLOR() + " player loses the game.\n");
         numSolventPlayers--;
 
         if (numSolventPlayers == 1){
@@ -188,31 +192,27 @@ public class Monopoly {
             while (players.get(winnerIndex).getWallet() < 0 && winnerIndex < players.size() - 1) {
                 winnerIndex++;
             }
-            System.out.printf("Game over! The %s player wins!\n", players.get(winnerIndex).getCOLOR());
+            sb.append("Game over! The " + players.get(winnerIndex).getCOLOR()+ " player wins!\n");
         }
     }
 
     /**
      * Moves the player, prints the new location, and pays any rent.
      */
-    private void move(){
-        System.out.printf("Moving the %s player...\n", activePlayer.getCOLOR());
+    private void move(StringBuilder sb){
+        sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
         activePlayer.movePlayer(dice.dieSum(), TILES.size());
 
         Tile tileAtPosition = TILES.get(activePlayer.getPosition());
 
         /*This should be updated when we add a Tile that isn't a property*/
         if (tileAtPosition instanceof Property){
-            System.out.printf(
-                    "You are now at tile %d.\n%s\n",
-                    activePlayer.getPosition(),
-                    ((Property) tileAtPosition)
+            sb.append(
+                    "You are now at tile " + activePlayer.getPosition() + ".\n"+((Property) tileAtPosition)+"\n"
             );
         } else {
-            System.out.printf(
-                    "You are now at tile %d. - %s.\n",
-                    activePlayer.getPosition(),
-                    TILES.get(activePlayer.getPosition()).getName()
+            sb.append(
+                    "You are now at tile " + activePlayer.getPosition() + ". - "+TILES.get(activePlayer.getPosition()).getName()+".\n"
             );
         }
 
@@ -221,12 +221,12 @@ public class Monopoly {
 
             boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
 
-            System.out.printf("You paid a fine to the %s player.\n", ((Property) tileAtPosition).getOwner().getCOLOR());
+            sb.append("You paid a fine to the " + ((Property) tileAtPosition).getOwner().getCOLOR() + " player.\n" );
 
             if (response) {
-                System.out.printf("New balance: %d\n", activePlayer.getWallet());
+                sb.append("New balance: " + activePlayer.getWallet() + "\n" );
             } else {
-                bankrupt();
+                bankrupt(sb);
             }
         }
     }
@@ -235,8 +235,9 @@ public class Monopoly {
      * Passes the active player's turn to the next solvent player.
      */
     public void passTurn(){
+        StringBuilder sb = new StringBuilder();
         if (!moved || dice.isDouble()) {
-            System.out.println("You haven't rolled yet.");
+            sb.append("You haven't rolled yet.");
         } else {
             activePlayerIndex = (activePlayerIndex + 1) % players.size();
             activePlayer = players.get(activePlayerIndex);
@@ -246,8 +247,8 @@ public class Monopoly {
             }
             moved = false;
 
-            System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
-            System.out.println(
+            sb.append(activePlayer.getCOLOR() + " player's turn!\n" );
+            sb.append(
                     "==================================================================================="
             );
 

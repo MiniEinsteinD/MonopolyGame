@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Ethan Houlahan 101145675
@@ -8,6 +10,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
 
     private JFrame numPlayerMenu;
+    private JLabel numPanelText;
 
     private JFrame propertyViewer;
 
@@ -32,16 +35,25 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.setSize(new Dimension(1200 ,800));
 
         //Create Select Player Number Menu
+
         numPlayerMenu = new JFrame("Select Number of Players");
         numPlayerMenu.setSize(new Dimension(300,600));
-        numPlayerMenu.setLayout(new GridLayout());
+        numPlayerMenu.setLayout(new FlowLayout());
+
+        numPanelText = new JLabel("How many people are playing?",SwingConstants.CENTER);
+        numPlayerMenu.add(numPanelText);
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i ;i++){
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
-            numButton.setSize(new Dimension(20,20));
+            numButton.setSize(new Dimension(50,50));
             int startVal = i;
-            numButton.addActionListener(e-> model.start(startVal));
+            numButton.addActionListener((new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    model.start(startVal);
+                    numPlayerMenu.setVisible(false);
+                }
+            }));
             numPlayerMenu.add(numButton);
         }
 
@@ -52,37 +64,50 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         MonopolyController stateCont = new PlayerStateController(model);
 
         //Button Initialization
-        rollButton.setText("Roll Dice");
+        rollButton = new JButton("Roll Dice");
         rollButton.addActionListener(rollCont);
-        buyButton.setText("Buy Current Property");
+        buyButton = new JButton("Buy Current Property");
         buyButton.addActionListener(buyCont);
-        passButton.setText("End Turn");
+        passButton = new JButton("End Turn");
         passButton.addActionListener(passCont);
-        playerOverviewButton.setText("View Player Portfolio");
+        playerOverviewButton = new JButton("View Player Portfolio");
         playerOverviewButton.addActionListener(stateCont);
 
         //Panel Initialization
-        boardPane.setSize(800,800);
-        infoPane.setSize(400,800);
+        boardPane = new JPanel();
+        infoPane = new JPanel();
+        boardPane.setPreferredSize(new Dimension(800,800));
+        infoPane.setPreferredSize(new Dimension(400,800));
         infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.LINE_AXIS));
         infoPane.setBackground(Color.YELLOW);
 
+        //Label initialization
+        activePlayerText = new JLabel();
+        walletStateText = new JLabel();
+
+        //Adding Board Image
+        boardImage = new ImageIcon();
+
+
         //Component Addition
+
         infoPane.add(activePlayerText);
         infoPane.add(walletStateText);
-
         infoPane.add(rollButton);
         infoPane.add(buyButton);
         infoPane.add(passButton);
         infoPane.add(playerOverviewButton);
-
+        boardPane.add(boardImage);
         this.add(boardPane);
         this.add(infoPane);
 
+        numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        numPlayerMenu.pack();
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+        numPlayerMenu.setVisible(true);
     }
 
 

@@ -1,6 +1,4 @@
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * A controller for displaying the active player state command.
@@ -12,10 +10,9 @@ public class PlayerStateController extends MonopolyController {
     /**
      * A constructor that creates a PlayerStateController object.
      * @param model Monopoly, the model to control.
-     * @param views ArrayList<View>, the views contained in the model.
      */
-    public PlayerStateController(Monopoly model, ArrayList<View> views) {
-        super(model, views);
+    public PlayerStateController(Monopoly model) {
+        super(model);
     }
 
     /**

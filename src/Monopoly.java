@@ -257,7 +257,7 @@ public class Monopoly {
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
-            System.out.print(COLORS.get(i) + "\t");
+            sb.append(COLORS.get(i) + "\t");
             players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this));
         }
         activePlayer = players.get(activePlayerIndex);

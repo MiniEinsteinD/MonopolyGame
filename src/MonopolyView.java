@@ -1,4 +1,6 @@
 public interface MonopolyView {
 
-    void HandleMonopolyUpdate(MonopolyEvent MonEvent);
+    Monopoly model;
+
+    void handleMonopolyUpdate(MonopolyEvent MonEvent);
 }

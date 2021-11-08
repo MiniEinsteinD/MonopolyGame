@@ -1,7 +1,4 @@
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
 /**
  * A controller for passing the turn to the next player command.
  * @author Daniah Mohammed #101145902

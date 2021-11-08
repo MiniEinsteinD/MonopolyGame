@@ -1,7 +1,7 @@
 /*Ethan Leir 101146422*/
-import javax.swing.text.View;
+
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 /**
  * The parent class of all Monopoly controllers.

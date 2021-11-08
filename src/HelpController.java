@@ -1,7 +1,5 @@
 /*Ethan Leir 101146422*/
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * A controller for the help command.

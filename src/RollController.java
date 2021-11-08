@@ -1,6 +1,4 @@
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * A controller for rolling the dice command.

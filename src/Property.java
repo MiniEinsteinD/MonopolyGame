@@ -3,7 +3,7 @@ import java.util.Objects;
 /**
  * The property object represents the property tiles that the players interact with in the game.
  *
- * @author Ethan Houlahan 101145675
+ * @author Ethan Houlahan 101145675, (M2 changes) Ethan Leir 101146422
  * @version 2.0
  */
 public class Property extends Tile{
@@ -115,5 +115,33 @@ public class Property extends Tile{
     @Override
     public int hashCode() {
         return Objects.hash(owner, GROUP, PRICE, owned);
+    }
+
+    /**
+     * Handle a player landing on the property when they move.
+     * Displays the tile the player lands on and pays property tax.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who landed on the tile.
+     */
+    @Override
+    public void landHandler(StringBuilder sb, Player player) {
+        sb.append(
+                "You are now at tile:\n" + this + "\n"
+        );
+
+        if (owned && !owner.equals(player)) {
+            player.payFine(sb, this);
+        }
+    }
+
+    /**
+     * Handle a player passing the tile when they move.
+     * Does nothing for a tile of type property.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who landed on the tile.
+     */
+    @Override
+    public void passHandler(StringBuilder sb, Player player){
+
     }
 }

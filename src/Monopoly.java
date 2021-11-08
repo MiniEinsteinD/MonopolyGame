@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir 101146422
- * @version 2.0
+ * @version 3.0
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -135,13 +135,7 @@ public class Monopoly {
         } else {
             Tile t = TILES.get(activePlayer.getPosition());
             if (t instanceof Property) {
-                boolean response = activePlayer.buyProperty((Property) t);
-                if (!response) {
-                    sb.append("Purchase failed. Are you sure you can afford it and no one owns it already?\n");
-                } else {
-                    sb.append("You successfully bought the property!\n");
-                    sb.append(String.format("New balance: %d\n", activePlayer.getWallet()));
-                }
+                activePlayer.buyProperty(sb, (Property) t);
             } else {
                 sb.append("That is not for sale!\n");
             }
@@ -180,16 +174,14 @@ public class Monopoly {
     /**
      * Prints that the active player is bankrupt and ends the game if there is one solvent player remaining.
      */
-    private void bankrupt(StringBuilder sb){
-        sb.append("You're bankrupt!\n");
-        sb.append("The " + activePlayer.getCOLOR() + " player loses the game.\n");
+    public void bankrupt(StringBuilder sb){
         numSolventPlayers--;
 
         if (numSolventPlayers == 1){
             running = false;
 
             int winnerIndex = 0;
-            while (players.get(winnerIndex).getWallet() < 0 && winnerIndex < players.size() - 1) {
+            while (players.get(winnerIndex).isBankrupt() && winnerIndex < players.size() - 1) {
                 winnerIndex++;
             }
             sb.append("Game over! The " + players.get(winnerIndex).getCOLOR()+ " player wins!\n");
@@ -201,34 +193,7 @@ public class Monopoly {
      */
     private void move(StringBuilder sb){
         sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
-        activePlayer.movePlayer(dice.dieSum(), TILES.size());
-
-        Tile tileAtPosition = TILES.get(activePlayer.getPosition());
-
-        /*This should be updated when we add a Tile that isn't a property*/
-        if (tileAtPosition instanceof Property){
-            sb.append(
-                    "You are now at tile " + activePlayer.getPosition() + ".\n"+((Property) tileAtPosition)+"\n"
-            );
-        } else {
-            sb.append(
-                    "You are now at tile " + activePlayer.getPosition() + ". - "+TILES.get(activePlayer.getPosition()).getName()+".\n"
-            );
-        }
-
-        if (tileAtPosition instanceof Property && ((Property) tileAtPosition).isOwned() &&
-                !((Property) tileAtPosition).getOwner().equals(activePlayer)) {
-
-            boolean response = activePlayer.payFine((Property) tileAtPosition, ((Property) tileAtPosition).getOwner());
-
-            sb.append("You paid a fine to the " + ((Property) tileAtPosition).getOwner().getCOLOR() + " player.\n" );
-
-            if (response) {
-                sb.append("New balance: " + activePlayer.getWallet() + "\n" );
-            } else {
-                bankrupt(sb);
-            }
-        }
+        activePlayer.movePlayer(sb, dice.dieSum(), TILES);
     }
 
     /**
@@ -241,7 +206,7 @@ public class Monopoly {
         } else {
             activePlayerIndex = (activePlayerIndex + 1) % players.size();
             activePlayer = players.get(activePlayerIndex);
-            while (activePlayer.getWallet() < 0) {
+            while (activePlayer.isBankrupt()) {
                 activePlayerIndex = (activePlayerIndex + 1) % players.size();
                 activePlayer = players.get(activePlayerIndex + 1);
             }
@@ -252,6 +217,7 @@ public class Monopoly {
                     "==================================================================================="
             );
 
+            eventString = sb.toString();
             notifyViews();
         }
     }
@@ -281,57 +247,18 @@ public class Monopoly {
     }
 
     /**
-     * Plays a game of Monopoly until the victor is decided. DEPRECATED
-     */
-    private void gameLoop(){
-        Scanner sc = new Scanner(System.in);
-        moved = false;
-        String command;
-
-        System.out.printf("%s player's turn!\n", activePlayer.getCOLOR());
-        System.out.println("===================================================================================");
-        while (running) {
-            System.out.println("Enter a command:");
-            System.out.println("The recognized commands are 'state', 'roll', 'buy', 'pass', and 'help'.");
-
-            command = sc.nextLine();
-            command = command.toLowerCase().trim();
-            switch (command){
-                /*Call the method from controller. If the function has any print statements, erase them and append the
-                 * string builder instead. Update eventString with the result. Sorry, I feel like it would leave you
-                 * with too little to do if I resolved this myself.*/
-                case "state":
-                    state();
-                    break;
-                case "roll":
-                    roll();
-                    break;
-                case "buy":
-                    buy();
-                    break;
-                case "pass":
-                    passTurn();
-                    break;
-                case "help":
-                    help();
-                    break;
-                default:
-                    /*DEPRECATED*/
-                    System.out.println("Command not recognized, please try again.");
-            }
-        }
-    }
-
-    /**
      * Initializes required fields and starts a game of Monopoly with the chosen number of players.
+     * @param numPlayers int, the selected number of players.
      */
-    public void start(int numPlayers){
+    public void start(int numPlayers) {
         StringBuilder sb = new StringBuilder();
+        Random rand = new Random();
+        activePlayerIndex = rand.nextInt((Monopoly.MAX_PLAYERS - Monopoly.MIN_PLAYERS) + 1) + Monopoly.MIN_PLAYERS;
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
             System.out.print(COLORS.get(i) + "\t");
-            players.add(new Player(String.valueOf(i + 1), COLORS.get(i)));
+            players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this));
         }
         activePlayer = players.get(activePlayerIndex);
 
@@ -341,14 +268,5 @@ public class Monopoly {
         running = true;
         eventString = sb.toString();
         notifyViews();
-    }
-
-    /**
-     * Creates a Monopoly object and starts a game of Monopoly. DEPRECATED
-     * @param args
-     */
-    public static void main(String[] args) {
-        Monopoly m = new Monopoly();
-        //m.start();
     }
 }

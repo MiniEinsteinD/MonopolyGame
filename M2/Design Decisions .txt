@@ -1,4 +1,6 @@
 
+(Ethan Houlahan 101145675)
+
 Project
 --------
     - Decided on delegating the majority of the game input and output on the Monopoly class.
@@ -6,20 +8,15 @@ Project
     - This was done to create a more optimal class for the implementation of the Graphical User Interface (GUI) that
       is to be implemented in the next Milestone and continue later into the project.
 
-MonopolyView, MonopolyEvent, MonopolyFrame - Ethan Houlahan (101145675)
-------------------------------------------------------------------------
-    - Used to create a Graphical User Interface (GUI) for player input and output
+Monopoly
+---------
+    - Used to make all console dialog.
 
-    - Following the MVC pattern, view receives model (Monopoly) information via a notify method.
+    - Does not initialize everything in the constructor, because some attributes require player input. So, these
+      attributes are initialized by the players in the start().
 
-    - A first frame was deemed to be the most efficient solution to receive the number of players before launching
-    game properly
-
-    - The buttons each implement a controller responsible for their operation. These controllers relay action events
-    to the model which processes the information
-
-    - The view receives an update notification via a MonopolyEvent which updates the GUI (MonopolyFrame) via the
-    handleMonopolyUpdate method and applies the new information into the GUI.
+    - Used ArrayLists in several attributes as we wanted operations to be handled under the cover and no reason to
+      include fast lookups through a specified key.
 
 
 Player
@@ -38,6 +35,8 @@ Tile
     - Used an abstract class to prevent the user from creating tile objects independently.
 
     - In future builds of the project, intended on handling special Tiles such as Go, Jail, etc.
+
+    - Implemented landHandler and passHandler taking inspiration from the observer pattern.
 
 Property (extends Tile)
 ------------------------

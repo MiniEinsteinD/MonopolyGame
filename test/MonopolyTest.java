@@ -1,3 +1,9 @@
+/**
+ * This class tests Monopoly class
+ * @author Umniyah Mohammed (101158792)
+ * @version 1.0
+ */
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,7 +37,7 @@ public class MonopolyTest {
     }
 
     /**
-     * Test the state method.
+     * This method tests state
      */
     @Test
     public void testState() {
@@ -47,7 +53,7 @@ public class MonopolyTest {
     }
 
     /**
-     * Test the buy method.
+     * This method tests buy
      */
     @Test
     public void testBuy() {
@@ -61,8 +67,8 @@ public class MonopolyTest {
     }
 
     /**
-     * Test the roll method.
-     * Assumes that there are more than 12 tiles in the game.
+     * This method tests roll
+     * Assumption: there are more than 12 tiles in the game
      */
     @Test
     public void testRoll() {
@@ -74,9 +80,16 @@ public class MonopolyTest {
         assertNotEquals(priorEventString, monopoly.getEventString());
     }
 
+    /**
+     * This method tests bankrupt
+     */
     @Test
     public void testBankrupt() {
-
+        monopoly.start(4);
+        int before = monopoly.getNumSolventPlayers();
+        StringBuilder sb = new StringBuilder();
+        monopoly.bankrupt(sb);
+        assertEquals(before - 1, monopoly.getNumSolventPlayers());
     }
 
 }

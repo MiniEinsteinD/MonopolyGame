@@ -37,4 +37,5 @@ public class TwoDice {
         firstRoll = 1 + (int) (Math.random() * 6);
         secondRoll = 1 + (int) (Math.random() * 6);
     }
+
 }

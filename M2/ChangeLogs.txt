@@ -16,14 +16,16 @@ UML Diagram Changes (From Milestone 1):
 Data Structure Changes (From Milestone 1):
 	- Changing the print statments to a StringBuilder data type in order to use it as text for the GUI version.
 
+MonopolyFrame (Ethan Houlahan 101145675):
+	- New class with purpose of displaying graphical information for user to see and interact with.
 
- MonopolyFrame (Ethan Houlahan 101145675):
-    - New class with purpose of displaying graphical information for user to see and interact with.
+	- Creates 2 separate frames: One for collecting player number information, the other for playing the Monopoly game.
 
-    - Creates 2 separate frames: One for collecting player number information, the other for playing the Monopoly game.
+MonopolyEvent (Ethan Houlahan 101145675):
+	- New class used for the notification of a subscribed view from the model to the view.
 
- MonopolyEvent (Ethan Houlahan 101145675):
-    - New class used for the notification of a subscribed view from the model to the view.
+MonopolyView (Ethan Houlahan 101145675):
+	- New Interface used for classifying views for the model to notify.
 
- MonopolyView (Ethan Houlahan 101145675):
-    - New Interface used for classifying views for the model to notify.
+JUnit Test (Milestone 2/Umniyah Mohammed 101158792)
+	- Test classes have been added to this iteration of the program (JUnit 4).

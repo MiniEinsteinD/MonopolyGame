@@ -12,15 +12,6 @@ public class TwoDiceTest {
     }
 
     /**
-     * This method tests isDouble
-     */
-    @Test
-    public void isDouble() {
-        //assertTrue(true);
-        //assertFalse(false);
-    }
-
-    /**
      * This method tests dieSum
      */
     @Test

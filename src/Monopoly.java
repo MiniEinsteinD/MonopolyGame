@@ -42,15 +42,15 @@ public class Monopoly {
                 new Property("NY Avenue",2000,"Business"),
                 new Property("Kentucky Avenue",2200,"Business"),
                 new Property("Indian Avenue",2200,"Business"),
-                new Property("Illinois Avenue",2200,"Business"),
-                new Property("Atlantic Avenue",1600,"Business"),
+                new Property("Illinois Avenue",2200,"Residence"),
+                new Property("Atlantic Avenue",1600,"Architecture"),
                 new Property("Ventnor Avenue",1600,"Business"),
                 new Property("Marvin Avenue",1800,"Business"),
-                new Property("Pacific Avenue",1300,"Business"),
+                new Property("Pacific Avenue",1300,"Residence"),
                 new Property("North Carolina Avenue",1600,"Business"),
-                new Property("Pennsylvania Avenue",1200,"Business"),
-                new Property("Park Place",1300,"Business"),
-                new Property("Boardwalk",1400,"Business")
+                new Property("Pennsylvania Avenue",1200,"Engineering"),
+                new Property("Park Place",1300,"Engineering"),
+                new Property("Boardwalk",1400,"Cafeteria")
 
         ));
         activePlayer = null;

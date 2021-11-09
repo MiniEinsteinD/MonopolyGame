@@ -77,18 +77,21 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         //Panel Initialization
         boardPane = new JPanel();
         infoPane = new JPanel();
-        boardPane.setPreferredSize(new Dimension(800,800));
-        infoPane.setPreferredSize(new Dimension(400,800));
+        infoPane.setPreferredSize(new Dimension(500,800));
+        boardPane.setLayout(new BorderLayout());
         infoPane.setLayout(new GridLayout(0,1));
+        boardPane.setBackground(Color.BLACK);
         infoPane.setBackground(Color.YELLOW);
 
         //Label initialization
-        activePlayerText = new JLabel();
-        walletStateText = new JLabel();
+        activePlayerText = new JLabel("",SwingConstants.CENTER);
+        walletStateText = new JLabel("",SwingConstants.CENTER);
+
 
         //Adding Board Image
-        boardImage = new ImageIcon("TempboardAwsome.png");
+        boardImage = new ImageIcon("src/TempboardAwsome.png");
         boardMap = new JLabel(boardImage);
+
 
         //Component Addition
         infoPane.add(activePlayerText);
@@ -99,7 +102,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         infoPane.add(playerOverviewButton);
         boardPane.add(boardMap, BorderLayout.CENTER);
 
-        this.add(boardPane, BorderLayout.WEST);
+
+        this.add(boardPane, BorderLayout.CENTER);
         this.add(infoPane, BorderLayout.EAST);
 
         numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -125,6 +129,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         }
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
+
+        JOptionPane.showMessageDialog(this,model.getEventString());
     }
 
     public static void main(String[] args) {

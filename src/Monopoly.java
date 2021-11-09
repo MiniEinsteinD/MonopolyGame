@@ -249,7 +249,7 @@ public class Monopoly {
     public void help(){
         StringBuilder sb = new StringBuilder("Roll: Rolls the 2 dice to get how many steps the player will move, " +
                 "if you get roll doubles you roll again!\n");
-        sb.append("View Player Portfolio: Displays the player's name, wallet, position and properties owned by the player");
+        sb.append("View Player Portfolio: Displays the player's name, wallet, position and properties owned by the player\n");
         sb.append("Buy Property: Active player attempts to buy the property they are standing on. Does not work if you don't have " +
                 "enough money, or the property is already owned.\n");
         sb.append("End turn: Passes the active player's turn to the next solvent player. Must roll first! \n");

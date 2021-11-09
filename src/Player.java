@@ -95,7 +95,7 @@ public class Player{
     public String toString() {
         StringBuilder propertyDescription= new StringBuilder();
         if(properties.isEmpty()) {
-            propertyDescription.append("\n    You do not own any properties yet") ;
+            propertyDescription.append("\nYou do not own any properties yet") ;
         } else {
             propertyDescription.append("\nYou own the following properties: ") ;
             for(Property p : properties) {

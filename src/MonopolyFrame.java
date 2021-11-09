@@ -30,7 +30,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     private JPanel boardPane;
     private JPanel infoPane;
-    private ImageIcon boardImage;
 
 
     /**
@@ -174,6 +173,50 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
 
+        switch (e.getActivePlayer().getCOLOR()){
+            case "red":
+                infoPane.setBackground(Color.red);
+                activePlayerText.setForeground(Color.white);
+                walletStateText.setForeground(Color.white);
+                break;
+            case "blue":
+                infoPane.setBackground(Color.blue);
+                activePlayerText.setForeground(Color.white);
+                walletStateText.setForeground(Color.white);
+                break;
+            case "yellow":
+                infoPane.setBackground(Color.yellow);
+                activePlayerText.setForeground(Color.black);
+                walletStateText.setForeground(Color.black);
+                break;
+            case "green":
+                infoPane.setBackground(Color.green);
+                activePlayerText.setForeground(Color.black);
+                walletStateText.setForeground(Color.black);
+                break;
+            case "purple":
+                infoPane.setBackground(Color.MAGENTA);
+                activePlayerText.setForeground(Color.white);
+                walletStateText.setForeground(Color.white);
+                break;
+            case "orange":
+                infoPane.setBackground(Color.orange);
+                activePlayerText.setForeground(Color.black);
+                walletStateText.setForeground(Color.black);
+                break;
+            case "white":
+                infoPane.setBackground(Color.white);
+                activePlayerText.setForeground(Color.black);
+                walletStateText.setForeground(Color.black);
+                break;
+            case "black":
+                infoPane.setBackground(Color.DARK_GRAY);
+                activePlayerText.setForeground(Color.white);
+                walletStateText.setForeground(Color.white);
+                break;
+            default:
+                break;
+        }
         JOptionPane.showMessageDialog(this,model.getEventString(),"Action Log",1);
     }
 

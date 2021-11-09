@@ -166,10 +166,10 @@ public class Monopoly {
      */
     private void generateRoll(StringBuilder sb){
         dice.roll();
-        sb.append("You rolled %d with %s!\n",
+        sb.append(String.format("You rolled %d with %s!\n",
                 dice.dieSum(),
                 Integer.parseInt(dice.isDouble()? "doubles": "no doubles")
-        );
+        ));
     }
 
     /**

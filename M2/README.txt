@@ -43,6 +43,7 @@ The main focus will be on adding additional features: houses, hotels,
 and special properties and squares such as jail, “Go”, railroad, utility. 
 Also, the ability to use any number of “AI” players.
 
+KNOWN ISSUE: THE UML DIAGRAM ORIGINAL FILE WAS DELETED, LAST PUSH WAS WHAT WE SUBMITTED
 
 Authors:
 --------

@@ -51,7 +51,6 @@ public class Monopoly {
                 new Property("Pennsylvania Avenue",1200,"Engineering"),
                 new Property("Park Place",1300,"Engineering"),
                 new Property("Boardwalk",1400,"Cafeteria")
-
         ));
         activePlayer = null;
         players = new ArrayList<>();

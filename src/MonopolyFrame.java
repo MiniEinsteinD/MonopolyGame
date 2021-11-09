@@ -49,7 +49,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.setSize(new Dimension(300, 600));
         numPlayerMenu.setLayout(new BorderLayout());
         numPanel = new JPanel();
-        numPanel.setBackground(Color.BLACK);
+        numPanel.setBackground(Color.WHITE);
         numPanel.setPreferredSize(new Dimension(300,300));
         numPanel.setLayout(new GridLayout(3,3));
         numPanelText = new JLabel("How many people are playing?", SwingConstants.CENTER);
@@ -72,6 +72,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     mainFrameTempVar.setVisible(true);
                 }
             }));
+            numButton.setBackground(Color.GRAY);
             numPanel.add(numButton);
         }
 

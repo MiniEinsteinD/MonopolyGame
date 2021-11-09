@@ -29,16 +29,28 @@ public class Monopoly {
      */
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
-                new Property("Dundas",100,"Residence"),
-                new Property("Glengarry",200,"Residence"),
-                new Property("Grenville",300,"Residence"),
-                new Property("Architecture Building",400,"Architecture"),
-                new Property("University Center",500,"Cafeteria"),
-                new Property("Residence Cafe",100,"Cafeteria"),
-                new Property("Minto",200,"Engineering"),
-                new Property("Mackenzie",300,"Engineering"),
-                new Property("Dunton Tower",400,"Business"),
-                new Property("Nicol Building",500,"Business")
+                new Property("Mediteranean Avenue",1600,"Residence"),
+                new Property("Baltic Avenue",160,"Residence"),
+                new Property("Oriental Avenue",1000,"Residence"),
+                new Property("Vermont Avenue",1000,"Architecture"),
+                new Property("Connecticut Avenue",1200,"Cafeteria"),
+                new Property("St. Charles Place",1400,"Cafeteria"),
+                new Property("States Avenue",1400,"Engineering"),
+                new Property("Virginia Avenue",1400,"Engineering"),
+                new Property("St. James Place",1800,"Business"),
+                new Property("Tennessee Avenue",1800,"Business"),
+                new Property("NY Avenue",2000,"Business"),
+                new Property("Kentucky Avenue",2200,"Business"),
+                new Property("Indian Avenue",2200,"Business"),
+                new Property("Illinois Avenue",2200,"Residence"),
+                new Property("Atlantic Avenue",1600,"Architecture"),
+                new Property("Ventnor Avenue",1600,"Business"),
+                new Property("Marvin Avenue",1800,"Business"),
+                new Property("Pacific Avenue",1300,"Residence"),
+                new Property("North Carolina Avenue",1600,"Business"),
+                new Property("Pennsylvania Avenue",1200,"Engineering"),
+                new Property("Park Place",1300,"Engineering"),
+                new Property("Boardwalk",1400,"Cafeteria")
         ));
         activePlayer = null;
         players = new ArrayList<>();

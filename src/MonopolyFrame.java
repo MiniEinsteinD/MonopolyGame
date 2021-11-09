@@ -21,6 +21,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     private JLabel walletStateText;
     private JLabel activePlayerText;
+    private JLabel boardMap;
 
     private JPanel boardPane;
     private JPanel infoPane;
@@ -78,7 +79,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         infoPane = new JPanel();
         boardPane.setPreferredSize(new Dimension(800,800));
         infoPane.setPreferredSize(new Dimension(400,800));
-        infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.LINE_AXIS));
+        infoPane.setLayout(new GridLayout(0,1));
         infoPane.setBackground(Color.YELLOW);
 
         //Label initialization
@@ -86,20 +87,20 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         walletStateText = new JLabel();
 
         //Adding Board Image
-        boardImage = new ImageIcon();
-
+        boardImage = new ImageIcon("TempboardAwsome.png");
+        boardMap = new JLabel(boardImage);
 
         //Component Addition
-
         infoPane.add(activePlayerText);
         infoPane.add(walletStateText);
         infoPane.add(rollButton);
         infoPane.add(buyButton);
         infoPane.add(passButton);
         infoPane.add(playerOverviewButton);
-        boardPane.add(boardImage);
-        this.add(boardPane);
-        this.add(infoPane);
+        boardPane.add(boardMap, BorderLayout.CENTER);
+
+        this.add(boardPane, BorderLayout.WEST);
+        this.add(infoPane, BorderLayout.EAST);
 
         numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
         numPlayerMenu.pack();
@@ -119,7 +120,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             walletStateText.updateUI();
             JOptionPane.showMessageDialog(this,"You Are Bankrupt!\nThanks for playing!","Bankruptcy!",4);
         }else{
-            walletStateText.setText("$" + e.getActivePlayer().getWallet());
+            walletStateText.setText("Wallet: $" + e.getActivePlayer().getWallet());
             walletStateText.updateUI();
         }
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());

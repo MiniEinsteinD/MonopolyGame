@@ -1,0 +1,11 @@
+
+Steps for Playing Monopoly6:
+
+1. Execute Jar file
+
+2. Select Number of players from select player number window
+
+3. Play monopoly
+    i)Select 'help' button for instructions on buttons
+
+4. Player is removed when player's wallet reaches below $0

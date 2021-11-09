@@ -180,7 +180,7 @@ public class Monopoly {
         dice.roll();
         sb.append(String.format("You rolled %d with %s!\n",
                 dice.dieSum(),
-                Integer.parseInt(dice.isDouble()? "doubles": "no doubles")
+                dice.isDouble()? "doubles": "no doubles"
         ));
     }
 

@@ -1,7 +1,9 @@
 import java.util.EventObject;
 
 /**
+ * MonopolyEvents are used to send a signal from the model to the view
  * @author Ethan Houlahan 101145675
+ * @version 1.0
  */
 public class MonopolyEvent extends EventObject {
 
@@ -12,6 +14,10 @@ public class MonopolyEvent extends EventObject {
         activePlayer = monopoly.getActivePlayer();
     }
 
+    /**
+     * get the active player in the model
+     * @return the active player
+     */
     public Player getActivePlayer(){
         return this.activePlayer;
     }

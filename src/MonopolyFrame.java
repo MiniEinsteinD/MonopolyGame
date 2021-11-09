@@ -1,15 +1,21 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 /**
+ * MonopolyFrame is used to generate a graphical interface for user input and display.
  * @author Ethan Houlahan 101145675
+ * @version 1.0
  */
 public class MonopolyFrame extends JFrame implements MonopolyView{
 
     private JFrame numPlayerMenu;
     private JLabel numPanelText;
+    private JPanel numPanel;
 
     private JButton rollButton;
     private JButton buyButton;
@@ -27,29 +33,39 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     private ImageIcon boardImage;
 
 
+    /**
+     * Initializes the GUI, Two frames - 1. Number of players, 2. Monopoly game
+     */
     public MonopolyFrame() {
-        super("Monopoly6 [TEMP NAME]");
+        super("Group 6 Monopoly");
         this.setLayout(new BorderLayout());
+
         Monopoly model = new Monopoly();
         model.addView(this);
         this.setSize(new Dimension(1200, 800));
 
         //Create Standard font
-        Font stdFont = new Font("Comic Sans MS",Font.BOLD,30);
-        //Create Select Player Number Menu
+        Font stdFont = new Font("Comic Sans MS",Font.BOLD,20);
 
+        //Create Select Player Number Menu
         numPlayerMenu = new JFrame("Select Number of Players");
         numPlayerMenu.setSize(new Dimension(300, 600));
-        numPlayerMenu.setLayout(new FlowLayout());
-
+        numPlayerMenu.setLayout(new BorderLayout());
+        numPanel = new JPanel();
+        numPanel.setBackground(Color.WHITE);
+        numPanel.setPreferredSize(new Dimension(300,300));
+        numPanel.setLayout(new GridLayout(3,3));
         numPanelText = new JLabel("How many people are playing?", SwingConstants.CENTER);
         numPanelText.setFont(stdFont);
-        numPlayerMenu.add(numPanelText);
+        numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
+        numPlayerMenu.add(numPanel,BorderLayout.CENTER);
+
+        numPlayerMenu.setLocationRelativeTo(null);
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
-            numButton.setSize(new Dimension(50, 50));
+            numButton.setSize(new Dimension(20, 20));
             int startVal = i;
             JFrame mainFrameTempVar = this;
             numButton.addActionListener((new ActionListener() {
@@ -59,7 +75,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     mainFrameTempVar.setVisible(true);
                 }
             }));
-            numPlayerMenu.add(numButton);
+            numButton.setBackground(Color.GRAY);
+            numPanel.add(numButton);
         }
 
 
@@ -100,8 +117,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
 
         //Adding Board Image
-        boardImage = new ImageIcon("src/TempboardAwsome.png");
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("src/FinalMonopolyBoard.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+        ImageIcon boardImage = new ImageIcon(scaledImg);
+
         boardMap = new JLabel(boardImage);
+
 
 
         //Component Addition
@@ -123,12 +149,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
+        this.setLocationRelativeTo(numPlayerMenu);
 
+        //Display
         numPlayerMenu.setVisible(true);
 
     }
 
-
+    /**
+     * Handle an information update received from the model.
+     * @param e, a monopoly event
+     */
     @Override
     public void handleMonopolyUpdate(MonopolyEvent e){
         Monopoly model = (Monopoly) e.getSource();
@@ -143,7 +174,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
 
-        JOptionPane.showMessageDialog(this,model.getEventString());
+        JOptionPane.showMessageDialog(this,model.getEventString(),"Action Log",1);
     }
 
     public static void main(String[] args) {

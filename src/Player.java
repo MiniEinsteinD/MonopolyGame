@@ -164,9 +164,9 @@ public class Player{
      * @param tiles, ordered list of tiles on the playing board
      */
     public void movePlayer(StringBuilder sb, int steps, ArrayList<Tile> tiles){
-        int distance = (position+steps) % tiles.size();
-        for (int i = position + 1; i < steps; i++) {
-            tiles.get(i % tiles.size()).passHandler(sb, this);
+        int distance = (position + steps) % tiles.size();
+        for (int i = 1; i <= steps; i++) {
+            tiles.get((i + position) % tiles.size()).passHandler(sb, this);
         }
         tiles.get(distance).landHandler(sb, this);
         this.setPosition(distance);

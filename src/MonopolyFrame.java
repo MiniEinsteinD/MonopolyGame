@@ -143,7 +143,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
 
-        JOptionPane.showMessageDialog(this,model.getEventString());
+        JOptionPane.showMessageDialog(this,model.getEventString(),"Action Log",1);
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 
 Steps for Playing Monopoly6:
 
-1. Execute Jar file
+1. Execute Jar file from the command line using "java -jar Milestone2Group6.jar"
 
 2. Select Number of players from select player number window
 

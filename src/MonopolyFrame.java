@@ -143,7 +143,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     }
 
-
+    /**
+     * Handle an information update received from the model.
+     * @param e, a monopoly event
+     */
     @Override
     public void handleMonopolyUpdate(MonopolyEvent e){
         Monopoly model = (Monopoly) e.getSource();

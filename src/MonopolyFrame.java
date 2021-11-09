@@ -59,7 +59,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
         numPlayerMenu.add(numPanel,BorderLayout.CENTER);
 
-        numPlayerMenu.setLocationRelativeTo(null);
+
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
@@ -144,10 +144,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.add(boardPane, BorderLayout.CENTER);
         this.add(infoPane, BorderLayout.EAST);
 
+        //Packing
         numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
         numPlayerMenu.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
+        numPlayerMenu.setLocationRelativeTo(null);
         this.setLocationRelativeTo(numPlayerMenu);
 
         //Display

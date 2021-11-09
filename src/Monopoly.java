@@ -228,9 +228,6 @@ public class Monopoly {
             moved = false;
 
             sb.append(activePlayer.getCOLOR() + " player's turn!\n" );
-            sb.append(
-                    "==================================================================================="
-            );
 
             eventString = sb.toString();
             notifyViews();
@@ -250,12 +247,12 @@ public class Monopoly {
      * Display information on all of the different commands available to the player.
      */
     public void help(){
-        StringBuilder sb = new StringBuilder("state: Prints the state of the active player.\n");
-        sb.append("roll: Rolls two dice to determine how many steps to move the active player, " +
-                "prints the new location, and pays any rent. If you rolled doubles, roll again.\n");
-        sb.append("buy: Buys a property for the active player. Does not work if you don't have " +
+        StringBuilder sb = new StringBuilder("Roll: Rolls the 2 dice to get how many steps the player will move, " +
+                "if you get roll doubles you roll again!\n");
+        sb.append("View Player Portfolio: Displays the player's name, wallet, position and properties owned by the player");
+        sb.append("Buy Property: Active player attempts to buy the property they are standing on. Does not work if you don't have " +
                 "enough money, or the property is already owned.\n");
-        sb.append("pass: Passes the active player's turn to the next solvent player.\n");
+        sb.append("End turn: Passes the active player's turn to the next solvent player. Must roll first! \n");
 
         eventString = sb.toString();
         notifyViews();

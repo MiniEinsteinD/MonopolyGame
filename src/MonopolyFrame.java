@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 /**
  * MonopolyFrame is used to generate a graphical interface for user input and display.
@@ -114,8 +117,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
 
         //Adding Board Image
-        boardImage = new ImageIcon("src/TempboardAwsome.png");
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("src/FinalMonopolyBoard.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+        ImageIcon boardImage = new ImageIcon(scaledImg);
+
         boardMap = new JLabel(boardImage);
+
 
 
         //Component Addition

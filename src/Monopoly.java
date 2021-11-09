@@ -30,7 +30,7 @@ public class Monopoly {
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
                 new Property("Mediteranean Avenue",1600,"Brown"),
-                new Property("Baltic Avenue",160,"Brown"),
+                new Property("Baltic Avenue",1600,"Brown"),
                 new Property("Oriental Avenue",1000,"Light Blue"),
                 new Property("Vermont Avenue",1000,"Light Blue"),
                 new Property("Connecticut Avenue",1200,"Light Blue"),

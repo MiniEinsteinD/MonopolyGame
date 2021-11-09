@@ -29,16 +29,28 @@ public class Monopoly {
      */
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
-                new Property("Dundas",100,"Residence"),
-                new Property("Glengarry",200,"Residence"),
-                new Property("Grenville",300,"Residence"),
-                new Property("Architecture Building",400,"Architecture"),
-                new Property("University Center",500,"Cafeteria"),
-                new Property("Residence Cafe",100,"Cafeteria"),
-                new Property("Minto",200,"Engineering"),
-                new Property("Mackenzie",300,"Engineering"),
-                new Property("Dunton Tower",400,"Business"),
-                new Property("Nicol Building",500,"Business")
+                new Property("Mediteranean Avenue",1600,"Brown"),
+                new Property("Baltic Avenue",1600,"Brown"),
+                new Property("Oriental Avenue",1000,"Light Blue"),
+                new Property("Vermont Avenue",1000,"Light Blue"),
+                new Property("Connecticut Avenue",1200,"Light Blue"),
+                new Property("St. Charles Place",1400,"Pink"),
+                new Property("States Avenue",1400,"Pink"),
+                new Property("Virginia Avenue",1400,"Pink"),
+                new Property("St. James Place",1800,"Orange"),
+                new Property("Tennessee Avenue",1800,"Orange"),
+                new Property("NY Avenue",2000,"Orange"),
+                new Property("Kentucky Avenue",2200,"Red"),
+                new Property("Indian Avenue",2200,"Red"),
+                new Property("Illinois Avenue",2200,"Red"),
+                new Property("Atlantic Avenue",1600,"Yellow"),
+                new Property("Ventnor Avenue",1600,"Yellow"),
+                new Property("Marvin Avenue",1800,"Yellow"),
+                new Property("Pacific Avenue",1300,"Green"),
+                new Property("North Carolina Avenue",1600,"Green"),
+                new Property("Pennsylvania Avenue",1200,"Green"),
+                new Property("Park Place",1300,"Purple"),
+                new Property("Boardwalk",1400,"Purple")
         ));
         activePlayer = null;
         players = new ArrayList<>();
@@ -162,17 +174,19 @@ public class Monopoly {
 
     /**
      * Rolls two dice and prints the outcome.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     private void generateRoll(StringBuilder sb){
         dice.roll();
-        sb.append("You rolled %d with %s!\n",
+        sb.append(String.format("You rolled %d with %s!\n",
                 dice.dieSum(),
-                Integer.parseInt(dice.isDouble()? "doubles": "no doubles")
-        );
+                dice.isDouble()? "doubles": "no doubles"
+        ));
     }
 
     /**
      * Prints that the active player is bankrupt and ends the game if there is one solvent player remaining.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     public void bankrupt(StringBuilder sb){
         numSolventPlayers--;
@@ -190,6 +204,7 @@ public class Monopoly {
 
     /**
      * Moves the player, prints the new location, and pays any rent.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     private void move(StringBuilder sb){
         sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
@@ -227,7 +242,7 @@ public class Monopoly {
      */
     private void notifyViews(){
         for (MonopolyView mv : views){
-            mv.update();
+            mv.handleMonopolyUpdate(new MonopolyEvent(this));
         }
     }
 
@@ -253,11 +268,11 @@ public class Monopoly {
     public void start(int numPlayers) {
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
-        activePlayerIndex = rand.nextInt((Monopoly.MAX_PLAYERS - Monopoly.MIN_PLAYERS) + 1) + Monopoly.MIN_PLAYERS;
+        activePlayerIndex = rand.nextInt(numPlayers);
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
-            sb.append(COLORS.get(i) + "\t");
+            sb.append(COLORS.get(i) + " ");
             players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this));
         }
         activePlayer = players.get(activePlayerIndex);

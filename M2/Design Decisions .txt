@@ -36,6 +36,8 @@ Tile
 
     - In future builds of the project, intended on handling special Tiles such as Go, Jail, etc.
 
+    - Implemented landHandler and passHandler taking inspiration from the observer pattern.
+
 Property (extends Tile)
 ------------------------
     - Use final data types for GROUP, PRICE, and FINE_PERCENTAGE to prevent data manipulation by the user.

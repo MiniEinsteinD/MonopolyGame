@@ -31,7 +31,8 @@ The player loses when their total amount is a negative number.
 
 Known issues:
 --------------
-The code functions properly; therefore, there are no issues with our current iteration.
+The code functions properly; however, We did not add complete function calls in the sequence diagram (for
+the roll function) so that the diagram is easier to read.
 
 
 Roadmap ahead:

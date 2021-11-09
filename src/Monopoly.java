@@ -162,6 +162,7 @@ public class Monopoly {
 
     /**
      * Rolls two dice and prints the outcome.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     private void generateRoll(StringBuilder sb){
         dice.roll();
@@ -173,6 +174,7 @@ public class Monopoly {
 
     /**
      * Prints that the active player is bankrupt and ends the game if there is one solvent player remaining.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     public void bankrupt(StringBuilder sb){
         numSolventPlayers--;
@@ -190,6 +192,7 @@ public class Monopoly {
 
     /**
      * Moves the player, prints the new location, and pays any rent.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
      */
     private void move(StringBuilder sb){
         sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
@@ -227,7 +230,7 @@ public class Monopoly {
      */
     private void notifyViews(){
         for (MonopolyView mv : views){
-            mv.update();
+            mv.handleMonopolyUpdate(new MonopolyEvent(this));
         }
     }
 

@@ -256,7 +256,7 @@ public class Monopoly {
     public void start(int numPlayers) {
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
-        activePlayerIndex = rand.nextInt((numPlayers - Monopoly.MIN_PLAYERS) + 1) + Monopoly.MIN_PLAYERS;
+        activePlayerIndex = rand.nextInt(numPlayers);
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){

@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Player{
     private final String ID;
-    private int wallet = 1500;
+    private int wallet = 5000;
     private ArrayList<Property> properties = new ArrayList<>();
     private int position;
     private final String COLOR;

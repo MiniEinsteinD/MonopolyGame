@@ -165,8 +165,8 @@ public class Player{
      */
     public void movePlayer(StringBuilder sb, int steps, ArrayList<Tile> tiles){
         int distance = (position+steps) % tiles.size();
-        for (int i = position + 1; i < steps; i = (i + 1) % tiles.size()) {
-            tiles.get(i).passHandler(sb, this);
+        for (int i = position + 1; i < steps; i++) {
+            tiles.get(i % tiles.size()).passHandler(sb, this);
         }
         tiles.get(distance).landHandler(sb, this);
         this.setPosition(distance);

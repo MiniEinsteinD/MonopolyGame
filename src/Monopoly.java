@@ -166,10 +166,10 @@ public class Monopoly {
      */
     private void generateRoll(StringBuilder sb){
         dice.roll();
-        sb.append("You rolled %d with %s!\n",
+        sb.append(String.format("You rolled %d with %s!\n",
                 dice.dieSum(),
                 Integer.parseInt(dice.isDouble()? "doubles": "no doubles")
-        );
+        ));
     }
 
     /**
@@ -260,7 +260,7 @@ public class Monopoly {
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
-            sb.append(COLORS.get(i) + "\t");
+            sb.append(COLORS.get(i) + " ");
             players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this));
         }
         activePlayer = players.get(activePlayerIndex);

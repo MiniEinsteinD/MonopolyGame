@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * MonopolyFrame is used to generate a graphical interface for user input and display.
  * @author Ethan Houlahan 101145675
+ * @version 1.0
  */
 public class MonopolyFrame extends JFrame implements MonopolyView{
 
     private JFrame numPlayerMenu;
     private JLabel numPanelText;
+    private JPanel numPanel;
 
     private JButton rollButton;
     private JButton buyButton;
@@ -27,29 +30,39 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     private ImageIcon boardImage;
 
 
+    /**
+     * Initializes the GUI, Two frames - 1. Number of players, 2. Monopoly game
+     */
     public MonopolyFrame() {
-        super("Monopoly6 [TEMP NAME]");
+        super("Group 6 Monopoly");
         this.setLayout(new BorderLayout());
+
         Monopoly model = new Monopoly();
         model.addView(this);
         this.setSize(new Dimension(1200, 800));
 
         //Create Standard font
-        Font stdFont = new Font("Comic Sans MS",Font.BOLD,30);
-        //Create Select Player Number Menu
+        Font stdFont = new Font("Comic Sans MS",Font.BOLD,20);
 
+        //Create Select Player Number Menu
         numPlayerMenu = new JFrame("Select Number of Players");
         numPlayerMenu.setSize(new Dimension(300, 600));
-        numPlayerMenu.setLayout(new FlowLayout());
-
+        numPlayerMenu.setLayout(new BorderLayout());
+        numPanel = new JPanel();
+        numPanel.setBackground(Color.BLACK);
+        numPanel.setPreferredSize(new Dimension(300,300));
+        numPanel.setLayout(new GridLayout(3,3));
         numPanelText = new JLabel("How many people are playing?", SwingConstants.CENTER);
         numPanelText.setFont(stdFont);
-        numPlayerMenu.add(numPanelText);
+        numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
+        numPlayerMenu.add(numPanel,BorderLayout.CENTER);
+
+        numPlayerMenu.setLocationRelativeTo(null);
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
-            numButton.setSize(new Dimension(50, 50));
+            numButton.setSize(new Dimension(20, 20));
             int startVal = i;
             JFrame mainFrameTempVar = this;
             numButton.addActionListener((new ActionListener() {
@@ -59,7 +72,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     mainFrameTempVar.setVisible(true);
                 }
             }));
-            numPlayerMenu.add(numButton);
+            numPanel.add(numButton);
         }
 
 
@@ -123,7 +136,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
+        this.setLocationRelativeTo(numPlayerMenu);
 
+        //Display
         numPlayerMenu.setVisible(true);
 
     }

@@ -27,7 +27,7 @@ class TwoDice {
 class Player {
     - ID: String
     - wallet: int
-    - properties: ArrayList<Property>
+    - properties: ArrayList<Buyable>
     - position: int
     - COLOR: String
     - monopoly: Monopoly
@@ -131,13 +131,32 @@ class RollController {
 }
 
 class MonopolyFrame {
-
+    - numPlayerMenu: JFrame
+    - numPanelText: JLabel
+    - numPanel: JPanel
+    - rollButton: JButton
+    - buyButton: JButton
+    - passButton: JButton
+    - playerOverviewButton: JButton
+    - helpButton: JButton
+    - walletStateText: JLabel
+    - activePlayerText: JLabel
+    - boardMap: JLabel
+    - boardPane: JPanel
+    - infoPane: JPanel
+    + MonopolyFrame()
+    + handleMonopolyUpdate(e: MonopolyEvent): void
+    + <u>main(args: String[]): void</u>
 }
 
 class MonopolyView <<Interface>> {
+    + handleMonopolyUpdate(e: MonopolyEvent): void
 }
 
 class Buildable <<Interface>> {
+}
+
+class Building <<Interface>> {
 }
 
 class Buyable <<Interface>> {
@@ -177,8 +196,8 @@ MonopolyFrame --|> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
 
-House --|> Buildable
-Hotel --|> Buildable
+House --|> Building
+Hotel --|> Building
 
 Go --|> Tile
 Jail --|> Tile
@@ -188,5 +207,10 @@ Property --|> Buyable
 RailRoad --|> Tile
 Property --|> Tile
 Utility --|> Tile
+Utility --|> Buyable
+
+Property --|> Buildable
+
+Player o-- Buyable
 
 @enduml

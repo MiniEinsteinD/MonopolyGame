@@ -5,5 +5,5 @@
  */
 public interface MonopolyView {
 
-    void handleMonopolyUpdate(MonopolyEvent MonEvent);
+    void handleMonopolyUpdate(MonopolyEvent e);
 }

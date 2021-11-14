@@ -78,7 +78,6 @@ class Monopoly {
     + passTurn(): void
     - notifyViews(): void
     + help(): void
-
 }
 
 class Property {
@@ -102,7 +101,8 @@ class Property {
 }
 
 abstract class MonopolyController {
-
+    - model: Monopoly
+    + MonopolyController(model: Monopoly)
 }
 
 class PlayerStateController {
@@ -131,9 +131,16 @@ class RollController {
 }
 
 class MonopolyFrame {
+
 }
 
 class MonopolyView <<Interface>> {
+}
+
+class Buildable <<Interface>> {
+}
+
+class Buyable <<Interface>> {
 }
 
 class House {
@@ -142,10 +149,44 @@ class House {
 class Hotel {
 }
 
+class Go {
+}
+
+class Jail {
+}
+
+class GoToJail {
+}
+
+class RailRoad {
+}
+
+class Utility {
+}
+
+class PlayerBot {
+}
+
 Monopoly --o Player
 PassController --|> MonopolyController
+BuyController --|> MonopolyController
+HelpController --|> MonopolyController
+PlayerStateController --|> MonopolyController
+RollController --|> MonopolyController
+MonopolyFrame --|> MonopolyView
+MonopolyView --o Monopoly
+MonopolyController o-- Monopoly
 
+House --|> Buildable
+Hotel --|> Buildable
 
-change
+Go --|> Tile
+Jail --|> Tile
+GoToJail --|> Tile
+RailRoad --|> Buyable
+Property --|> Buyable
+RailRoad --|> Tile
+Property --|> Tile
+Utility --|> Tile
 
 @enduml

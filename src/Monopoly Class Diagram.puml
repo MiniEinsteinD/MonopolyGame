@@ -145,4 +145,7 @@ class Hotel {
 Monopoly --o Player
 PassController --|> MonopolyController
 
+
+change
+
 @enduml

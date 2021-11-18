@@ -84,7 +84,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             numButton.addActionListener((e -> {
                 numPlayerMenu.setVisible(false);
 
-                for (int j = 1; numPlayers > j; j++) {
+                for (int j = 0; numPlayers > j; j++) {
                     JButton numBotButton = new JButton();
                     numBotButton.setText(Integer.toString(j));
                     numBotButton.setSize(new Dimension(20, 20));

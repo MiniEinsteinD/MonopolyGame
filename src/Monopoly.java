@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir 101146422
- * @version 3.0
+ * @version 4.0
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -93,6 +93,15 @@ public class Monopoly {
      */
     public boolean isRunning() {
         return running;
+    }
+
+    /**
+     * Get whether the player must move before they end their turn
+     * @return boolean, true if a player action is needed,
+     *                  false if the player can end their turn.
+     */
+    public boolean playerMoveNeeded() {
+        return !moved || dice.isDouble();
     }
 
     /**
@@ -214,9 +223,9 @@ public class Monopoly {
     /**
      * Passes the active player's turn to the next solvent player.
      */
-    public void passTurn(){
+    public void passTurn() {
         StringBuilder sb = new StringBuilder();
-        if (!moved || dice.isDouble()) {
+        if (playerMoveNeeded()) {
             sb.append("You haven't rolled yet.");
         } else {
             activePlayerIndex = (activePlayerIndex + 1) % players.size();
@@ -231,6 +240,10 @@ public class Monopoly {
 
             eventString = sb.toString();
             notifyViews();
+
+            if (activePlayer.getType() == Player.Type.BOT) {
+                PlayerBot.selectActions(new SelectActionsEvent(this, activePlayer));
+            }
         }
     }
 
@@ -262,7 +275,7 @@ public class Monopoly {
      * Initializes required fields and starts a game of Monopoly with the chosen number of players.
      * @param numPlayers int, the selected number of players.
      */
-    public void start(int numPlayers) {
+    public void start(int numPlayers, int numBots) {
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
         activePlayerIndex = rand.nextInt(numPlayers);
@@ -270,7 +283,12 @@ public class Monopoly {
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
             sb.append(COLORS.get(i) + " ");
-            players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this));
+            if (i < numPlayers - numBots){
+                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this, Player.Type.HUMAN));
+            }
+            else {
+                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this, Player.Type.BOT));
+            }
         }
         activePlayer = players.get(activePlayerIndex);
 

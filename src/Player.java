@@ -7,9 +7,9 @@ import java.util.Objects;
  *
  * @author Daniah Mohammed
  * St# 101145902
- * (M2 changes) Ethan Leir
+ * (M2 and M3 changes) Ethan Leir
  * St# 101146422
- * @version 4.0
+ * @version 5.0
  */
 public class Player{
     private final String ID;
@@ -18,6 +18,8 @@ public class Player{
     private int position;
     private final String COLOR;
     private Monopoly monopoly;
+    protected enum Type {HUMAN, BOT}
+    private Type type;
 
 
     /**
@@ -30,8 +32,30 @@ public class Player{
         this.ID = id;
         this.COLOR = color;
         this.monopoly = monopoly;
+        this.type = Type.HUMAN;
     }
 
+    /**
+     * Constructor for class player.
+     * @param id, a constant string that represents the player id.
+     * @param color, a constant string that represents the player color.
+     * @param monopoly, the game of monopoly the player is in.
+     * @param type, the type of player (human or bot).
+     */
+    public Player(String id, String color, Monopoly monopoly, Type type) {
+        this.ID = id;
+        this.COLOR = color;
+        this.monopoly = monopoly;
+        this.type = type;
+    }
+
+    /**
+     * A getter for the player type.
+     * @return the type of player (human or bot).
+     */
+    public Type getType() {
+        return type;
+    }
 
     /**
      * A getter for the player constant color

@@ -31,7 +31,11 @@ class Player {
     - position: int
     - COLOR: String
     - monopoly: Monopoly
-    + Player(id: String, color: String, Monopoly monopoly)
+    # Type {HUMAN, BOT}: enum
+    - type: Type
+    + Player(id: String, color: String, monopoly: Monopoly)
+    + Player(id: String, color: String, monopoly: Monopoly, type: Type)
+    + getType(): Type
     + getColor(): String
     + getPosition(): int
     + setPosition(position: int): void
@@ -63,12 +67,13 @@ class Monopoly {
     + addView(mv: MonopolyView): void
     + removeView(mv: MonopolyView): void
     + getEventString(): String
+    + playerMoveNeeded(): boolean
     + isRunning: boolean
     + getPlayers(): ArrayList<Player>
     + getNumSolventPlayers: int
     + getActivePlayer(): Player
     + getTILES(): ArrayList<Tile>
-    + start(numPlayers: int): void
+    + start(numPlayers: int, numBots: int): void
     + state(): void
     + buy(): void
     + roll(): void
@@ -184,6 +189,14 @@ class Utility {
 }
 
 class PlayerBot {
+    - <u>MIN_WALLET: int</u>
+    + <u>selectActions(SelectActionsEvent sae): void</u>
+}
+
+class SelectActionsEvent {
+    - player: Player
+    + SelectActionsEvent(monopoly: Monopoly, player: Player)
+    + getPlayer(): Player
 }
 
 Monopoly --o Player

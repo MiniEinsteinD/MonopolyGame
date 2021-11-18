@@ -5,17 +5,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * MonopolyFrame is used to generate a graphical interface for user input and display.
  * @author Ethan Houlahan 101145675
  * @version 1.0
  */
-public class MonopolyFrame extends JFrame implements MonopolyView{
+public class MonopolyFrame extends JFrame implements MonopolyView {
 
     private JFrame numPlayerMenu;
     private JLabel numPanelText;
     private JPanel numPanel;
+
+    private JFrame numPlayerBotMenu;
+    private JPanel numBotPanel;
+    private JLabel numBotPanelText;
 
     private JButton rollButton;
     private JButton buyButton;
@@ -59,18 +64,44 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
         numPlayerMenu.add(numPanel,BorderLayout.CENTER);
 
+        numPlayerBotMenu = new JFrame("Select Number of Bots");
+        numPlayerBotMenu.setSize(new Dimension(300, 600));
+        numPlayerBotMenu.setLayout(new BorderLayout());
+        numBotPanel = new JPanel();
+        numBotPanel.setBackground(Color.WHITE);
+        numBotPanel.setPreferredSize(new Dimension(300,300));
+        numBotPanel.setLayout(new GridLayout(3,3));
+        numBotPanelText = new JLabel("How many of the players are bots?", SwingConstants.CENTER);
+        numBotPanelText.setFont(stdFont);
+        numPlayerBotMenu.add(numPanelText,BorderLayout.NORTH);
+        numPlayerBotMenu.add(numPanel,BorderLayout.CENTER);
 
+        AtomicInteger numPlayers = new AtomicInteger();
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
             numButton.setSize(new Dimension(20, 20));
             int startVal = i;
+            numButton.addActionListener((e -> {
+                numPlayers.set(startVal);
+                numPlayerMenu.setVisible(false);
+                numPlayerBotMenu.setVisible(true);
+            }));
+            numButton.setBackground(Color.GRAY);
+            numPanel.add(numButton);
+        }
+
+        for (int i = Monopoly.MIN_PLAYERS; model.getNumSolventPlayers() >= i; i++) {
+            JButton numButton = new JButton();
+            numButton.setText(Integer.toString(i));
+            numButton.setSize(new Dimension(20, 20));
+            int numBots = i;
             JFrame mainFrameTempVar = this;
             numButton.addActionListener((new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    model.start(startVal);
-                    numPlayerMenu.setVisible(false);
+                    model.start(numPlayers.get(), numBots);
+                    numPlayerBotMenu.setVisible(false);
                     mainFrameTempVar.setVisible(true);
                 }
             }));

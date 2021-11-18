@@ -1,0 +1,31 @@
+UML Diagram Changes (From Milestone 1):
+	- Methods added to Monopoly to make assigning values to attributes happen within the Model
+	whenever a Controller is used for user input for better cohesion.
+	- Methods which need to be accessed by the Controller were made public.
+	- Added Getters for values that might be needed for the Views.
+	- Implemented passHandler and landHandler in Tile taking inspiration from Observer Pattern
+	so that new Tiles like the Go Tile could be added more easily, and for better cohesion.
+	- Added toString implementation to Tile so that any child class could be easily represented
+	as a string by calling the toString of their parent class.
+	- buy and move now pass a StringBuilder as arguments to methods they call to store info to be
+	printed.
+	- Added isBankrupt function to Player so that the user would not have to manually compute if
+	wallet < 0 every time they need to know if a Player is bankrupt.
+
+
+Data Structure Changes (From Milestone 1):
+	- Changing the print statments to a StringBuilder data type in order to use it as text for the GUI version.
+
+MonopolyFrame (Ethan Houlahan 101145675):
+	- New class with purpose of displaying graphical information for user to see and interact with.
+
+	- Creates 2 separate frames: One for collecting player number information, the other for playing the Monopoly game.
+
+MonopolyEvent (Ethan Houlahan 101145675):
+	- New class used for the notification of a subscribed view from the model to the view.
+
+MonopolyView (Ethan Houlahan 101145675):
+	- New Interface used for classifying views for the model to notify.
+
+JUnit Test (Milestone 2/Umniyah Mohammed 101158792)
+	- Test classes have been added to this iteration of the program (JUnit 4).

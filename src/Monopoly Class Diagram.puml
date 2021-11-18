@@ -86,6 +86,9 @@ class Property {
     - PRICE: int
     - owned: boolean
     # <u>FINE_PERCENTAGE: double</u>
+    - devLevel: int
+    - houseFine: d
+
     + Property(group: String, name: String, price: int)
     + setOwner(p: Player): void
     + getOwner(): Player
@@ -98,6 +101,7 @@ class Property {
     + hashCode(): int
     + passHandler(sb: StringBuilder, player: Player): void
     + landHandler(sb: StringBuilder, player: Player): void
+
 }
 
 abstract class MonopolyController {
@@ -154,19 +158,17 @@ class MonopolyView <<Interface>> {
 }
 
 class Buildable <<Interface>> {
+        - houses: ArrayList<House>
+        - hotel: Hotel
+
 }
 
-class Building <<Interface>> {
-}
+
 
 class Buyable <<Interface>> {
 }
 
-class House {
-}
 
-class Hotel {
-}
 
 class Go {
 }

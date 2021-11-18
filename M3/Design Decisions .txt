@@ -1,0 +1,23 @@
+
+()
+
+Project
+--------
+    - Decided to allow only active player to purches houses/hotels to make the process simpler. 
+
+Monopoly
+---------
+    - 
+
+Player
+------
+    - 
+
+Tile
+-----
+    - 
+Property (extends Tile)
+------------------------
+    - 
+
+

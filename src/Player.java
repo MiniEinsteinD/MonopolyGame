@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Objects;
 public class Player{
     private final String ID;
     private int wallet = 5000;
-    private ArrayList<Property> properties = new ArrayList<>();
+    private ArrayList<Property> properties;
     private int position;
     private final String COLOR;
     private Monopoly monopoly;
@@ -30,6 +32,7 @@ public class Player{
         this.ID = id;
         this.COLOR = color;
         this.monopoly = monopoly;
+        properties = new ArrayList<>();
     }
 
 
@@ -172,6 +175,27 @@ public class Player{
         this.setPosition(distance);
     }
 
+    //has hard coded values, need to change
+
+    public boolean canBuyBuilding(){
+        boolean canBuy = false;
+        ArrayList<String> colorsPlayerOwns = new ArrayList<>();
+        ArrayList<String> uniqueColors = new ArrayList<>();
+        HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
+
+        //store the colors of the properties' player owns
+        for (Property p:  properties ){
+            numOfSameColorOwned.put(p.getGroup(), numOfSameColorOwned.getOrDefault(p.getGroup(), 0) + 1);
+        }
+        if((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)){
+            canBuy = true;
+        }
+        else if(numOfSameColorOwned.containsValue(3)){
+            canBuy = true;
+        }
+        return canBuy;
+    }
+
     /**
      * A method that compares two player instances
      * @param o, an object type variable.
@@ -185,6 +209,7 @@ public class Player{
         Player player = (Player) o;
         return wallet == player.wallet && position == player.position && Objects.equals(ID, player.ID) && Objects.equals(properties, player.properties) && Objects.equals(COLOR, player.COLOR);
     }
+
 
     /**
      * A method that generates a hash code for each player instance.

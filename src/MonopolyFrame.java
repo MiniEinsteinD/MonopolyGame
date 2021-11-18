@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * MonopolyFrame is used to generate a graphical interface for user input and display.
@@ -77,39 +76,34 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
 
 
-        AtomicInteger numPlayers = new AtomicInteger();
-
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
             numButton.setSize(new Dimension(20, 20));
-            int startVal = i;
+            int numPlayers = i;
             numButton.addActionListener((e -> {
-                numPlayers.set(startVal);
                 numPlayerMenu.setVisible(false);
+
+                for (int j = 1; numPlayers > j; j++) {
+                    JButton numBotButton = new JButton();
+                    numBotButton.setText(Integer.toString(j));
+                    numBotButton.setSize(new Dimension(20, 20));
+                    int numBots = j;
+                    JFrame mainFrameTempVar = this;
+                    numBotButton.addActionListener((e1 -> {
+                        numPlayerBotMenu.setVisible(false);
+                        mainFrameTempVar.setVisible(true);
+                        model.start(numPlayers, numBots);
+                    }));
+                    numBotButton.setBackground(Color.GRAY);
+                    numBotPanel.add(numBotButton);
+                }
+
                 numPlayerBotMenu.setVisible(true);
             }));
             numButton.setBackground(Color.GRAY);
             numPanel.add(numButton);
         }
-
-        for (int i = Monopoly.MIN_PLAYERS; numPlayers.get() >= i; i++) {
-            JButton numButton = new JButton();
-            numButton.setText(Integer.toString(i));
-            numButton.setSize(new Dimension(20, 20));
-            int numBots = i;
-            JFrame mainFrameTempVar = this;
-            numButton.addActionListener((new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    model.start(numPlayers.get(), numBots);
-                    numPlayerBotMenu.setVisible(false);
-                    mainFrameTempVar.setVisible(true);
-                }
-            }));
-            numButton.setBackground(Color.GRAY);
-            numBotPanel.add(numButton);
-        }
-
 
         MonopolyController rollCont = new RollController(model);
         MonopolyController helpCont = new HelpController(model);

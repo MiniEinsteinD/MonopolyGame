@@ -83,6 +83,7 @@ class Monopoly {
     + passTurn(): void
     - notifyViews(): void
     + help(): void
+    - handleBotActions(): void
 }
 
 class Property {

@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 public class PlayerBot {
     // Player won't buy if it would put its wallet below 800.
     private static final int MIN_WALLET = 800;
+    private static final int DELAY_TIME = 2;
 
     /**
-     * Control all the actions of the player for their turn. Pauses for 4 seconds between each command.
+     * Control all the actions of the player for their turn. Pauses for some time between each command.
      * @param sae SelectActionsEvent, an EventObject storing all needed information.
      */
     public static void selectActions(SelectActionsEvent sae) {
@@ -19,7 +20,7 @@ public class PlayerBot {
         ArrayList<Tile> tiles = monopoly.getTILES();
 
         while (monopoly.playerMoveNeeded()) {
-            sleep(4);
+            sleep(DELAY_TIME);
             monopoly.roll();
 
             Tile tileAtPosition = tiles.get(sae.getPlayer().getPosition());
@@ -28,12 +29,12 @@ public class PlayerBot {
                             && !((Property) tileAtPosition).isOwned()
                             && sae.getPlayer().getWallet() - ((Property) tileAtPosition).getPrice() >= MIN_WALLET
             ) {
-                sleep(4);
+                sleep(DELAY_TIME);
                 monopoly.buy();
             }
         }
 
-        sleep(4);
+        sleep(DELAY_TIME);
         monopoly.passTurn();
     }
 

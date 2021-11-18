@@ -241,9 +241,7 @@ public class Monopoly {
             eventString = sb.toString();
             notifyViews();
 
-            if (activePlayer.getType() == Player.Type.BOT) {
-                PlayerBot.selectActions(new SelectActionsEvent(this, activePlayer));
-            }
+            handleBotActions();
         }
     }
 
@@ -282,8 +280,8 @@ public class Monopoly {
         numSolventPlayers = numPlayers;
         sb.append("Player colors to choose from are ");
         for (int i = 0; i < numPlayers; i++){
-            sb.append(COLORS.get(i) + " ");
             if (i < numPlayers - numBots){
+                sb.append(COLORS.get(i) + " ");
                 players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this, Player.Type.HUMAN));
             }
             else {
@@ -298,5 +296,16 @@ public class Monopoly {
         running = true;
         eventString = sb.toString();
         notifyViews();
+
+        handleBotActions();
+    }
+
+    /**
+     * If the active player is a bot, control all the actions of the player for their turn.
+     */
+    private void handleBotActions() {
+        if (activePlayer.getType() == Player.Type.BOT) {
+            PlayerBot.selectActions(new SelectActionsEvent(this, activePlayer));
+        }
     }
 }

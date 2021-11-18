@@ -11,11 +11,15 @@ import java.io.*;
  * @author Ethan Houlahan 101145675
  * @version 1.0
  */
-public class MonopolyFrame extends JFrame implements MonopolyView{
+public class MonopolyFrame extends JFrame implements MonopolyView {
 
     private JFrame numPlayerMenu;
     private JLabel numPanelText;
     private JPanel numPanel;
+
+    private JFrame numPlayerBotMenu;
+    private JPanel numBotPanel;
+    private JLabel numBotPanelText;
 
     private JButton rollButton;
     private JButton buyButton;
@@ -59,25 +63,47 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
         numPlayerMenu.add(numPanel,BorderLayout.CENTER);
 
+        numPlayerBotMenu = new JFrame("Select Number of Bots");
+        numPlayerBotMenu.setSize(new Dimension(300, 600));
+        numPlayerBotMenu.setLayout(new BorderLayout());
+        numBotPanel = new JPanel();
+        numBotPanel.setBackground(Color.WHITE);
+        numBotPanel.setPreferredSize(new Dimension(300,300));
+        numBotPanel.setLayout(new GridLayout(3,3));
+        numBotPanelText = new JLabel("How many of the players are bots?", SwingConstants.CENTER);
+        numBotPanelText.setFont(stdFont);
+        numPlayerBotMenu.add(numBotPanelText,BorderLayout.NORTH);
+        numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
 
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
             numButton.setSize(new Dimension(20, 20));
-            int startVal = i;
-            JFrame mainFrameTempVar = this;
-            numButton.addActionListener((new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    model.start(startVal);
-                    numPlayerMenu.setVisible(false);
-                    mainFrameTempVar.setVisible(true);
+            int numPlayers = i;
+            numButton.addActionListener((e -> {
+                numPlayerMenu.setVisible(false);
+
+                for (int j = 0; numPlayers > j; j++) {
+                    JButton numBotButton = new JButton();
+                    numBotButton.setText(Integer.toString(j));
+                    numBotButton.setSize(new Dimension(20, 20));
+                    int numBots = j;
+                    JFrame mainFrameTempVar = this;
+                    numBotButton.addActionListener((e1 -> {
+                        numPlayerBotMenu.setVisible(false);
+                        mainFrameTempVar.setVisible(true);
+                        model.start(numPlayers, numBots);
+                    }));
+                    numBotButton.setBackground(Color.GRAY);
+                    numBotPanel.add(numBotButton);
                 }
+
+                numPlayerBotMenu.setVisible(true);
             }));
             numButton.setBackground(Color.GRAY);
             numPanel.add(numButton);
         }
-
 
         MonopolyController rollCont = new RollController(model);
         MonopolyController helpCont = new HelpController(model);
@@ -145,6 +171,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.add(infoPane, BorderLayout.EAST);
 
         //Packing
+        numPlayerBotMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        numPlayerBotMenu.pack();
         numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
         numPlayerMenu.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -154,7 +182,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
         //Display
         numPlayerMenu.setVisible(true);
-
+        numPlayerBotMenu.setVisible(false);
     }
 
     /**

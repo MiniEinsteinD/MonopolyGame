@@ -40,7 +40,7 @@ public class MonopolyTest {
      */
     @Test
     public void testState() {
-        monopoly.start(2);
+        monopoly.start(2, 0);
         //activePlayer is random at the start of the game so finagling is needed.
         if (monopoly.getActivePlayer().equals(players.get(0))){
             monopoly.state();
@@ -56,7 +56,7 @@ public class MonopolyTest {
      */
     @Test
     public void testBuy() {
-        monopoly.start(4);
+        monopoly.start(4, 0);
         monopoly.roll();
         String priorEventString = monopoly.getEventString();
         int wallet = monopoly.getActivePlayer().getWallet();
@@ -71,7 +71,7 @@ public class MonopolyTest {
      */
     @Test
     public void testRoll() {
-        monopoly.start(8);
+        monopoly.start(8, 0);
         int priorPosition = monopoly.getActivePlayer().getPosition();
         String priorEventString = monopoly.getEventString();
         monopoly.roll();
@@ -84,7 +84,7 @@ public class MonopolyTest {
      */
     @Test
     public void testBankrupt() {
-        monopoly.start(4);
+        monopoly.start(4, 0);
         int before = monopoly.getNumSolventPlayers();
         StringBuilder sb = new StringBuilder();
         monopoly.bankrupt(sb);

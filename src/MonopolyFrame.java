@@ -73,8 +73,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numBotPanel.setLayout(new GridLayout(3,3));
         numBotPanelText = new JLabel("How many of the players are bots?", SwingConstants.CENTER);
         numBotPanelText.setFont(stdFont);
-        numPlayerBotMenu.add(numPanelText,BorderLayout.NORTH);
-        numPlayerBotMenu.add(numPanel,BorderLayout.CENTER);
+        numPlayerBotMenu.add(numBotPanelText,BorderLayout.NORTH);
+        numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
+        numPlayerBotMenu.setVisible(false);
 
         AtomicInteger numPlayers = new AtomicInteger();
 

@@ -75,7 +75,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numBotPanelText.setFont(stdFont);
         numPlayerBotMenu.add(numBotPanelText,BorderLayout.NORTH);
         numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
-        numPlayerBotMenu.setVisible(false);
+
 
         AtomicInteger numPlayers = new AtomicInteger();
 
@@ -93,7 +93,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             numPanel.add(numButton);
         }
 
-        for (int i = Monopoly.MIN_PLAYERS; model.getNumSolventPlayers() >= i; i++) {
+        for (int i = Monopoly.MIN_PLAYERS; numPlayers.get() >= i; i++) {
             JButton numButton = new JButton();
             numButton.setText(Integer.toString(i));
             numButton.setSize(new Dimension(20, 20));
@@ -107,7 +107,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 }
             }));
             numButton.setBackground(Color.GRAY);
-            numPanel.add(numButton);
+            numBotPanel.add(numButton);
         }
 
 
@@ -177,6 +177,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.add(infoPane, BorderLayout.EAST);
 
         //Packing
+        numPlayerBotMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        numPlayerBotMenu.pack();
         numPlayerMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
         numPlayerMenu.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -186,7 +188,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         //Display
         numPlayerMenu.setVisible(true);
-
+        numPlayerBotMenu.setVisible(false);
     }
 
     /**

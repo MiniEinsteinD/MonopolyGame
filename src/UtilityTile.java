@@ -13,7 +13,8 @@ public class UtilityTile extends Tile{
         this.owned = false;
     }
 
-    //WIP: EVERY RAILROAD OWNED ON THE BOARD DOUBLES RENT FOR EVERY RR OWNED
+    //WIP: IF ONE UTILITY IS OWNED: 4 * DICEROLL
+    //IF BOTH UTILITIES OWNED: 10 * DICEROLL
     public int getPrice(){
 
     }

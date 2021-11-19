@@ -144,7 +144,7 @@ public class Player{
      * @return true if the player can afford the property price AND if the property is not owned [property sold successfully];
      *          else, the method returns false [issue with buying the property]
      */
-    public boolean buyProperty(StringBuilder sb, Property property) {
+    public boolean buyProperty(StringBuilder sb, Buyable property) {
         if(!property.isOwned() && this.wallet >= property.getPrice()) {
             this.properties.add(property);
             this.wallet = wallet - property.getPrice();

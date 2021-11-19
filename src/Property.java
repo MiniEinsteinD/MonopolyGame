@@ -13,12 +13,14 @@ public class Property extends Tile implements Buildable, Buyable{
     private final int PRICE;
     private boolean owned;
     protected static final double FINE_PERCENTAGE = 0.1;
+    private int devLevel;
 
 
     public Property(String name, int price, String group){
         super(name);
         this.PRICE = price;
         this.GROUP = group;
+        devLevel = 0;
     }
 
     /**
@@ -34,9 +36,15 @@ public class Property extends Tile implements Buildable, Buyable{
      * Get the owner of the property
      * @return the Player owner of the property
      */
-    @Override
+
     public Player getOwner(){
         return this.owner;
+    }
+
+
+    public void remOwner(){
+        this.owned = false;
+        this.owner = null;
     }
 
     /**
@@ -59,7 +67,6 @@ public class Property extends Tile implements Buildable, Buyable{
      * Get the property's group
      * @return the grouping that this property belongs to
      */
-    @Override
     public String getGroup(){
         return GROUP;
     }
@@ -77,6 +84,11 @@ public class Property extends Tile implements Buildable, Buyable{
                 getPrice() + "\nIt is a part of: " + getGroup() +" group");
         if (this.isOwned()){
             sb.append("\nOwned by: " + this.owner.getCOLOR() + "\n");
+            if (devLevel < 5){
+                sb.append("There are " + Integer.toString(devLevel) + " Houses built on this property!\n");
+            }else if (devLevel == 5){
+                sb.append("There is a Hotel built on this property!\n");
+            }
             sb.append("================================\n");
             return sb.toString();
         }
@@ -89,7 +101,6 @@ public class Property extends Tile implements Buildable, Buyable{
      * get the fine to be applied to a player
      * @return the int value of the rent
      */
-    @Override
     public int getFine() {
         return (int)(FINE_PERCENTAGE * PRICE);
     }
@@ -109,7 +120,6 @@ public class Property extends Tile implements Buildable, Buyable{
         }
         return false;
     }
-
 
     /**
      * Get Property object hashcode
@@ -137,23 +147,6 @@ public class Property extends Tile implements Buildable, Buyable{
         }
     }
 
-    /**
-     * Handle a player passing the tile when they move.
-     * Does nothing for a tile of type property.
-     * @param sb StringBuilder, stores the string to be displayed to the user.
-     * @param player Player, the player who landed on the tile.
-     */
-    @Override
-    public void passHandler(StringBuilder sb, Player player){
-
-    }
-
-    @Override
-    public void buyHandler(){
-
-    }
-
-    @Override
     public void buildHandler(){
 
     }

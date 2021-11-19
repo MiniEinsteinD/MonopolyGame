@@ -14,7 +14,6 @@ public class RailroadTile extends Tile implements Buyable{
         this.baseRent = 250;
     }
 
-
     public int getPrice(){
         return PRICE;
     }
@@ -23,6 +22,12 @@ public class RailroadTile extends Tile implements Buyable{
     public void setOwner(Player p) {
         this.owner = p;
         this.owned = true;
+    }
+
+
+    public void remOwner(){
+        this.owned = false;
+        this.owner = null;
     }
 
     public Player getOwner() {
@@ -34,17 +39,18 @@ public class RailroadTile extends Tile implements Buyable{
     }
 
 
-    @Override
+
     public String getGroup(){
         return GROUP;
     }
 
     //WIP: EVERY RAILROAD OWNED ON THE BOARD DOUBLES RENT FOR EVERY RR OWNED
-    @Override
+
     public int getFine(){
 
         int numRROwned = owner.checkPropertyInv(this);
         int rent = baseRent;
+
         if (numRROwned >= 2){
             rent = PRICE * 2;
         }
@@ -82,15 +88,5 @@ public class RailroadTile extends Tile implements Buyable{
         if (owned && !owner.equals(player)) {
             player.payFine(sb, this);
         }
-    }
-
-    @Override
-    public void passHandler(StringBuilder sb, Player player){
-
-    }
-
-    @Override
-    public void buyHandler(){
-
     }
 }

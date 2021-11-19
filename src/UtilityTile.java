@@ -23,28 +23,35 @@ public class UtilityTile extends Tile implements Buyable{
         this.owned = true;
     }
 
+
+    public void remOwner(){
+        this.owned = false;
+        this.owner = null;
+    }
+
+
     public Player getOwner() {
         return this.owner;
     }
+
 
     public boolean isOwned() {
         return owned;
     }
 
 
-    @Override
+
     public String getGroup(){
         return GROUP;
     }
 
-    //WIP: IF ONE UTILITY IS OWNED: 4 * DICEROLL
-    //IF BOTH UTILITIES OWNED: 10 * DICEROLL
-    @Override
+
+
     public int getFine(){
             if (owner.checkPropertyInv(this) > 1){
-                return ; //10 * DICEROLL
+                return 10 * Monopoly.lastRoll;
             }
-            return; //4 * DICEROLL
+            return 4 * Monopoly.lastRoll;
     }
 
     @Override
@@ -75,15 +82,6 @@ public class UtilityTile extends Tile implements Buyable{
         }
     }
 
-    @Override
-    public void passHandler(StringBuilder sb, Player player){
-
-    }
-
-    @Override
-    public void buyHandler(){
-
-    }
 
 
 }

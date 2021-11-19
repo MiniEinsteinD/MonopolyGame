@@ -1,4 +1,4 @@
-public class RailroadTile extends Tile {
+public class RailroadTile extends Tile implements Buyable{
 
     private Player owner;
     private final String GROUP;
@@ -12,7 +12,7 @@ public class RailroadTile extends Tile {
         this.owned = false;
     }
 
-    //WIP: EVERY RAILROAD OWNED ON THE BOARD DOUBLES RENT FOR EVERY RR OWNED
+
     public int getPrice(){
         return PRICE;
     }
@@ -36,6 +36,11 @@ public class RailroadTile extends Tile {
         return GROUP;
     }
 
+    //WIP: EVERY RAILROAD OWNED ON THE BOARD DOUBLES RENT FOR EVERY RR OWNED
+    @Override
+    public int getFine(){
+        return -1;
+    }
 
     @Override
     public String toString() {
@@ -66,6 +71,11 @@ public class RailroadTile extends Tile {
 
     @Override
     public void passHandler(StringBuilder sb, Player player){
+
+    }
+
+    @Override
+    public void buyHandler(){
 
     }
 }

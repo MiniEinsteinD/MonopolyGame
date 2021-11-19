@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Player{
     private final String ID;
     private int wallet = 5000;
-    private ArrayList<Property> properties;
+    private List<Buyable> properties;
     private int position;
     private final String COLOR;
     private Monopoly monopoly;
@@ -35,7 +35,7 @@ public class Player{
         this.COLOR = color;
         this.monopoly = monopoly;
 <<<<<<< HEAD
-        properties = new ArrayList<>();
+        properties = new ArrayList<Buyable>();
 =======
         this.type = Type.HUMAN;
 >>>>>>> dc69e63c2c56f1c3a24c3306a79010dd4d3795dd
@@ -128,7 +128,7 @@ public class Player{
             propertyDescription.append("\nYou do not own any properties yet") ;
         } else {
             propertyDescription.append("\nYou own the following properties: ") ;
-            for(Property p : properties) {
+            for(Buyable p : properties) {
                 propertyDescription.append(p.toString());
             }
         }
@@ -164,7 +164,7 @@ public class Player{
      * @return boolean, true if the player has enough money to play the fine to the property owner; [paying the fine successfully]
      *          else, return false [player losses the game since he has a negative balance]
      */
-    public boolean payFine(StringBuilder sb, Property property) {
+    public boolean payFine(StringBuilder sb, Buyable property) {
         Player owner = property.getOwner();
         int fine = property.getFine();
         if (wallet >= fine) {
@@ -211,15 +211,17 @@ public class Player{
         HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
 
         //store the colors of the properties' player owns
-        for (Property p:  properties ){
-            numOfSameColorOwned.put(p.getGroup(), numOfSameColorOwned.getOrDefault(p.getGroup(), 0) + 1);
-        }
-        if((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)){
-            canBuy = true;
-        }
-        else if(numOfSameColorOwned.containsValue(3)){
-            canBuy = true;
-        }
+        for (Buyable p:  properties ) {
+            if (p instanceof Buildable) {
+                    Property prop = (Property) p;
+                    numOfSameColorOwned.put(prop.getGroup(), numOfSameColorOwned.getOrDefault(prop.getGroup(), 0) + 1);
+                }
+            }
+            if ((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)) {
+                canBuy = true;
+            } else if (numOfSameColorOwned.containsValue(3)) {
+                canBuy = true;
+            }
         return canBuy;
     }
 

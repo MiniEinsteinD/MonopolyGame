@@ -1,4 +1,4 @@
-public class UtilityTile extends Tile{
+public class UtilityTile extends Tile implements Buyable{
 
     private Player owner;
     private final String GROUP;
@@ -13,10 +13,9 @@ public class UtilityTile extends Tile{
         this.owned = false;
     }
 
-    //WIP: IF ONE UTILITY IS OWNED: 4 * DICEROLL
-    //IF BOTH UTILITIES OWNED: 10 * DICEROLL
-    public int getPrice(){
 
+    public int getPrice(){
+        return this.PRICE;
     }
 
     public void setOwner(Player p) {
@@ -37,6 +36,12 @@ public class UtilityTile extends Tile{
         return GROUP;
     }
 
+    //WIP: IF ONE UTILITY IS OWNED: 4 * DICEROLL
+    //IF BOTH UTILITIES OWNED: 10 * DICEROLL
+    @Override
+    public int getFine(){
+            return -1;
+    }
 
     @Override
     public String toString() {
@@ -49,6 +54,7 @@ public class UtilityTile extends Tile{
             sb.append("================================\n");
             return sb.toString();
         }
+
         sb.append("\nThis property is not owned yet!\n");
         sb.append("================================\n");
         return sb.toString();
@@ -67,6 +73,11 @@ public class UtilityTile extends Tile{
 
     @Override
     public void passHandler(StringBuilder sb, Player player){
+
+    }
+
+    @Override
+    public void buyHandler(){
 
     }
 

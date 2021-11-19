@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author Ethan Houlahan 101145675, (M2 changes) Ethan Leir 101146422
  * @version 2.0
  */
-public class Property extends Tile{
+public class Property extends Tile implements Buildable, Buyable{
 
     private Player owner;
     private final String GROUP;
@@ -34,6 +34,7 @@ public class Property extends Tile{
      * Get the owner of the property
      * @return the Player owner of the property
      */
+    @Override
     public Player getOwner(){
         return this.owner;
     }
@@ -87,6 +88,7 @@ public class Property extends Tile{
      * get the fine to be applied to a player
      * @return the int value of the rent
      */
+    @Override
     public int getFine() {
         return (int)(FINE_PERCENTAGE * PRICE);
     }
@@ -144,4 +146,15 @@ public class Property extends Tile{
     public void passHandler(StringBuilder sb, Player player){
 
     }
+
+    @Override
+    public void buyHandler(){
+
+    }
+
+    @Override
+    public void buildHandler(){
+
+    }
+
 }

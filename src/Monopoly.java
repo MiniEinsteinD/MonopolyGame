@@ -22,7 +22,7 @@ public class Monopoly {
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
             "purple", "orange", "white", "black"));
     private ArrayList<MonopolyView> views;
-
+    protected static int lastRoll;
 
     /**
      * Constructs a Monopoly object.
@@ -187,6 +187,7 @@ public class Monopoly {
      */
     private void generateRoll(StringBuilder sb){
         dice.roll();
+        lastRoll = dice.dieSum();
         sb.append(String.format("You rolled %d with %s!\n",
                 dice.dieSum(),
                 dice.isDouble()? "doubles": "no doubles"

@@ -1,10 +1,20 @@
 public interface Buyable {
 
-    void buyHandler();
-
     int getFine();
 
     Player getOwner();
 
+    void setOwner(Player player);
+
+    boolean isOwned();
+
     String getGroup();
+
+
+
+    int getPrice();
+
+
+
+    void remOwner();
 }

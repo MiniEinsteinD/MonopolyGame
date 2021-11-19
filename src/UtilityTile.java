@@ -42,9 +42,9 @@ public class UtilityTile extends Tile implements Buyable{
     @Override
     public int getFine(){
             if (owner.checkPropertyInv(this) > 1){
-                return 10;
+                return ; //10 * DICEROLL
             }
-            return 4;
+            return; //4 * DICEROLL
     }
 
     @Override

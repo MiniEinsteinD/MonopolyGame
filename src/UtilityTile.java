@@ -32,7 +32,8 @@ public class UtilityTile extends Tile implements Buyable{
     }
 
 
-    public String getGroup() {
+    @Override
+    public String getGroup(){
         return GROUP;
     }
 
@@ -40,7 +41,10 @@ public class UtilityTile extends Tile implements Buyable{
     //IF BOTH UTILITIES OWNED: 10 * DICEROLL
     @Override
     public int getFine(){
-            return -1;
+            if (owner.checkPropertyInv(this) > 1){
+                return 10;
+            }
+            return 4;
     }
 
     @Override

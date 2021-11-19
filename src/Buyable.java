@@ -5,4 +5,6 @@ public interface Buyable {
     int getFine();
 
     Player getOwner();
+
+    String getGroup();
 }

@@ -59,6 +59,7 @@ public class Property extends Tile implements Buildable, Buyable{
      * Get the property's group
      * @return the grouping that this property belongs to
      */
+    @Override
     public String getGroup(){
         return GROUP;
     }

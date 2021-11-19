@@ -226,6 +226,21 @@ public class Player{
     }
 
     /**
+     * Get the number of properties with the same group as the passed Buyable tile
+     * @param buyable
+     * @return
+     */
+    public int checkPropertyInv(Buyable buyable) {
+        int counter = 0;
+        for (Buyable p : properties) {
+            if (p.getGroup().equals(buyable.getGroup())){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    /**
      * A method that compares two player instances
      * @param o, an object type variable.
      * @return true if both player's entire attributes are equal;

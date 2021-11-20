@@ -10,11 +10,7 @@ public interface Buyable {
 
     String getGroup();
 
-
-
     int getPrice();
-
-
 
     void remOwner();
 }

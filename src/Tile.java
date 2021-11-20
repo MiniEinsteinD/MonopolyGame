@@ -46,4 +46,12 @@ public abstract class Tile {
         );
     }
 
+    /**
+     * Handle a player passing the tile when they move.
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who passed the tile.
+     */
+    public void passHandler(StringBuilder sb, Player player){
+
+    }
 }

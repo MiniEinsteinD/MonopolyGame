@@ -204,7 +204,7 @@ public class Player{
 
     //has hard coded values, need to change
 
-    public boolean canBuyBuilding(){
+    public boolean canBuyBuilding(String group){
         boolean canBuy = false;
         ArrayList<String> colorsPlayerOwns = new ArrayList<>();
         ArrayList<String> uniqueColors = new ArrayList<>();

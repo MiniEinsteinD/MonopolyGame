@@ -3,9 +3,10 @@ import java.util.Objects;
 /**
  * The property object represents the property tiles that the players interact with in the game.
  *
- * @author Ethan Houlahan 101145675, (M2 changes) Ethan Leir 101146422
- * @version 2.0
+ * @author Ethan Houlahan 101145675, (M2 changes) Ethan Leir 101146422, (M3 changes)Ethan Houlahan 101145675
+ * @version 3.0
  */
+
 public class Property extends Tile implements Buildable, Buyable{
 
     private Player owner;
@@ -36,7 +37,6 @@ public class Property extends Tile implements Buildable, Buyable{
      * Get the owner of the property
      * @return the Player owner of the property
      */
-
     public Player getOwner(){
         return this.owner;
     }

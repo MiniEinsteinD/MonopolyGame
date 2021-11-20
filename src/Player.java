@@ -182,7 +182,6 @@ public class Player{
         if (wallet >= fine) {
             this.wallet = wallet - fine;
             owner.setWallet(owner.getWallet() + fine);
-
             sb.append("You paid a fine to the " + owner.getCOLOR() + " player.\n" );
             sb.append("New balance: " + wallet + "\n" );
             return true;
@@ -190,7 +189,6 @@ public class Player{
         else {
             this.wallet = wallet - fine;
             owner.setWallet(owner.getWallet() + fine);
-
             sb.append("You're bankrupt!\n");
             sb.append("The " + this.getCOLOR() + " player loses the game.\n");
             monopoly.bankrupt(sb);
@@ -214,7 +212,11 @@ public class Player{
         this.setPosition(distance);
     }
 
-    //has hard coded values, need to change
+    /**
+     * This method 
+     * @param group
+     * @return
+     */
 
     public ArrayList<String> canBuyBuilding(String group){
         ArrayList<String> colorsPlayerCanBuild = new ArrayList<>();
@@ -276,7 +278,6 @@ public class Player{
         Player player = (Player) o;
         return wallet == player.wallet && position == player.position && Objects.equals(ID, player.ID) && Objects.equals(properties, player.properties) && Objects.equals(COLOR, player.COLOR);
     }
-
 
     /**
      * A method that generates a hash code for each player instance.

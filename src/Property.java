@@ -14,6 +14,7 @@ public class Property extends Tile implements Buildable, Buyable{
     private final int PRICE;
     private boolean owned;
     protected static final double FINE_PERCENTAGE = 0.1;
+    protected static final int HOUSE_PRICE = 1000;
     private int devLevel;
 
 
@@ -72,6 +73,8 @@ public class Property extends Tile implements Buildable, Buyable{
     }
 
 
+
+
     /**
      * Get string version of the property object
      * @return String statement about a property tile
@@ -102,7 +105,12 @@ public class Property extends Tile implements Buildable, Buyable{
      * @return the int value of the rent
      */
     public int getFine() {
-        return (int)(FINE_PERCENTAGE * PRICE);
+        if(devLevel == 0){
+            return (int)(FINE_PERCENTAGE * PRICE);
+        }
+        else {
+            return (int)(FINE_PERCENTAGE * (PRICE + (HOUSE_PRICE*devLevel)));
+        }
     }
 
     /**
@@ -148,6 +156,7 @@ public class Property extends Tile implements Buildable, Buyable{
     }
 
     public void buildHandler(){
+
 
     }
 

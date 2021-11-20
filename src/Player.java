@@ -154,6 +154,20 @@ public class Player{
         return false;
     }
 
+    //need to change DANIAH
+    public boolean buildHouse(StringBuilder sb, Buyable property) {
+        if(property.isOwned() && this.wallet >= property.getPrice()) {
+            this.properties.add(property);
+            this.wallet = wallet - property.getPrice();
+            property.setOwner(this);
+            sb.append("You successfully bought the property!\n");
+            sb.append(String.format("New balance: %d\n", wallet));
+            return true;
+        }
+        sb.append("Purchase failed. Are you sure you can afford it and no one owns it already?\n");
+        return false;
+    }
+
     /**
      * A method where the player pays a fine to the property owner if he is standing on other player's property
      * @param sb, stores the string to be displayed to the user.
@@ -161,6 +175,7 @@ public class Player{
      * @return boolean, true if the player has enough money to play the fine to the property owner; [paying the fine successfully]
      *          else, return false [player losses the game since he has a negative balance]
      */
+
     public boolean payFine(StringBuilder sb, Buyable property) {
         Player owner = property.getOwner();
         int fine = property.getFine();
@@ -201,12 +216,9 @@ public class Player{
 
     //has hard coded values, need to change
 
-    public boolean canBuyBuilding(String group){
-        boolean canBuy = false;
-        ArrayList<String> colorsPlayerOwns = new ArrayList<>();
-        ArrayList<String> uniqueColors = new ArrayList<>();
+    public ArrayList<String> canBuyBuilding(String group){
+        ArrayList<String> colorsPlayerCanBuild = new ArrayList<>();
         HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
-
         //store the colors of the properties' player owns
         for (Buyable p:  properties ) {
             if (p instanceof Buildable) {
@@ -214,12 +226,16 @@ public class Player{
                     numOfSameColorOwned.put(prop.getGroup(), numOfSameColorOwned.getOrDefault(prop.getGroup(), 0) + 1);
                 }
             }
+        for(String color: colorsPlayerCanBuild){
+
             if ((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)) {
-                canBuy = true;
+                colorsPlayerCanBuild.add(color);
+
             } else if (numOfSameColorOwned.containsValue(3)) {
-                canBuy = true;
+                colorsPlayerCanBuild.add(color);
             }
-        return canBuy;
+        }
+        return colorsPlayerCanBuild;
     }
 
     /**

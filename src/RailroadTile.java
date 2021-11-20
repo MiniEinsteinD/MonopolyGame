@@ -22,22 +22,36 @@ public class RailroadTile extends Tile implements Buyable{
         this.baseRent = 250;
     }
 
+    /**
+     * Get price of tile
+     * @return int price of tile
+     */
     public int getPrice(){
         return PRICE;
     }
 
 
+    /**
+     * Set owner of tile after purchase.
+     * @param p the player purchasing the property
+     */
     public void setOwner(Player p) {
         this.owner = p;
         this.owned = true;
     }
 
-
+    /**
+     * Remove the owner from the property
+     */
     public void remOwner(){
         this.owned = false;
         this.owner = null;
     }
 
+    /**
+     * Get the owner of the property
+     * @return the Player owner of the property
+     */
     public Player getOwner() {
         return this.owner;
     }
@@ -100,6 +114,11 @@ public class RailroadTile extends Tile implements Buyable{
         return sb.toString();
     }
 
+    /**
+     * Dictates the operation that occurs when a player lands on this tile
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who landed on the tile.
+     */
     @Override
     public void landHandler(StringBuilder sb, Player player) {
         sb.append(
@@ -111,6 +130,11 @@ public class RailroadTile extends Tile implements Buyable{
         }
     }
 
+    /**
+     * check if this object is equal to another object
+     * @param o, object to be compared
+     * @return boolean equality value
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -119,6 +143,10 @@ public class RailroadTile extends Tile implements Buyable{
         return PRICE == that.PRICE && baseRent == that.baseRent && owned == that.owned && Objects.equals(owner, that.owner) && Objects.equals(GROUP, that.GROUP);
     }
 
+    /**
+     * get the hashcode of the object
+     * @return int hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(owner, GROUP, PRICE, baseRent, owned);

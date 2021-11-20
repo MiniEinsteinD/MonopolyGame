@@ -1,9 +1,21 @@
+
+/**
+ * The GO tile is the starting tile for all the players
+ * @author Ethan Houlahan
+ * St# 101145675
+ * @version 1.0
+ */
 public class GoTile extends Tile{
 
     public GoTile(){
         super("GO");
     }
 
+    /**
+     * dictates the action taken when a player lands on this tile
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who landed on the tile.
+     */
     @Override
     public void landHandler(StringBuilder sb, Player player) {
         sb.append(
@@ -11,6 +23,11 @@ public class GoTile extends Tile{
         );
     }
 
+    /**
+     * dictates what happens when a player passes this tile
+     * @param sb StringBuilder, stores the string to be displayed to the user.
+     * @param player Player, the player who passed the tile.
+     */
     @Override
     public void passHandler(StringBuilder sb, Player player){
         player.setWallet(player.getWallet() + 200);

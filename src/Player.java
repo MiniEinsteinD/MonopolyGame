@@ -34,11 +34,8 @@ public class Player{
         this.ID = id;
         this.COLOR = color;
         this.monopoly = monopoly;
-<<<<<<< HEAD
         properties = new ArrayList<Buyable>();
-=======
         this.type = Type.HUMAN;
->>>>>>> dc69e63c2c56f1c3a24c3306a79010dd4d3795dd
     }
 
     /**
@@ -196,7 +193,7 @@ public class Player{
     public void movePlayer(StringBuilder sb, int steps, ArrayList<Tile> tiles){
         int distance = (position + steps) % tiles.size();
         for (int i = 1; i <= steps; i++) {
-            tiles.get((i + position) % tiles.size()).passHandler(sb, this);
+            tiles.get((i + position) % tiles.size()).passHandler(sb,this);
         }
         tiles.get(distance).landHandler(sb, this);
         this.setPosition(distance);
@@ -241,6 +238,16 @@ public class Player{
     }
 
     /**
+     * Remove ownership of tiles when bankrupt
+     */
+    public void returnPropertiesOnBankrupt(){
+        for (Buyable b: properties){
+            b.remOwner();
+            properties.remove(b);
+        }
+    }
+
+    /**
      * A method that compares two player instances
      * @param o, an object type variable.
      * @return true if both player's entire attributes are equal;
@@ -263,4 +270,6 @@ public class Player{
     public int hashCode() {
         return Objects.hash(ID, wallet, properties, position, COLOR);
     }
+
+
 }

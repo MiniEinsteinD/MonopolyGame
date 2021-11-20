@@ -46,7 +46,7 @@ public class PlayerBot {
         try {
             TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {
-            System.out.println("Interrupted while sleeping.");
+            e.printStackTrace();
         }
     }
 }

@@ -1,4 +1,5 @@
 public interface Buildable {
-
-    void buildHandler();
+    void buildHandler(StringBuilder sb);
+    String  getGroup();
+    int getDevLevel();
 }

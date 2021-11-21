@@ -25,7 +25,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JButton buyButton;
     private JButton passButton;
     private JButton playerOverviewButton;
+    private JButton buildButton;
     private JButton helpButton;
+
 
 
     private JLabel walletStateText;
@@ -98,7 +100,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                     numBotButton.setBackground(Color.GRAY);
                     numBotPanel.add(numBotButton);
                 }
-
                 numPlayerBotMenu.setVisible(true);
             }));
             numButton.setBackground(Color.GRAY);
@@ -109,6 +110,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         MonopolyController helpCont = new HelpController(model);
         MonopolyController buyCont = new BuyController(model);
         MonopolyController passCont = new PassController(model);
+        MonopolyController buildCont = new BuildController(model);
         MonopolyController stateCont = new PlayerStateController(model);
 
         //Button Initialization
@@ -120,6 +122,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         passButton.addActionListener(passCont);
         playerOverviewButton = new JButton("View Player Portfolio");
         playerOverviewButton.addActionListener(stateCont);
+        buildButton = new JButton("View Available Tile To Build");
+        buildButton.addActionListener(buildCont);
         helpButton = new JButton("Help");
         helpButton.addActionListener(helpCont);
 
@@ -162,6 +166,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         infoPane.add(buyButton);
         infoPane.add(playerOverviewButton);
         infoPane.add(passButton);
+        infoPane.add(buildButton);
         infoPane.add(helpButton);
 
         boardPane.add(boardMap, BorderLayout.CENTER);
@@ -251,7 +256,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     }
 
     public static void main(String[] args) {
-
         new MonopolyFrame();
     }
 

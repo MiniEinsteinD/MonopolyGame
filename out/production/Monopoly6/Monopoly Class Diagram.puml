@@ -1,0 +1,230 @@
+@startuml Monopoly Class Diagram
+
+title Monopoly Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide circle
+
+abstract class Tile {
+    - NAME: String
+    + Tile(tName: String)
+    + getName(): String
+    + passHandler(sb: StringBuilder, player: Player): void
+    + landHandler(sb: StringBuilder, player: Player): void
+    + toString(): String
+}
+
+class TwoDice {
+    - firstRoll: int
+    - secondRoll: int
+    + TwoDice()
+    + isDouble(): boolean
+    + dieSum(): int
+    + roll(): void
+}
+
+class Player {
+    - ID: String
+    - wallet: int
+    - properties: ArrayList<Buyable>
+    - position: int
+    - COLOR: String
+    - monopoly: Monopoly
+    # Type {HUMAN, BOT}: enum
+    - type: Type
+    + Player(id: String, color: String, monopoly: Monopoly)
+    + Player(id: String, color: String, monopoly: Monopoly, type: Type)
+    + getType(): Type
+    + getColor(): String
+    + getPosition(): int
+    + setPosition(position: int): void
+    + getWallet(): int
+    + setWallet(wallet: int): void
+    + buyProperty(sb: StringBuilder, property: Property): boolean
+    + payFine(sb: StringBuilder, property: Property): boolean
+    + movePlayer(sb: StringBuilder, steps: int, tiles: ArrayList<Tile>): void
+    + toString(): String
+    + equals(o: Object): boolean
+    + hashCode(): int
+}
+
+class Monopoly {
+    - TILES: ArrayList<Tile>
+    - activePlayer: Player
+    - players: ArrayList<Player>
+    - dice: TwoDice
+    - running: boolean
+    - numSolventPlayers: int
+    - eventString: String
+    - moved: boolean
+    - activePlayerIndex: int
+    # <u>MIN_PLAYERS: int</u>
+    # <u>MAX_PLAYERS: int</u>
+    - <u>COLORS: ArrayList<String></u>
+    - views: ArrayList<MonopolyView>
+    + Monopoly()
+    + addView(mv: MonopolyView): void
+    + removeView(mv: MonopolyView): void
+    + getEventString(): String
+    + playerMoveNeeded(): boolean
+    + isRunning: boolean
+    + getPlayers(): ArrayList<Player>
+    + getNumSolventPlayers: int
+    + getActivePlayer(): Player
+    + getTILES(): ArrayList<Tile>
+    + start(numPlayers: int, numBots: int): void
+    + state(): void
+    + buy(): void
+    + roll(): void
+    - generateRoll(sb: StringBuilder): void
+    - move(sb: StringBuilder): void
+    + bankrupt(sb: StringBuilder): void
+    + passTurn(): void
+    - notifyViews(): void
+    + help(): void
+    - handleBotActions(): void
+}
+
+class Property {
+    - owner: Player
+    - GROUP: String
+    - PRICE: int
+    - owned: boolean
+    # <u>FINE_PERCENTAGE: double</u>
+    + Property(group: String, name: String, price: int)
+    + setOwner(p: Player): void
+    + getOwner(): Player
+    + isOwned(): boolean
+    + getPrice(): int
+    + getGroup(): String
+    + getFine(): int
+    + toString(): String
+    + equals(o: Object): boolean
+    + hashCode(): int
+    + passHandler(sb: StringBuilder, player: Player): void
+    + landHandler(sb: StringBuilder, player: Player): void
+}
+
+abstract class MonopolyController {
+    - model: Monopoly
+    + MonopolyController(model: Monopoly)
+}
+
+class PlayerStateController {
+    + PlayerStateController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class PassController {
+    + PassController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class BuyController {
+    + BuyController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class HelpController {
+    + HelpController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class RollController {
+    + RollController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class MonopolyFrame {
+    - numPlayerMenu: JFrame
+    - numPanelText: JLabel
+    - numPanel: JPanel
+    - rollButton: JButton
+    - buyButton: JButton
+    - passButton: JButton
+    - playerOverviewButton: JButton
+    - helpButton: JButton
+    - walletStateText: JLabel
+    - activePlayerText: JLabel
+    - boardMap: JLabel
+    - boardPane: JPanel
+    - infoPane: JPanel
+    + MonopolyFrame()
+    + handleMonopolyUpdate(e: MonopolyEvent): void
+    + <u>main(args: String[]): void</u>
+}
+
+class MonopolyView <<Interface>> {
+    + handleMonopolyUpdate(e: MonopolyEvent): void
+}
+
+class Buildable <<Interface>> {
+}
+
+class Building <<Interface>> {
+}
+
+class Buyable <<Interface>> {
+}
+
+class House {
+}
+
+class Hotel {
+}
+
+class Go {
+}
+
+class Jail {
+}
+
+class GoToJail {
+}
+
+class RailRoad {
+}
+
+class Utility {
+}
+
+class PlayerBot {
+    - <u>MIN_WALLET: int</u>
+    + <u>selectActions(SelectActionsEvent sae): void</u>
+}
+
+class SelectActionsEvent {
+    - player: Player
+    + SelectActionsEvent(monopoly: Monopoly, player: Player)
+    + getPlayer(): Player
+}
+
+Monopoly --o Player
+PassController --|> MonopolyController
+BuyController --|> MonopolyController
+HelpController --|> MonopolyController
+PlayerStateController --|> MonopolyController
+RollController --|> MonopolyController
+MonopolyFrame --|> MonopolyView
+MonopolyView --o Monopoly
+MonopolyController o-- Monopoly
+
+House --|> Building
+Hotel --|> Building
+
+Go --|> Tile
+Jail --|> Tile
+GoToJail --|> Tile
+RailRoad --|> Buyable
+Property --|> Buyable
+RailRoad --|> Tile
+Property --|> Tile
+Utility --|> Tile
+Utility --|> Buyable
+
+Property --|> Buildable
+
+Player o-- Buyable
+
+@enduml

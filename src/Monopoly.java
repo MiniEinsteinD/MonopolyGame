@@ -62,6 +62,8 @@ public class Monopoly {
         views = new ArrayList<MonopolyView>();
     }
 
+
+
     /**
      * Adds a MonopolyView to the list of views.
      * @param mv MonopolyView, the view to be added.
@@ -308,5 +310,14 @@ public class Monopoly {
         if (activePlayer.getType() == Player.Type.BOT) {
             PlayerBot.selectActions(new SelectActionsEvent(this, activePlayer));
         }
+    }
+
+
+    public void build(Buildable buildable) {
+        activePlayer.listOfValidBuildables();
+        StringBuilder sb = new StringBuilder();
+        buildable.buildHandler(sb);
+        eventString = sb.toString();
+        notifyViews();
     }
 }

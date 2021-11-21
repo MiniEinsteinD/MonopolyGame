@@ -16,10 +16,11 @@ import java.util.Objects;
 public class Player{
     private final String ID;
     private int wallet = 5000;
-    private List<Buyable> properties;
+    private List<Buyable> buyables;
     private int position;
     private final String COLOR;
     private Monopoly monopoly;
+    private ArrayList<Buildable> buildables;
     protected enum Type {HUMAN, BOT}
     private Type type;
 
@@ -34,8 +35,9 @@ public class Player{
         this.ID = id;
         this.COLOR = color;
         this.monopoly = monopoly;
-        properties = new ArrayList<Buyable>();
+        this.buyables = new ArrayList<Buyable>();
         this.type = Type.HUMAN;
+        this.buildables = new ArrayList<>();
     }
 
     /**
@@ -50,6 +52,8 @@ public class Player{
         this.COLOR = color;
         this.monopoly = monopoly;
         this.type = type;
+        this.buyables = new ArrayList<>();
+        this.buildables = new ArrayList<>();
     }
 
     /**
@@ -96,6 +100,14 @@ public class Player{
         return wallet;
     }
 
+    public ArrayList<Buildable> getBuildables() {
+        return buildables;
+    }
+
+    public List<Buyable> getBuyables() {
+        return buyables;
+    }
+
     /**
      * A setter of the player's balance
      * @param wallet int value that represents the player balance
@@ -121,11 +133,11 @@ public class Player{
     @Override
     public String toString() {
         StringBuilder propertyDescription= new StringBuilder();
-        if(properties.isEmpty()) {
+        if(buyables.isEmpty()) {
             propertyDescription.append("\nYou do not own any properties yet") ;
         } else {
             propertyDescription.append("\nYou own the following properties: ") ;
-            for(Buyable p : properties) {
+            for(Buyable p : buyables) {
                 propertyDescription.append(p.toString());
             }
         }
@@ -143,7 +155,10 @@ public class Player{
      */
     public boolean buyProperty(StringBuilder sb, Buyable property) {
         if(!property.isOwned() && this.wallet >= property.getPrice()) {
-            this.properties.add(property);
+            if (property instanceof Buildable){
+                buildables.add( (Buildable) property);
+            }
+            this.buyables.add(property);
             this.wallet = wallet - property.getPrice();
             property.setOwner(this);
             sb.append("You successfully bought the property!\n");
@@ -157,7 +172,7 @@ public class Player{
     //need to change DANIAH
     public boolean buildHouse(StringBuilder sb, Buyable property) {
         if(property.isOwned() && this.wallet >= property.getPrice()) {
-            this.properties.add(property);
+            this.buyables.add(property);
             this.wallet = wallet - property.getPrice();
             property.setOwner(this);
             sb.append("You successfully bought the property!\n");
@@ -220,26 +235,37 @@ public class Player{
      * (Daniah Mohammed, #101145902)
      */
 
-    public ArrayList<String> canBuyBuilding(){
+    public ArrayList<String> getGroupsCanBeBuilt(){
         ArrayList<String> colorsPlayerCanBuild = new ArrayList<>();
         HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
         //store the colors of the properties' player owns
-        for (Buyable p:  properties ) {
+        for (Buyable p: buyables) {
             if (p instanceof Buildable) {
-                    Property prop = (Property) p;
+                    Buildable prop = (Buildable) p;
                     numOfSameColorOwned.put(prop.getGroup(), numOfSameColorOwned.getOrDefault(prop.getGroup(), 0) + 1);
-                }
             }
-        for(String color: colorsPlayerCanBuild){
+        }
 
+        for(String color: colorsPlayerCanBuild){
             if ((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)) {
                 colorsPlayerCanBuild.add(color);
-
             } else if (numOfSameColorOwned.containsValue(3)) {
                 colorsPlayerCanBuild.add(color);
             }
         }
         return colorsPlayerCanBuild;
+    }
+
+
+    public ArrayList<Buildable> listOfValidBuildables(){
+        ArrayList<Buildable> list = new ArrayList<>();
+        ArrayList<String> validColors = this.getGroupsCanBeBuilt();
+        for(Buildable b: buildables){
+            if(validColors.contains(b.getGroup())){
+                list.add(b);
+            }
+        }
+        return list;
     }
 
     /**
@@ -249,7 +275,7 @@ public class Player{
      */
     public int checkPropertyInv(Buyable buyable) {
         int counter = 0;
-        for (Buyable p : properties) {
+        for (Buyable p : buyables) {
             if (p.getGroup().equals(buyable.getGroup())){
                 counter++;
             }
@@ -261,9 +287,9 @@ public class Player{
      * Remove ownership of tiles when bankrupt
      */
     public void returnPropertiesOnBankrupt(){
-        for (Buyable b: properties){
+        for (Buyable b: buyables){
             b.remOwner();
-            properties.remove(b);
+            buyables.remove(b);
         }
     }
 
@@ -278,7 +304,7 @@ public class Player{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return wallet == player.wallet && position == player.position && Objects.equals(ID, player.ID) && Objects.equals(properties, player.properties) && Objects.equals(COLOR, player.COLOR);
+        return wallet == player.wallet && position == player.position && Objects.equals(ID, player.ID) && Objects.equals(buyables, player.buyables) && Objects.equals(COLOR, player.COLOR);
     }
 
     /**
@@ -287,7 +313,7 @@ public class Player{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(ID, wallet, properties, position, COLOR);
+        return Objects.hash(ID, wallet, buyables, position, COLOR);
     }
 
 

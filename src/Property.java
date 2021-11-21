@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,10 @@ public class Property extends Tile implements Buildable, Buyable{
     public void remOwner(){
         this.owned = false;
         this.owner = null;
+    }
+
+    public int getDevLevel() {
+        return devLevel;
     }
 
     /**
@@ -155,8 +160,27 @@ public class Property extends Tile implements Buildable, Buyable{
         }
     }
 
-    public void buildHandler(){
 
+    public void buildHandler(StringBuilder sb){
+        ArrayList<String> colorsCanBeBuild = owner.getGroupsCanBeBuilt();
+        if(colorsCanBeBuild.contains(GROUP)){
+            Boolean canBeBuilt = false;
+            Boolean isEqualDevlevel = true;
+            for(Buildable p: owner.getBuildables()){
+                if(GROUP.equals(p.getGroup()) && devLevel < p.getDevLevel()){
+                    canBeBuilt = true;
+                }
+                else if(GROUP.equals(p.getGroup()) && devLevel != p.getDevLevel() && isEqualDevlevel){
+                    isEqualDevlevel = false;
+                }
+            }
+            if(canBeBuilt == true || isEqualDevlevel == true){
+                devLevel++;
+            }
+            else {
+                sb.append("Failed building on this tile");
+            }
+        }
 
     }
 

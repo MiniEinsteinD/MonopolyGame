@@ -1,4 +1,4 @@
-(Daniah Mohammed st#101145902 + Umniyah Mohammed st#101158792)
+()
 
 This is the second deliverable for milestone #2 of the Monopoly Project. The changes made to previous version will be included in a separte file called "ChangeLogs.txt".
 

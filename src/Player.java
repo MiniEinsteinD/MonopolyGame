@@ -213,12 +213,14 @@ public class Player{
     }
 
     /**
-     * This method 
-     * @param group
-     * @return
+     * This method checks if the player owns all the properties with the same colors
+     * in order to build a building.
+     * @return ArrayList of the tile colors that the player entirely owns
+     *
+     * (Daniah Mohammed, #101145902)
      */
 
-    public ArrayList<String> canBuyBuilding(String group){
+    public ArrayList<String> canBuyBuilding(){
         ArrayList<String> colorsPlayerCanBuild = new ArrayList<>();
         HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
         //store the colors of the properties' player owns

@@ -168,8 +168,6 @@ class MonopolyView <<Interface>> {
 }
 
 class Buildable <<Interface>> {
-        - houses: ArrayList<House>
-        - hotel: Hotel
 
 }
 
@@ -189,10 +187,45 @@ class Jail {
 class GoToJail {
 }
 
-class RailRoad {
+class RailroadTile {
+    -owner: Player
+    -GROUP: String
+    -PRICE: int
+    -BASERENT: int
+    -owned: boolean
+    + RailroadTile(name:String,startingPrice:int)
+    +getPrice():int
+    +setOwner(p: Player):void
+    +remOwner():void
+    +getOwner():Player
+    +isOwned():boolean
+    +getGroup():String
+    +getFine():int
+    +toString():String
+    +landHandler(sb: StringBuilder,player: Player):void
+    +equals():boolean
+    +hashCode():int
+
 }
 
-class Utility {
+class UtilityTile {
+    -owner: Player
+    -GROUP: String
+    -PRICE: int
+    -owned: boolean
+
+    + UtilityTile(name:String,startingPrice:int)
+    +getPrice():int
+    +setOwner(p: Player):void
+    +remOwner():void
+    +getOwner():Player
+    +isOwned():boolean
+    +getGroup():String
+    +getFine():int
+    +toString():String
+    +landHandler(sb: StringBuilder,player: Player):void
+    +equals():boolean
+    +hashCode():int
 }
 
 class PlayerBot {
@@ -225,10 +258,10 @@ Jail --|> Tile
 GoToJail --|> Tile
 RailRoad --|> Buyable
 Property --|> Buyable
-RailRoad --|> Tile
+RailroadTile --|> Tile
 Property --|> Tile
-Utility --|> Tile
-Utility --|> Buyable
+UtilityTile --|> Tile
+UtilityTile --|> Buyable
 
 Property --|> Buildable
 

@@ -20,10 +20,11 @@ public class GoToJail extends Tile{
         sb.append(
                 "You are now at tile:\n" + this + "\n"
         );
-        player.setPosition(10);
+
         if(player.getPosition() == 30){
             player.setLandedOnGoToJail(true);
+            player.setPosition(10);
         }
-    }
 
+    }
 }

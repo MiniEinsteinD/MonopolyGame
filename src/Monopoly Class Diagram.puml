@@ -252,7 +252,8 @@ class SelectActionsEvent {
 }
 
 Monopoly --o Player
-Monopoly --o Tile
+Monopoly o-- Player
+Monopoly o-- Tile
 PassController --|> MonopolyController
 BuyController --|> MonopolyController
 HelpController --|> MonopolyController
@@ -268,14 +269,14 @@ Hotel --|> Building
 GoTile --|> Tile
 Jail --|> Tile
 GoToJail --|> Tile
-RailRoad --|> Buyable
-Property --|> Buyable
+RailroadTile --> Buyable
 RailroadTile --|> Tile
 Property --|> Tile
 UtilityTile --|> Tile
-UtilityTile --|> Buyable
+UtilityTile --> Buyable
 
-Property --|> Buildable
+Property --> Buildable
+Property --> Buyable
 
 Player --o UtilityTile
 Player --o RailroadTile

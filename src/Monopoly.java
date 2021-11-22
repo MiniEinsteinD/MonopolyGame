@@ -65,8 +65,6 @@ public class Monopoly {
         views = new ArrayList<MonopolyView>();
     }
 
-
-
     /**
      * Adds a MonopolyView to the list of views.
      * @param mv MonopolyView, the view to be added.
@@ -81,6 +79,14 @@ public class Monopoly {
      */
     public void removeView(MonopolyView mv){
         views.remove(mv);
+    }
+
+    /**
+     * A getter method to get the last roll value
+     * @return last roll value rep using int
+     */
+    public static int getLastRoll() {
+        return lastRoll;
     }
 
     /**
@@ -190,7 +196,7 @@ public class Monopoly {
      * Rolls two dice and prints the outcome.
      * @param sb StringBuilder, stores the string to be displayed to the user.
      */
-    private void generateRoll(StringBuilder sb){
+    public void generateRoll(StringBuilder sb){
         dice.roll();
         lastRoll = dice.dieSum();
         sb.append(String.format("You rolled %d with %s!\n",
@@ -205,6 +211,7 @@ public class Monopoly {
      */
     public void bankrupt(StringBuilder sb){
         numSolventPlayers--;
+        activePlayer.returnPropertiesOnBankrupt();
 
         if (numSolventPlayers == 1){
             running = false;

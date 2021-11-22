@@ -165,16 +165,16 @@ public class Property extends Tile implements Buildable, Buyable{
         ArrayList<String> colorsCanBeBuild = owner.getGroupsCanBeBuilt();
         if(colorsCanBeBuild.contains(GROUP)){
             Boolean canBeBuilt = false;
-            Boolean isEqualDevlevel = true;
+            Boolean isEqualDevLevel = true;
             for(Buildable p: owner.getBuildables()){
                 if(GROUP.equals(p.getGroup()) && devLevel < p.getDevLevel()){
                     canBeBuilt = true;
                 }
-                else if(GROUP.equals(p.getGroup()) && devLevel != p.getDevLevel() && isEqualDevlevel){
-                    isEqualDevlevel = false;
+                else if(GROUP.equals(p.getGroup()) && devLevel != p.getDevLevel() && isEqualDevLevel){
+                    isEqualDevLevel = false;
                 }
             }
-            if(canBeBuilt == true || isEqualDevlevel == true){
+            if(canBeBuilt == true || isEqualDevLevel == true){
                 devLevel++;
             }
             else {

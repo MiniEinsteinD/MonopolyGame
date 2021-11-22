@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 /**
  * This class tests Monopoly class
- * @author Umniyah Mohammed (101158792)
- * @version 1.0
+ * @author (Umniyah Mohammed (101158792) - M2); (Daniah Mohammed - 101145902 - M3)
+ * @version 2.0
  */
 public class MonopolyTest {
 
@@ -93,4 +93,33 @@ public class MonopolyTest {
         assertEquals(before - 1, monopoly.getNumSolventPlayers());
     }
 
+    @Test
+    public void isRunning() {
+        assertEquals(false, monopoly.isRunning());
+    }
+
+    @Test
+    public void playerMoveNeeded() {
+        monopoly.start(2, 0);
+        assertEquals(true,monopoly.playerMoveNeeded());
+
+        monopoly.passTurn();
+        assertEquals(true,monopoly.playerMoveNeeded());
+    }
+
+    @Test
+    public void passTurn() {
+    }
+
+    @Test
+    public void help() {
+    }
+
+    @Test
+    public void start() {
+    }
+
+    @Test
+    public void build() {
+    }
 }

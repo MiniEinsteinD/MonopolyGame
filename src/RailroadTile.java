@@ -79,17 +79,9 @@ public class RailroadTile extends Tile implements Buyable{
      * @return int fine to pay
      */
     public int getFine(){
-        int numRROwned = owner.checkPropertyInv(this);
         int rent = baseRent;
-
-        if (numRROwned >= 2){
-            rent = PRICE * 2;
-        }
-        if (numRROwned >= 3){
-            rent = PRICE * 2;
-        }
-        if (numRROwned == 4){
-            rent = PRICE * 2;
+        for (int numRROwned = owner.checkPropertyInv(this); numRROwned > 1; numRROwned-- ){
+            rent = rent * 2;
         }
         return rent;
     }

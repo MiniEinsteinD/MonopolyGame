@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -25,7 +26,7 @@ public class UtilityTileTest{
     public void init(){
         tiles = new ArrayList<>();
         utilityTile = new UtilityTile("1", 100);
-        p1 = new Player("1", "red", new Monopoly());
+        p1 = new Player("1", "red", Color.RED, new Monopoly());
         tiles.add(utilityTile);
         sb = new StringBuilder();
         monopoly = new Monopoly();

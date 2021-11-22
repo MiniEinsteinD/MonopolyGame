@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 /**
  * Testing GoTile class
@@ -15,7 +17,7 @@ public class GoTileTest {
     @Before
     public void init(){
         go = new GoTile();
-        p = new Player("1", "red", new Monopoly());
+        p = new Player("1", "red", Color.RED, new Monopoly());
         sb = new StringBuilder();
     }
 

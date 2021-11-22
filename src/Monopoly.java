@@ -321,7 +321,6 @@ public class Monopoly {
 
 
     public void build(Buildable buildable) {
-        activePlayer.listOfValidBuildables();
         StringBuilder sb = new StringBuilder();
         buildable.buildHandler(sb);
         eventString = sb.toString();

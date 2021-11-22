@@ -193,6 +193,7 @@ class Utility {
 
 class PlayerBot {
     - <u>MIN_WALLET: int</u>
+    - <u>DELAY_TIME: int</u>
     + <u>selectActions(SelectActionsEvent sae): void</u>
 }
 

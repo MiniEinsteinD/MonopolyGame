@@ -1,0 +1,87 @@
+@startuml Monopoly Build Sequence Diagram
+
+title Monopoly Build Sequence Diagram\nAuthor: Ethan Leir\nStudent #:101146422
+
+hide footbox
+skinparam monochrome true
+
+actor User as User
+participant "<u>mf:MonopolyFrame" as mf
+participant "<u>bc:BuildController" as bc
+participant "<u>m:Monopoly" as m
+participant "<u>ap:Player" as ap
+participant "<u>:Buildable" as b
+participant "<u>p1:Property" as p1
+participant "<u>sbtc1:SetBuildableTilesController" as sbtc
+
+activate User
+User -> mf: Select build button
+activate mf
+
+mf -> bc: actionPerformed(e: ActionEvent)
+activate bc
+
+bc -> m: getActivePlayer()
+activate m
+m --> bc: ap
+deactivate m
+bc -> ap: listOfValidBuildables()
+activate ap
+ap -> ap: getGroupsCanBeBuilt()
+ap -> b: getGroup()
+activate b
+b --> ap
+deactivate b
+ap --> bc
+deactivate ap
+bc -> sbtc ** : create
+
+bc --> mf
+deactivate bc
+mf --> User
+deactivate mf
+
+User -> bc: Select Property 1
+activate bc
+bc -> sbtc: actionPerformed(e: ActionEvent)
+activate sbtc
+
+sbtc -> m: build(p1)
+activate m
+m -> p1: buildHandler(new StringBuilder())
+activate p1
+
+p1 -> ap: getGroupsCanBeBuilt()
+activate ap
+ap --> p1
+deactivate ap
+p1 -> ap: getBuildables()
+activate ap
+ap --> p1
+deactivate ap
+p1 -> b: getGroup()
+activate b
+b --> p1
+deactivate b
+p1 -> b: getDevLevel()
+activate b
+b --> p1
+deactivate b
+
+p1 --> m
+deactivate p1
+m -> m: notifyViews()
+m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
+activate mf
+mf --> m
+deactivate mf
+m --> sbtc
+deactivate m
+
+sbtc --> bc
+deactivate sbtc
+
+bc --> User
+deactivate bc
+
+@enduml

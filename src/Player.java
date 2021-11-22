@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ public class Player{
     private List<Buyable> buyables;
     private int position;
     private final String COLOR;
+    private final Color COLORCODE;
     private Monopoly monopoly;
     private ArrayList<Buildable> buildables;
     protected enum Type {HUMAN, BOT}
@@ -31,9 +33,10 @@ public class Player{
      * @param color, a constant string that represents the player color.
      * @param monopoly, the game of monopoly the player is in.
      */
-    public Player(String id, String color, Monopoly monopoly) {
+    public Player(String id, String color, Color colorCode, Monopoly monopoly) {
         this.ID = id;
         this.COLOR = color;
+        this.COLORCODE = colorCode;
         this.monopoly = monopoly;
         this.buyables = new ArrayList<Buyable>();
         this.type = Type.HUMAN;
@@ -47,13 +50,22 @@ public class Player{
      * @param monopoly, the game of monopoly the player is in.
      * @param type, the type of player (human or bot).
      */
-    public Player(String id, String color, Monopoly monopoly, Type type) {
+    public Player(String id, String color, Color colorCode, Monopoly monopoly, Type type) {
         this.ID = id;
         this.COLOR = color;
+        this.COLORCODE = colorCode;
         this.monopoly = monopoly;
         this.type = type;
         this.buyables = new ArrayList<>();
         this.buildables = new ArrayList<>();
+    }
+
+    /**
+     * A getter for the Color class representation of the player's color.
+     * @return the player's color.
+     */
+    public Color getCOLORCODE() {
+        return COLORCODE;
     }
 
     /**

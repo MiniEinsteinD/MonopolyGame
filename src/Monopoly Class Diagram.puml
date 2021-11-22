@@ -30,13 +30,15 @@ class Player {
     - properties: ArrayList<Buyable>
     - position: int
     - COLOR: String
+    - COLORCODE: Color
     - monopoly: Monopoly
     # Type {HUMAN, BOT}: enum
     - type: Type
-    + Player(id: String, color: String, monopoly: Monopoly)
-    + Player(id: String, color: String, monopoly: Monopoly, type: Type)
+    + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly)
+    + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly, type: Type)
+    + getCOLORCODE(): Color
     + getType(): Type
-    + getColor(): String
+    + getCOLOR(): String
     + getPosition(): int
     + setPosition(position: int): void
     + getWallet(): int
@@ -62,6 +64,7 @@ class Monopoly {
     # <u>MIN_PLAYERS: int</u>
     # <u>MAX_PLAYERS: int</u>
     - <u>COLORS: ArrayList<String></u>
+    - <u>COLORCODES: ArrayList<Color></u>
     - views: ArrayList<MonopolyView>
     + Monopoly()
     + addView(mv: MonopolyView): void
@@ -155,6 +158,7 @@ class MonopolyFrame {
     - boardPane: JPanel
     - infoPane: JPanel
     + MonopolyFrame()
+    - makeForegroundColor(focus: Color): Color
     + handleMonopolyUpdate(e: MonopolyEvent): void
     + <u>main(args: String[]): void</u>
 }

@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -21,9 +22,9 @@ public class PlayerTest {
 
     @Before
     public void init(){
-        p1 = new Player("1", "red", new Monopoly());
-        p2 = new Player("2", "green", new Monopoly());
-        p3 = new Player("1", "red", new Monopoly());
+        p1 = new Player("1", "red", Color.RED, new Monopoly());
+        p2 = new Player("2", "green", Color.GREEN, new Monopoly());
+        p3 = new Player("1", "red", Color.RED, new Monopoly());
         b1 = new Property("Hi", 20, "Greetings");
         b2 = new Property("Hi", 1000000, "Greetings");
         tiles.add(new Property("A", 20, "No"));

@@ -1,5 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 /**
@@ -18,7 +21,7 @@ public class PropertyTest {
     @Before
     public void init() {
         property = new Property("A", 50, "b");
-        player = new Player("1", "red", new Monopoly());
+        player = new Player("1", "red", Color.RED, new Monopoly());
     }
 
     /**

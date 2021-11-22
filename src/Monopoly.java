@@ -1,6 +1,7 @@
 /* Monopoly class */
 /* Ethan Leir 101146422 */
 import java.util.*;
+import java.awt.Color;
 
 /**
  * A class to set up and play a game of Monopoly.
@@ -21,6 +22,8 @@ public class Monopoly {
     protected static final int MAX_PLAYERS = 8;
     private static final ArrayList<String> COLORS = new ArrayList<>(Arrays.asList("red", "green", "blue", "yellow",
             "purple", "orange", "white", "black"));
+    private static final ArrayList<Color> COLORCODES = new ArrayList<Color>(Arrays.asList(Color.RED, Color.GREEN,
+        Color.BLUE, Color.YELLOW, new Color(128, 0, 128), Color.ORANGE, Color.WHITE, Color.BLACK));
     private ArrayList<MonopolyView> views;
     protected static int lastRoll;
 
@@ -172,7 +175,7 @@ public class Monopoly {
      */
     public void roll(){
         StringBuilder sb= new StringBuilder();
-        if (!moved || dice.isDouble()) {
+        if (playerMoveNeeded()) {
             generateRoll(sb);
             move(sb);
             moved = true;
@@ -285,10 +288,12 @@ public class Monopoly {
         for (int i = 0; i < numPlayers; i++){
             if (i < numPlayers - numBots){
                 sb.append(COLORS.get(i) + " ");
-                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this, Player.Type.HUMAN));
+                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), COLORCODES.get(i),
+                        this, Player.Type.HUMAN));
             }
             else {
-                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), this, Player.Type.BOT));
+                players.add(new Player(String.valueOf(i + 1), COLORS.get(i), COLORCODES.get(i),
+                        this, Player.Type.BOT));
             }
         }
         activePlayer = players.get(activePlayerIndex);

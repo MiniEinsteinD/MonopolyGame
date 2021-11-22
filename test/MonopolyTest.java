@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +18,10 @@ public class MonopolyTest {
     @Before
     public void init() {
         players = new ArrayList<>();
-        players.add(new Player("1", "red", monopoly));
-        players.add(new Player("2", "green", monopoly));
-        players.add(new Player("3", "blue", monopoly));
-        players.add(new Player("4", "yellow", monopoly));
+        players.add(new Player("1", "red", Color.RED, monopoly));
+        players.add(new Player("2", "green", Color.GREEN, monopoly));
+        players.add(new Player("3", "blue", Color.BLUE, monopoly));
+        players.add(new Player("4", "yellow", Color.YELLOW, monopoly));
         monopoly = new Monopoly();
     }
 

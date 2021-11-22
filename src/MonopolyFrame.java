@@ -191,6 +191,21 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     }
 
     /**
+     * Creates and returns the foreground color based on the brightness of the focus.
+     * @param focus Color, the Color of center element of the screen.
+     * @return Color,   white if the brightness of the focus is less than half,
+     *
+     */
+    private Color makeForegroundColor(Color focus) {
+        int red = focus.getRed();
+        int green = focus.getGreen();
+        int blue = focus.getBlue();
+        double brightness = ((0.21 * (double) red) + (0.72 * (double) green) + (0.07 * (double) blue)) / 255.0;
+
+        return (brightness > 0.5) ? Color.BLACK : Color.WHITE;
+    }
+
+    /**
      * Handle an information update received from the model.
      * @param e, a monopoly event
      */
@@ -208,50 +223,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
 
-        switch (e.getActivePlayer().getCOLOR()){
-            case "red":
-                infoPane.setBackground(Color.red);
-                activePlayerText.setForeground(Color.white);
-                walletStateText.setForeground(Color.white);
-                break;
-            case "blue":
-                infoPane.setBackground(Color.blue);
-                activePlayerText.setForeground(Color.white);
-                walletStateText.setForeground(Color.white);
-                break;
-            case "yellow":
-                infoPane.setBackground(Color.yellow);
-                activePlayerText.setForeground(Color.black);
-                walletStateText.setForeground(Color.black);
-                break;
-            case "green":
-                infoPane.setBackground(Color.green);
-                activePlayerText.setForeground(Color.black);
-                walletStateText.setForeground(Color.black);
-                break;
-            case "purple":
-                infoPane.setBackground(Color.MAGENTA);
-                activePlayerText.setForeground(Color.white);
-                walletStateText.setForeground(Color.white);
-                break;
-            case "orange":
-                infoPane.setBackground(Color.orange);
-                activePlayerText.setForeground(Color.black);
-                walletStateText.setForeground(Color.black);
-                break;
-            case "white":
-                infoPane.setBackground(Color.white);
-                activePlayerText.setForeground(Color.black);
-                walletStateText.setForeground(Color.black);
-                break;
-            case "black":
-                infoPane.setBackground(Color.DARK_GRAY);
-                activePlayerText.setForeground(Color.white);
-                walletStateText.setForeground(Color.white);
-                break;
-            default:
-                break;
-        }
+        Color foregroundColor = makeForegroundColor(e.getActivePlayer().getCOLORCODE());
+
+        infoPane.setBackground(e.getActivePlayer().getCOLORCODE());
+        activePlayerText.setForeground(foregroundColor);
+        walletStateText.setForeground(foregroundColor);
+
         JOptionPane.showMessageDialog(this,model.getEventString(),"Action Log",1);
     }
 

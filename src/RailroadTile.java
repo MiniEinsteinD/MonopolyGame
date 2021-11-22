@@ -11,7 +11,7 @@ public class RailroadTile extends Tile implements Buyable{
     private Player owner;
     private final String GROUP;
     private final int PRICE;
-    private final int BASERENT;
+    private final int BASERENT = 250;
     private boolean owned;
 
     public RailroadTile(String name, int startingPrice) {
@@ -19,7 +19,6 @@ public class RailroadTile extends Tile implements Buyable{
         this.PRICE = startingPrice;
         this.GROUP = "Railroad";
         this.owned = false;
-        this.BASERENT = 250;
     }
 
     /**

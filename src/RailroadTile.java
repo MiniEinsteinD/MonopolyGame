@@ -131,7 +131,7 @@ public class RailroadTile extends Tile implements Buyable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RailroadTile that = (RailroadTile) o;
-        return PRICE == that.PRICE && BASERENT == that.BASERENT && owned == that.owned && Objects.equals(owner, that.owner) && Objects.equals(GROUP, that.GROUP);
+        return PRICE == that.PRICE && owned == that.owned && Objects.equals(owner, that.owner) && Objects.equals(GROUP, that.GROUP);
     }
 
     /**

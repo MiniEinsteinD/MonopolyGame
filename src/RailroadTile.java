@@ -11,7 +11,7 @@ public class RailroadTile extends Tile implements Buyable{
     private Player owner;
     private final String GROUP;
     private final int PRICE;
-    private final int baseRent;
+    private final int BASERENT;
     private boolean owned;
 
     public RailroadTile(String name, int startingPrice) {
@@ -19,7 +19,7 @@ public class RailroadTile extends Tile implements Buyable{
         this.PRICE = startingPrice;
         this.GROUP = "Railroad";
         this.owned = false;
-        this.baseRent = 250;
+        this.BASERENT = 250;
     }
 
     /**
@@ -79,7 +79,7 @@ public class RailroadTile extends Tile implements Buyable{
      * @return int fine to pay
      */
     public int getFine(){
-        int rent = baseRent;
+        int rent = BASERENT;
         for (int numRROwned = owner.checkPropertyInv(this); numRROwned > 1; numRROwned-- ){
             rent = rent * 2;
         }
@@ -132,7 +132,7 @@ public class RailroadTile extends Tile implements Buyable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RailroadTile that = (RailroadTile) o;
-        return PRICE == that.PRICE && baseRent == that.baseRent && owned == that.owned && Objects.equals(owner, that.owner) && Objects.equals(GROUP, that.GROUP);
+        return PRICE == that.PRICE && BASERENT == that.BASERENT && owned == that.owned && Objects.equals(owner, that.owner) && Objects.equals(GROUP, that.GROUP);
     }
 
     /**
@@ -141,6 +141,6 @@ public class RailroadTile extends Tile implements Buyable{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(owner, GROUP, PRICE, baseRent, owned);
+        return Objects.hash(owner, GROUP, PRICE, BASERENT, owned);
     }
 }

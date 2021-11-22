@@ -21,6 +21,9 @@ public class GoToJail extends Tile{
                 "You are now at tile:\n" + this + "\n"
         );
         player.setPosition(10);
+        if(player.getPosition() == 30){
+            player.setLandedOnGoToJail(true);
+        }
     }
 
 }

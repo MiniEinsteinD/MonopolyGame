@@ -23,6 +23,7 @@ public class Player{
     private ArrayList<Buildable> buildables;
     protected enum Type {HUMAN, BOT}
     private Type type;
+    private boolean LandedOnGoToJail;
 
 
     /**
@@ -38,6 +39,7 @@ public class Player{
         this.buyables = new ArrayList<Buyable>();
         this.type = Type.HUMAN;
         this.buildables = new ArrayList<>();
+        this.LandedOnGoToJail = false;
     }
 
     /**
@@ -54,6 +56,7 @@ public class Player{
         this.type = type;
         this.buyables = new ArrayList<>();
         this.buildables = new ArrayList<>();
+        this.LandedOnGoToJail = false;
     }
 
     /**
@@ -122,6 +125,23 @@ public class Player{
      * @return  true if the player is bankrupt,
      *          false if the player isn't bankrupt.
      */
+
+    /**
+     * This is a getter for the method LandedOnGoToJail
+     * @return LandedOnGoToJail, boolean value
+     */
+    public boolean getLandedOnGoToJail(){
+        return this.LandedOnGoToJail;
+    }
+
+    /**
+     * This is a setter for the method LandedOnGoToJail
+     * @param b, boolean value set to the LandedOnGoToJail
+     */
+    public void setLandedOnGoToJail(boolean b){
+        this.LandedOnGoToJail = b;
+    }
+
     public boolean isBankrupt() {
         return wallet < 0;
     }

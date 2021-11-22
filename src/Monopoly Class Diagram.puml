@@ -186,7 +186,10 @@ interface Buyable <<Interface>> {
 
 
 
-class Go {
+class GoTile {
+    +GoTile():
+    + landHandler(sb: StringBuilder,player: Player): void
+    + passHandler(sb: StringBuilder,player: Player): void
 }
 
 class Jail {
@@ -249,6 +252,7 @@ class SelectActionsEvent {
 }
 
 Monopoly --o Player
+Monopoly --o Tile
 PassController --|> MonopolyController
 BuyController --|> MonopolyController
 HelpController --|> MonopolyController
@@ -261,7 +265,7 @@ MonopolyController o-- Monopoly
 House --|> Building
 Hotel --|> Building
 
-Go --|> Tile
+GoTile --|> Tile
 Jail --|> Tile
 GoToJail --|> Tile
 RailRoad --|> Buyable
@@ -273,6 +277,9 @@ UtilityTile --|> Buyable
 
 Property --|> Buildable
 
+Player --o UtilityTile
+Player --o RailroadTile
+Player --o Property
 Player o-- Buyable
 
 @enduml

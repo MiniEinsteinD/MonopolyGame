@@ -100,6 +100,7 @@ class Property {
 
     + Property(group: String, name: String, price: int)
     + setOwner(p: Player): void
+    + remOwner(): void
     + getOwner(): Player
     + isOwned(): boolean
     + getPrice(): int
@@ -167,13 +168,20 @@ class MonopolyView <<Interface>> {
     + handleMonopolyUpdate(e: MonopolyEvent): void
 }
 
-class Buildable <<Interface>> {
+interface Buildable <<Interface>> {
 
 }
 
 
 
-class Buyable <<Interface>> {
+interface Buyable <<Interface>> {
+       + getFine(): int
+       +getOwner(): Player
+       +setOwner(player: Player): void
+       +isOwned(): boolean
+       +getGroup(): String
+       +getPrice(): int
+       +remOwner(): void
 }
 
 

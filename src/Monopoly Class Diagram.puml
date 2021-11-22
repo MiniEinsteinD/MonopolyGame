@@ -259,7 +259,8 @@ BuyController --|> MonopolyController
 HelpController --|> MonopolyController
 PlayerStateController --|> MonopolyController
 RollController --|> MonopolyController
-MonopolyFrame --|> MonopolyView
+JFrame --|> MonopolyFrame
+MonopolyFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
 
@@ -278,9 +279,6 @@ UtilityTile --> Buyable
 Property --> Buildable
 Property --> Buyable
 
-Player --o UtilityTile
-Player --o RailroadTile
-Player --o Property
 Player o-- Buyable
 
 @enduml

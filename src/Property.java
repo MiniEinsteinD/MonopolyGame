@@ -44,11 +44,18 @@ public class Property extends Tile implements Buildable, Buyable{
     }
 
 
+    /**
+     * Remove the ownership of a property
+     */
     public void remOwner(){
         this.owned = false;
         this.owner = null;
     }
 
+    /**
+     * get the development level of a property
+     * @return int devLevel
+     */
     public int getDevLevel() {
         return devLevel;
     }

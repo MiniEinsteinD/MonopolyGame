@@ -6,7 +6,8 @@
  * @version 1.0
  */
 public class GoTile extends Tile{
-    final static String goName = "GO";
+    private static final  String goName = "GO";
+
     public GoTile(){
         super(goName);
     }

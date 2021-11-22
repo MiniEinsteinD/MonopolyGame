@@ -187,6 +187,7 @@ interface Buyable <<Interface>> {
 
 
 class GoTile {
+    -<u> GONAME: String </u>
     +GoTile():
     + landHandler(sb: StringBuilder,player: Player): void
     + passHandler(sb: StringBuilder,player: Player): void

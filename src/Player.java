@@ -169,19 +169,7 @@ public class Player{
         return false;
     }
 
-    //need to change DANIAH
-    public boolean buildHouse(StringBuilder sb, Buyable property) {
-        if(property.isOwned() && this.wallet >= property.getPrice()) {
-            this.buyables.add(property);
-            this.wallet = wallet - property.getPrice();
-            property.setOwner(this);
-            sb.append("You successfully bought the property!\n");
-            sb.append(String.format("New balance: %d\n", wallet));
-            return true;
-        }
-        sb.append("Purchase failed. Are you sure you can afford it and no one owns it already?\n");
-        return false;
-    }
+
 
     /**
      * A method where the player pays a fine to the property owner if he is standing on other player's property
@@ -194,21 +182,25 @@ public class Player{
     public boolean payFine(StringBuilder sb, Buyable property) {
         Player owner = property.getOwner();
         int fine = property.getFine();
-        if (wallet >= fine) {
-            this.wallet = wallet - fine;
-            owner.setWallet(owner.getWallet() + fine);
-            sb.append("You paid a fine to the " + owner.getCOLOR() + " player.\n" );
-            sb.append("New balance: " + wallet + "\n" );
-            return true;
+        if(property.isOwned()){
+            if (wallet >= fine ) {
+                this.wallet = wallet - fine;
+                owner.setWallet(owner.getWallet() + fine);
+                sb.append("You paid a fine to the " + owner.getCOLOR() + " player.\n" );
+                sb.append("New balance: " + wallet + "\n" );
+                return true;
+            }
+            else {
+                this.wallet = wallet - fine;
+                owner.setWallet(owner.getWallet() + fine);
+                sb.append("You're bankrupt!\n");
+                sb.append("The " + this.getCOLOR() + " player loses the game.\n");
+                monopoly.bankrupt(sb);
+                return false;
+            }
         }
-        else {
-            this.wallet = wallet - fine;
-            owner.setWallet(owner.getWallet() + fine);
-            sb.append("You're bankrupt!\n");
-            sb.append("The " + this.getCOLOR() + " player loses the game.\n");
-            monopoly.bankrupt(sb);
-            return false;
-        }
+        return false;
+
     }
 
     /**
@@ -231,22 +223,19 @@ public class Player{
      * This method checks if the player owns all the properties with the same colors
      * in order to build a building.
      * @return ArrayList of the tile colors that the player entirely owns
-     *
      * (Daniah Mohammed, #101145902)
      */
 
     public ArrayList<String> getGroupsCanBeBuilt(){
         ArrayList<String> colorsPlayerCanBuild = new ArrayList<>();
         HashMap<String, Integer> numOfSameColorOwned = new HashMap<>();
-        //store the colors of the properties' player owns
-        for (Buyable p: buyables) {
-            if (p instanceof Buildable) {
-                    Buildable prop = (Buildable) p;
-                    numOfSameColorOwned.put(prop.getGroup(), numOfSameColorOwned.getOrDefault(prop.getGroup(), 0) + 1);
-            }
+
+        //store the colors of the properties' player owns and their count (How many property of the same color the player owns)
+        for (Buildable p: buildables) {
+            numOfSameColorOwned.put(p.getGroup(), numOfSameColorOwned.getOrDefault(p.getGroup(), 0) + 1);
         }
 
-        for(String color: colorsPlayerCanBuild){
+        for(String color: numOfSameColorOwned.keySet()){
             if ((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)) {
                 colorsPlayerCanBuild.add(color);
             } else if (numOfSameColorOwned.containsValue(3)) {
@@ -256,6 +245,11 @@ public class Player{
         return colorsPlayerCanBuild;
     }
 
+    /**
+     * A method that returns a list of buildable properties that the player owns
+     * @return ArrayList<Buildable> buildable properties that the player owns
+     * Daniah Mohammed (101145902)
+     */
 
     public ArrayList<Buildable> listOfValidBuildables(){
         ArrayList<Buildable> list = new ArrayList<>();
@@ -269,8 +263,19 @@ public class Player{
     }
 
     /**
+     * Remove ownership of tiles when bankrupt
+     */
+    public void returnPropertiesOnBankrupt(){
+        for (Buyable b: buyables){
+            b.remOwner();
+        }
+        buildables.clear();
+        buyables.clear();
+    }
+
+    /**
      * Get the number of properties with the same group as the passed Buyable tile
-     * @param buyable
+     * @param buyable attribute
      * @return
      */
     public int checkPropertyInv(Buyable buyable) {
@@ -281,16 +286,6 @@ public class Player{
             }
         }
         return counter;
-    }
-
-    /**
-     * Remove ownership of tiles when bankrupt
-     */
-    public void returnPropertiesOnBankrupt(){
-        for (Buyable b: buyables){
-            b.remOwner();
-            buyables.remove(b);
-        }
     }
 
     /**

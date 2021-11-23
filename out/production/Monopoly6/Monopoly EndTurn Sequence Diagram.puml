@@ -30,6 +30,11 @@ activate ap
 ap --> m: wallet
 deactivate ap
 
+m -> ap: getColor()
+activate ap
+ap --> m: COLOR
+deactivate ap
+
 m -> m: notifyViews()
 m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
 mf --> m

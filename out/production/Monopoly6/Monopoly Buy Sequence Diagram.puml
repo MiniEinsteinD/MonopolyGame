@@ -1,11 +1,59 @@
-@startuml
-'https://plantuml.com/sequence-diagram
+@startuml Monopoly Buy Sequence Diagram
 
-autonumber
+title Monopoly Buy Sequence Diagram\nAuthor: Umniyah Mohammed \nStudent #:101158792
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+hide footbox
+skinparam monochrome true
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+actor User as User
+participant "<u>mf:MonopolyFrame" as mf
+participant "<u>bc:BuyController" as bc
+participant "<u>m:Monopoly" as m
+participant "<u>ap:Player" as ap
+participant "<u>p:Property" as p
+participant "<u>b:Buyable" as b
+
+activate User
+
+User -> mf: Select Buy button
+activate mf
+
+mf -> bc: actionPerformed(e: ActionEvent)
+activate bc
+
+bc -> m: buy()
+activate m
+
+m -> ap: getPosition()
+activate ap
+ap --> m: position
+
+ap -> p: buyProperty()
+activate p
+
+p -> b: getDevLevel()
+activate b
+b --> p
+deactivate b
+
+p -> p: isOwned()
+
+p --> ap
+ap --> m
+deactivate ap
+deactivate p
+
+m -> m: notifyViews()
+
+m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
+mf --> m
+m --> bc
+deactivate m
+
+bc --> mf
+deactivate bc
+
+mf --> User
+deactivate mf
+
 @enduml

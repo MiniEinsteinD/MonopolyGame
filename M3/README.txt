@@ -10,8 +10,8 @@ between the members of the group.
 Description:
 ------------
 Our program is a GUI-based version of Monopoly.
-The controllers available include choosing the number of players, displaying the state of the active player, allowing players to 
-buy properties, roll, ask for help, and pass turns.
+The controllers available include choosing the number of players, displaying the state of the active player, allowing
+players to buy properties, roll, ask for help, and pass turns.
 Events such as landing on a property that is already owned by another player, the bankruptcy
 of a player, etc. are displayed when needed.
 

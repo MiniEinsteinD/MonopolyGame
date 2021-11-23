@@ -7,12 +7,17 @@ Project
 
 Monopoly
 ---------
-    - Changing generateRoll method from private to pub;ick for testing purposes. 
+    - Changing generateRoll method from private to public for testing purposes. 
 
 Player
 ------
     - 
-
+PlayerBot
+----------
+    - Player AI implemented in its own class because it has the behaviour of a controller (with the key difference
+    that Monopoly is calling its methods and they are not a response to user input).
+    - Methods and attributes are static because its behaviour does not depend on information specific to a particular
+    Player (that can't be accessed from the Player with getters and setters).
 
 RailroadTile
 --------------

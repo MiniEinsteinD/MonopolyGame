@@ -22,11 +22,13 @@ activate mf
 mf -> bc: actionPerformed(e: ActionEvent)
 activate bc
 
-bc -> m: getActivePlayer()
+bc -> sbtf ** : create
+activate sbtf
+sbtf -> m: getActivePlayer()
 activate m
-m --> bc: ap
+m --> sbtf: ap
 deactivate m
-bc -> ap: listOfValidBuildables()
+sbtf -> ap: listOfValidBuildables()
 activate ap
 ap -> ap: getGroupsCanBeBuilt()
 ap -> b: getGroup()
@@ -37,10 +39,8 @@ ap -> m: getNumBuildablesInGroup(group)
 activate m
 m --> ap
 deactivate m
-ap --> bc
+ap --> sbtf
 deactivate ap
-bc -> sbtf ** : create
-activate sbtf
 sbtf -> sbtc ** : create
 deactivate sbtf
 

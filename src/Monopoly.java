@@ -32,28 +32,28 @@ public class Monopoly {
      */
     public Monopoly(){
         TILES = new ArrayList<>(Arrays.asList(
-                new Property("Mediteranean Avenue",1600,"Brown"),
-                new Property("Baltic Avenue",1600,"Brown"),
-                new Property("Oriental Avenue",1000,"Light Blue"),
-                new Property("Vermont Avenue",1000,"Light Blue"),
-                new Property("Connecticut Avenue",1200,"Light Blue"),
-                new Property("St. Charles Place",1400,"Pink"),
-                new Property("States Avenue",1400,"Pink"),
-                new Property("Virginia Avenue",1400,"Pink"),
-                new Property("St. James Place",1800,"Orange"),
-                new Property("Tennessee Avenue",1800,"Orange"),
-                new Property("NY Avenue",2000,"Orange"),
-                new Property("Kentucky Avenue",2200,"Red"),
-                new Property("Indian Avenue",2200,"Red"),
-                new Property("Illinois Avenue",2200,"Red"),
-                new Property("Atlantic Avenue",1600,"Yellow"),
-                new Property("Ventnor Avenue",1600,"Yellow"),
-                new Property("Marvin Avenue",1800,"Yellow"),
-                new Property("Pacific Avenue",1300,"Green"),
-                new Property("North Carolina Avenue",1600,"Green"),
-                new Property("Pennsylvania Avenue",1200,"Green"),
-                new Property("Park Place",1300,"Purple"),
-                new Property("Boardwalk",1400,"Purple")
+                new Property("Dunton Tower",60,"Brown"),
+                new Property("Jack's Truss",60,"Brown"),
+                new Property("Tokyo-1",100,"Light Blue"),
+                new Property("Tokyo-2",100,"Light Blue"),
+                new Property("Tokyo-3",120,"Light Blue"),
+                new Property("Lavina Crescent",140,"Pink"),
+                new Property("Banner Road",140,"Pink"),
+                new Property("Bronson Avenue",160,"Pink"),
+                new Property("Mondstadt",180,"Orange"),
+                new Property("Liyue",180,"Orange"),
+                new Property("Inazuma",200,"Orange"),
+                new Property("East Blue",220,"Red"),
+                new Property("West Blue",220,"Red"),
+                new Property("Grand Line",240,"Red"),
+                new Property("North Blue",260,"Yellow"),
+                new Property("South Blue",260,"Yellow"),
+                new Property("Red Line",280,"Yellow"),
+                new Property("Umniyah Crescent",300,"Green"),
+                new Property("Daniah Road",300,"Green"),
+                new Property("Ethan Avenue",320,"Green"),
+                new Property("Howling Abyss",350,"Purple"),
+                new Property("Summoner's Rift",400,"Purple")
         ));
         activePlayer = null;
         players = new ArrayList<>();
@@ -296,6 +296,7 @@ public class Monopoly {
         sb.append("View Player Portfolio: Displays the player's name, wallet, position and properties owned by the player\n");
         sb.append("Buy Property: Active player attempts to buy the property they are standing on. Does not work if you don't have " +
                 "enough money, or the property is already owned.\n");
+        sb.append("View Available Tile To Build: Displays the available tiles the active player can build on. Must own all properties in a group before building.\n");
         sb.append("End turn: Passes the active player's turn to the next solvent player. Must roll first! \n");
 
         eventString = sb.toString();

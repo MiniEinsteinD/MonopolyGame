@@ -213,9 +213,17 @@ class GoTile {
 }
 
 class Jail {
+    -Group: String
+    -twoDice: TwoDice
+    +Jail(String name, TwoDice twoDice):void
+    +getGroup(): String
+    +toString():String
+    +landHandler(StringBuilder sb, Player player): void
 }
 
 class GoToJail {
+    +GoToJail()
+    +landHandler(StringBuilder sb, Player player): void
 }
 
 class RailroadTile {
@@ -281,7 +289,7 @@ HelpController --|> MonopolyController
 PlayerStateController --|> MonopolyController
 RollController --|> MonopolyController
 JFrame --|> MonopolyFrame
-MonopolyFrame --|> MonopolyView
+MonopolyFrame --> MonopolyView
 SetBuildableTilesFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
@@ -294,10 +302,10 @@ RailroadTile --> Buyable
 RailroadTile --|> Tile
 Property --|> Tile
 UtilityTile --|> Tile
-UtilityTile --|> Buyable
+UtilityTile --> Buyable
 
-Property --|> Buildable
-Property --|> Buyable
+Property --> Buildable
+Property --> Buyable
 
 Player o-- Buyable
 

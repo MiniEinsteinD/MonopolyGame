@@ -25,9 +25,9 @@ public class PlayerBot {
 
             Tile tileAtPosition = tiles.get(sae.getPlayer().getPosition());
             if (
-                    tileAtPosition instanceof Property
-                            && !((Property) tileAtPosition).isOwned()
-                            && sae.getPlayer().getWallet() - ((Property) tileAtPosition).getPrice() >= MIN_WALLET
+                    tileAtPosition instanceof Buyable
+                            && !((Buyable) tileAtPosition).isOwned()
+                            && sae.getPlayer().getWallet() - ((Buyable) tileAtPosition).getPrice() >= MIN_WALLET
             ) {
                 sleep(DELAY_TIME);
                 monopoly.buy();

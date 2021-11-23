@@ -1,0 +1,162 @@
+@startuml Monopoly Roll Sequence Diagram
+
+title Monopoly Roll Sequence Diagram\nAuthor: Ethan Leir\nStudent #:101146422
+
+hide footbox
+skinparam monochrome true
+
+actor User as User
+participant "<u>mf:MonopolyFrame" as mf
+participant "<u>rc:RollController" as rc
+participant "<u>m:Monopoly" as m
+participant "<u>td:TwoDice" as td
+participant "<u>owner:Player" as owner
+participant "<u>ap:Player" as ap
+participant "<u>:GoTile" as g
+participant "<u>:Buyable" as b
+participant "<u>:GoToJail" as gtj
+participant "<u>:Jail" as j
+
+activate User
+User -> mf: Select roll button
+activate mf
+
+mf -> rc: actionPerformed(e: ActionEvent)
+activate rc
+
+rc -> m: roll()
+activate m
+
+
+m -> m: playerMoveNeeded()
+m -> m: generateRoll(sb: StringBuilder())
+m -> td: roll()
+activate td
+td --> m
+deactivate td
+m -> td: dieSum()
+activate td
+td --> m: lastRoll
+deactivate td
+m -> td: isDoubles()
+activate td
+td --> m
+deactivate td
+
+m -> m: move(sb)
+m -> td: dieSum()
+activate td
+td --> m: sum
+deactivate td
+m -> ap: movePlayer(sb, sum, TILES)
+activate ap
+
+loop i <= sum
+alt tiles.get((i + position) % tiles.size()) instanceof GoTile
+
+ap -> g: passHandler(sb, this)
+activate g
+g -> ap: getWallet()
+ap --> g: wallet
+g -> ap: setWallet(wallet + 200)
+ap --> g
+g --> ap
+deactivate g
+
+else tiles.get((i + position) % tiles.size()) instanceof Buyable
+
+ap -> b: passHandler(sb, this)
+activate b
+b --> ap
+deactivate b
+
+else tiles.get((i + position) % tiles.size()) instanceof GoToJail
+
+ap -> gtj: passHandler(sb, this)
+activate gtj
+gtj --> ap
+deactivate gtj
+
+else tiles.get((i + position) % tiles.size()) instanceof Jail
+
+ap -> j: passHandler(sb, this)
+activate j
+j --> ap
+deactivate j
+
+end
+end
+
+alt tiles.get(distance) instanceof GoTile
+
+ap -> g: landHandler(sb, this)
+activate g
+g --> ap
+deactivate g
+
+else tiles.get(distance) instanceof Buyable
+
+ap -> b: landHandler(sb, this)
+activate b
+b -> ap: equals(player)
+ap --> b
+b -> ap: payFine(sb, this)
+ap -> b: getOwner()
+b --> ap: owner
+ap -> b: getFine()
+b --> ap: fine
+ap -> owner: getWallet()
+activate owner
+owner --> ap: wallet
+deactivate owner
+ap -> owner: setWallet()
+activate owner
+owner --> ap
+deactivate owner
+ap -> owner: getCOLOR()
+activate owner
+owner --> ap
+deactivate owner
+
+
+ap --> b
+b --> ap
+deactivate b
+
+else tiles.get(distance) instanceof GoToJail
+
+ap -> gtj: landHandler(sb, this)
+activate gtj
+gtj -> ap: setLandedOnGoToJail(true)
+ap -->gtj
+gtj -> ap: setPosition(10)
+ap --> gtj
+gtj --> ap
+deactivate gtj
+
+else tiles.get(distance) instanceof Jail
+
+ap -> j: landHandler(sb, this)
+activate j
+
+j --> ap
+deactivate j
+
+end
+
+ap --> m
+deactivate ap
+
+m -> m: notifyViews()
+m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
+mf --> m
+m --> rc
+deactivate m
+
+rc --> mf
+deactivate rc
+
+mf --> User
+deactivate mf
+
+@enduml

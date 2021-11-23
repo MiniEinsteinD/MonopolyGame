@@ -1,15 +1,26 @@
 @startuml Monopoly SelectNumOfPlayers Sequence Diagram
 
-title Monopoly SelectNumOfPlayers Sequence Diagram\nAuthor: \nStudent #:1011
+title Monopoly SelectNumOfPlayers Sequence Diagram\nAuthor: Umniyah Mohammed \nStudent #:101158792
 
 hide footbox
 skinparam monochrome true
 
 actor User as User
 participant "<u>mf:MonopolyFrame" as mf
+participant "<u>m:Monopoly" as m
 
 activate User
-User -> mf: Select x button
+
+User -> mf: Select SelectNumOfPlayers button
 activate mf
 
+mf -> m: start()
+activate m
+
+m -> m: notifyViews()
+m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
+deactivate m
+
+mf --> User
+deactivate mf
 @enduml

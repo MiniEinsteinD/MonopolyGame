@@ -7,29 +7,37 @@ skinparam monochrome true
 
 actor User as User
 participant "<u>mf:MonopolyFrame" as mf
-participant "<u>hc:HelpController" as hc
+participant "<u>pc:PassController" as pc
 participant "<u>m:Monopoly" as m
+participant "<u>ap:Player" as ap
 
 activate User
 
-User -> mf: Select Help button
+User -> mf: Select EndTurn button
 activate mf
 
-mf -> hc: actionPerformed(e: ActionEvent)
-activate hc
+mf -> pc: actionPerformed(e: ActionEvent)
+activate pc
 
-hc -> m: help()
+pc -> m: passTurn()
 activate m
 
-m -> m: help()
+m -> m: passTurn()
+m -> m: playerMoveNeeded()
+
+m -> ap: isBankrupt()
+activate ap
+ap --> m: wallet
+deactivate ap
+
 m -> m: notifyViews()
 m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))
 mf --> m
-m --> hc
+m --> pc
 deactivate m
 
-hc --> mf
-deactivate hc
+pc --> mf
+deactivate pc
 
 mf --> User
 deactivate mf

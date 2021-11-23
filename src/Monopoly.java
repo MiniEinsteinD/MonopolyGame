@@ -345,7 +345,10 @@ public class Monopoly {
         }
     }
 
-
+    /**
+     * A method that builds buildings on the selected and validated tiles
+     * @param buildable The buildable tiles that will be built
+     */
     public void build(Buildable buildable) {
         StringBuilder sb = new StringBuilder();
         buildable.buildHandler(sb);

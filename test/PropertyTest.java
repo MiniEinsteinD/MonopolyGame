@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 /**
  * Test class for Property.
- * @author Ethan Leir 101146422
- * @version 1.0
+ * @author Ethan Leir 101146422 & Daniah Mohammed 101145902
+ * @version 2.0
  */
 public class PropertyTest {
 
@@ -43,6 +43,15 @@ public class PropertyTest {
         Property temp2 = new Property("B", 20, "z");
         assertEquals(temp1.toString(), property.toString());
         assertNotEquals(temp2.toString(), property.toString());
+    }
+
+    /**
+     * Test getFine method
+     */
+
+    @Test
+    public void getFine() {
+        assertEquals(5,property.getFine());
     }
 
 }

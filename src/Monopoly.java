@@ -276,6 +276,7 @@ public class Monopoly {
         sb.append("View Player Portfolio: Displays the player's name, wallet, position and properties owned by the player\n");
         sb.append("Buy Property: Active player attempts to buy the property they are standing on. Does not work if you don't have " +
                 "enough money, or the property is already owned.\n");
+        sb.append("View Available Tile To Build: Displays the available tiles the active player can build on. Must own all properties in a group before building.\n");
         sb.append("End turn: Passes the active player's turn to the next solvent player. Must roll first! \n");
 
         eventString = sb.toString();

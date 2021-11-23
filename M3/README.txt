@@ -1,9 +1,9 @@
-()
+(Daniah Mohammed - 101145902)
 
 This is milestone #3 of the Monopoly Project. The changes made to previous version will be included in a separate file called "ChangeLogs.txt".
 
-	We started by reading the milestone's description, then we updated the initial 
-UML diagram that was created in milestone #1. Based on the UML diagram, the workload was then divided 
+	We started by reading the milestone's description, then we updated the 
+UML diagram that was created in milestone #2. Based on the UML diagram, the workload was then divided 
 between the members of the group.
 
 
@@ -32,7 +32,11 @@ The player loses when their total amount is a negative number.
 
 Known issues:
 --------------
-The code functions properly; therefore, there are no issues with our current iteration.
+	- The jail tile does not function properly.
+	- If you select "View Available Tiles To Build" and exit out of the pop-out menu, the view will not be 
+	  removed from the list of views which will cause a waste in memory depending on how many times you will enter and 
+	  exit. 
+
 
 
 Roadmap ahead:

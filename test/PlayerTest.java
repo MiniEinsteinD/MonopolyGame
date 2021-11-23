@@ -101,6 +101,10 @@ public class PlayerTest {
         assertEquals(test,p1.listOfValidBuildables());
     }
 
+    /**
+     * Test listOfValidBuildables method
+     */
+
     @Test
     public void testListOfValidBuildables() {
         ArrayList<Buildable> test= new ArrayList<>();
@@ -111,7 +115,9 @@ public class PlayerTest {
         assertEquals(test, p1.listOfValidBuildables());
     }
 
-
+    /**
+     * test returnPropertiesOnBankrupt method
+     */
 
     @Test
     public void testReturnPropertiesOnBankrupt() {
@@ -122,6 +128,9 @@ public class PlayerTest {
         assertEquals(test, p1.getBuyables());
     }
 
+    /**
+     * Test isBankrupt method
+     */
     @Test
     public void testIsBankrupt() {
         p1.setWallet(-1);
@@ -130,6 +139,9 @@ public class PlayerTest {
         assertEquals(false, p1.isBankrupt());
     }
 
+    /**
+     * Test toString method
+     */
     @Test
     public void testToString1() {
         assertEquals("Your player ID is: 1\n" +
@@ -139,6 +151,9 @@ public class PlayerTest {
                 "You do not own any properties yet", p1.toString());
     }
 
+    /**
+     * Test buyProperty method
+     */
     @Test
     public void buyProperty() {
         ArrayList<Buyable> b = new ArrayList<>();
@@ -147,6 +162,9 @@ public class PlayerTest {
         assertEquals(b, p1.getBuildables());
     }
 
+    /**
+     * Test payFine method
+     */
     @Test
     public void payFine() {
         p1.buyProperty(sb, (Buyable) tiles.get(1));
@@ -154,12 +172,18 @@ public class PlayerTest {
         assertEquals(false, p2.payFine(sb,  (Buyable) tiles.get(0)) );
     }
 
-
+    /**
+     * Test checkPropertyInv method
+     */
     @Test
-    public void checkPropertyInv() {
+    public void testCheckPropertyInv() {
         p1.buyProperty(sb, (Buyable) tiles.get(0));
         assertEquals(1, p1.checkPropertyInv((Buyable) tiles.get(0)));
     }
+
+    /**
+     * Test equal method
+     */
     @Test
     public void testEqual() {
         Player test = new Player("1", "red", Color.RED, new Monopoly());

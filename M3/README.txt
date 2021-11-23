@@ -1,6 +1,6 @@
 ()
 
-This is the second deliverable for milestone #2 of the Monopoly Project. The changes made to previous version will be included in a separte file called "ChangeLogs.txt".
+This is milestone #3 of the Monopoly Project. The changes made to previous version will be included in a separate file called "ChangeLogs.txt".
 
 	We started by reading the milestone's description, then we updated the initial 
 UML diagram that was created in milestone #1. Based on the UML diagram, the workload was then divided 
@@ -13,14 +13,14 @@ Our program is a GUI-based version of Monopoly.
 The controllers available include choosing the number of players, displaying the state of the active player, allowing players to 
 buy properties, roll, ask for help, and pass turns.
 Events such as landing on a property that is already owned by another player, the bankruptcy
-of a player, etc. are dispalyed when needed.
+of a player, etc. are displayed when needed.
 
 
 Usage:
 ------
 The player will be welcomed and asked to choose the number of players; then, colors are assigned to players.
 The controllers available for the player to enter are as follows:
-choose the number of players: Diplays the numbers from 2-8 and allow the player to select the number of players.
+choose the number of players: Displays the numbers from 2-8 and allow the player to select the number of players.
 state: Displays the state of the active player.
 roll: Rolls two dice to determine how many steps to move the active player, dipalys the new location, 
 	and pays any rent. If you rolled doubles, roll again.

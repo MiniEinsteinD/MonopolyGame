@@ -1,0 +1,15 @@
+@startuml Monopoly SelectNumOfPlayers Sequence Diagram
+
+title Monopoly SelectNumOfPlayers Sequence Diagram\nAuthor: \nStudent #:1011
+
+hide footbox
+skinparam monochrome true
+
+actor User as User
+participant "<u>mf:MonopolyFrame" as mf
+
+activate User
+User -> mf: Select x button
+activate mf
+
+@enduml

@@ -1,6 +1,6 @@
-@startuml Monopoly Help Sequence Diagram
+@startuml Monopoly EndTurn Sequence Diagram
 
-title Monopoly SelectNumOfPlayers Sequence Diagram\nAuthor: Umniyah Mohammed \nStudent #:101158792
+title Monopoly EndTurn Sequence Diagram\nAuthor: Umniyah Mohammed \nStudent #:101158792
 
 hide footbox
 skinparam monochrome true
@@ -33,5 +33,4 @@ deactivate hc
 
 mf --> User
 deactivate mf
-
 @enduml

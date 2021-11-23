@@ -90,6 +90,12 @@ class Monopoly {
     - handleBotActions(): void
 }
 
+class MonopolyEvent(){
+    - activePlayer: Player
+    + MonopolyEvent(monopoly: Monopoly)
+    + getActivePlayer(): Player
+}
+
 class Property {
     - owner: Player
     - GROUP: String

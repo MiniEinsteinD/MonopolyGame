@@ -1,6 +1,4 @@
 
-()
-
 Project
 --------
     - Decided to allow only active player to purches houses/hotels to make the process simpler. 
@@ -9,9 +7,6 @@ Monopoly
 ---------
     - Changing generateRoll method from private to public for testing purposes. 
 
-Player
-------
-    - 
 PlayerBot
 ----------
     - Player AI implemented in its own class because it has the behaviour of a controller (with the key difference

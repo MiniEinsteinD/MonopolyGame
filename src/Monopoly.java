@@ -31,27 +31,34 @@ public class Monopoly {
      * Constructs a Monopoly object.
      */
     public Monopoly(){
-        TILES = new ArrayList<>(Arrays.asList(
+        TILES = new ArrayList<Tile>(Arrays.asList(
+                new GoTile(),
                 new Property("Dunton Tower",60,"Brown"),
                 new Property("Jack's Truss",60,"Brown"),
+                new RailroadTile("Train Station", 100),
                 new Property("Tokyo-1",100,"Light Blue"),
                 new Property("Tokyo-2",100,"Light Blue"),
                 new Property("Tokyo-3",120,"Light Blue"),
+                new Jail("Jail", dice),
                 new Property("Lavina Crescent",140,"Pink"),
                 new Property("Banner Road",140,"Pink"),
                 new Property("Bronson Avenue",160,"Pink"),
+                new RailroadTile("Bus Station", 100),
                 new Property("Mondstadt",180,"Orange"),
                 new Property("Liyue",180,"Orange"),
                 new Property("Inazuma",200,"Orange"),
                 new Property("East Blue",220,"Red"),
                 new Property("West Blue",220,"Red"),
                 new Property("Grand Line",240,"Red"),
+                new RailroadTile("Train Station", 100),
                 new Property("North Blue",260,"Yellow"),
                 new Property("South Blue",260,"Yellow"),
                 new Property("Red Line",280,"Yellow"),
+                new GoToJail(),
                 new Property("Umniyah Crescent",300,"Green"),
                 new Property("Daniah Road",300,"Green"),
                 new Property("Ethan Avenue",320,"Green"),
+                new RailroadTile("Bus Station", 100),
                 new Property("Howling Abyss",350,"Purple"),
                 new Property("Summoner's Rift",400,"Purple")
         ));

@@ -3,8 +3,8 @@ UML Diagram Changes (From Milestone 1):
 	for better cohesion.
 	- Adjusted isBankrupt method in the Player class so that the Player return all the properties the owned before going banckrupt.
 	- Added a new function to Monopoly to calculate the number of Tiles of a given group. Added a new ArrayList of Color's COLORCODES
-	- 
-	- 
+	
+
 
 
 Data Structure Changes (Ethan Leir 101146422):
@@ -13,9 +13,6 @@ Data Structure Changes (Ethan Leir 101146422):
 MonopolyFrame (Ethan Leir 101146422):
 	- Refactored to remove smelly hardcoded switch statement in handleMonopolyUpdate().
 	- Added makeForegroundColor() to return white if an inputed Color is below half brightness and black if not. (used in handleMonopolyUpdate())
-
-MonopolyEvent ():
-	- 
 
 MonopolyView (Milestone 3/Daniah Mohammed 101145902):
 	- A new button called "Buy Buidling" is added 

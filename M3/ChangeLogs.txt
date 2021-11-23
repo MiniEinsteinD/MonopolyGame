@@ -1,17 +1,18 @@
 UML Diagram Changes (From Milestone 1):
 	- Implemented buildHandler method in Property class taking inspiration from Observer Pattern
 	for better cohesion.
-	- Adjuseted isBankrupt method in the Player class so that the Player return all the properties the owned before going banckrupt.
-	- 
+	- Adjusted isBankrupt method in the Player class so that the Player return all the properties the owned before going banckrupt.
+	- Added a new function to Monopoly to calculate the number of Tiles of a given group. Added a new ArrayList of Color's COLORCODES
 	- 
 	- 
 
 
-Data Structure Changes ():
-	- 
+Data Structure Changes (Ethan Leir 101146422):
+	- Added a new ArrayList named COLORCODES to Monopoly to store the Color class corresponding to a color String in the ArrayList COLORS.
 
-MonopolyFrame ():
-	- 
+MonopolyFrame (Ethan Leir 101146422):
+	- Refactored to remove smelly hardcoded switch statement in handleMonopolyUpdate().
+	- Added makeForegroundColor() to return white if an inputed Color is below half brightness and black if not. (used in handleMonopolyUpdate())
 
 MonopolyEvent ():
 	- 
@@ -37,3 +38,10 @@ GoTile (Ethan Houlahan 101145675)
 
 Buyable interface (Ethan Houlahan 101145675)
     - an interface created to facilitate polymorphism within the different types of tiles a player can buy
+
+Player (Daniah Mohammed 101145902, Ethan Leir 101146422)
+    - Boought Tile's stored as Buyable and Buildable, rather than Property.
+    - Stores Player type (HUMAN, BOT)
+
+PlayerBot (Ethan Leir 101146422)
+    - A controller class to act as AI for a Player of type Player.BOT.

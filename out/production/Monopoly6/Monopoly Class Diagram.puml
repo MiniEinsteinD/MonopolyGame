@@ -30,13 +30,15 @@ class Player {
     - properties: ArrayList<Buyable>
     - position: int
     - COLOR: String
+    - COLORCODE: Color
     - monopoly: Monopoly
     # Type {HUMAN, BOT}: enum
     - type: Type
-    + Player(id: String, color: String, monopoly: Monopoly)
-    + Player(id: String, color: String, monopoly: Monopoly, type: Type)
+    + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly)
+    + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly, type: Type)
+    + getCOLORCODE(): Color
     + getType(): Type
-    + getColor(): String
+    + getCOLOR(): String
     + getPosition(): int
     + setPosition(position: int): void
     + getWallet(): int
@@ -62,6 +64,7 @@ class Monopoly {
     # <u>MIN_PLAYERS: int</u>
     # <u>MAX_PLAYERS: int</u>
     - <u>COLORS: ArrayList<String></u>
+    - <u>COLORCODES: ArrayList<Color></u>
     - views: ArrayList<MonopolyView>
     + Monopoly()
     + addView(mv: MonopolyView): void
@@ -97,6 +100,7 @@ class Property {
 
     + Property(group: String, name: String, price: int)
     + setOwner(p: Player): void
+    + remOwner(): void
     + getOwner(): Player
     + isOwned(): boolean
     + getPrice(): int
@@ -155,6 +159,7 @@ class MonopolyFrame {
     - boardPane: JPanel
     - infoPane: JPanel
     + MonopolyFrame()
+    - makeForegroundColor(focus: Color): Color
     + handleMonopolyUpdate(e: MonopolyEvent): void
     + <u>main(args: String[]): void</u>
 }
@@ -163,20 +168,29 @@ class MonopolyView <<Interface>> {
     + handleMonopolyUpdate(e: MonopolyEvent): void
 }
 
-class Buildable <<Interface>> {
-        - houses: ArrayList<House>
-        - hotel: Hotel
+interface Buildable <<Interface>> {
 
 }
 
 
 
-class Buyable <<Interface>> {
+interface Buyable <<Interface>> {
+       + getFine(): int
+       +getOwner(): Player
+       +setOwner(player: Player): void
+       +isOwned(): boolean
+       +getGroup(): String
+       +getPrice(): int
+       +remOwner(): void
 }
 
 
 
-class Go {
+class GoTile {
+    -<u> GONAME: String </u>
+    +GoTile():
+    + landHandler(sb: StringBuilder,player: Player): void
+    + passHandler(sb: StringBuilder,player: Player): void
 }
 
 class Jail {
@@ -185,10 +199,45 @@ class Jail {
 class GoToJail {
 }
 
-class RailRoad {
+class RailroadTile {
+    -owner: Player
+    -GROUP: String
+    -PRICE: int
+    -BASERENT: int
+    -owned: boolean
+    + RailroadTile(name:String,startingPrice:int)
+    +getPrice():int
+    +setOwner(p: Player):void
+    +remOwner():void
+    +getOwner():Player
+    +isOwned():boolean
+    +getGroup():String
+    +getFine():int
+    +toString():String
+    +landHandler(sb: StringBuilder,player: Player):void
+    +equals():boolean
+    +hashCode():int
+
 }
 
-class Utility {
+class UtilityTile {
+    -owner: Player
+    -GROUP: String
+    -PRICE: int
+    -owned: boolean
+
+    + UtilityTile(name:String,startingPrice:int)
+    +getPrice():int
+    +setOwner(p: Player):void
+    +remOwner():void
+    +getOwner():Player
+    +isOwned():boolean
+    +getGroup():String
+    +getFine():int
+    +toString():String
+    +landHandler(sb: StringBuilder,player: Player):void
+    +equals():boolean
+    +hashCode():int
 }
 
 class PlayerBot {
@@ -204,29 +253,32 @@ class SelectActionsEvent {
 }
 
 Monopoly --o Player
+Monopoly o-- Player
+Monopoly o-- Tile
 PassController --|> MonopolyController
 BuyController --|> MonopolyController
 HelpController --|> MonopolyController
 PlayerStateController --|> MonopolyController
 RollController --|> MonopolyController
-MonopolyFrame --|> MonopolyView
+JFrame --|> MonopolyFrame
+MonopolyFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
 
 House --|> Building
 Hotel --|> Building
 
-Go --|> Tile
+GoTile --|> Tile
 Jail --|> Tile
 GoToJail --|> Tile
-RailRoad --|> Buyable
-Property --|> Buyable
-RailRoad --|> Tile
+RailroadTile --> Buyable
+RailroadTile --|> Tile
 Property --|> Tile
-Utility --|> Tile
-Utility --|> Buyable
+UtilityTile --|> Tile
+UtilityTile --> Buyable
 
-Property --|> Buildable
+Property --> Buildable
+Property --> Buyable
 
 Player o-- Buyable
 

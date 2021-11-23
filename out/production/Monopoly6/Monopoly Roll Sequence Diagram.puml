@@ -50,6 +50,10 @@ td --> m: sum
 deactivate td
 m -> ap: movePlayer(sb, sum, TILES)
 activate ap
+
+loop i <= sum
+alt tiles.get((i + position) % tiles.size()) instanceof GoTile
+
 ap -> g: passHandler(sb, this)
 activate g
 g -> ap: getWallet()
@@ -58,19 +62,39 @@ g -> ap: setWallet(wallet + 200)
 ap --> g
 g --> ap
 deactivate g
+
+else tiles.get((i + position) % tiles.size()) instanceof Buyable
+
+ap -> b: passHandler(sb, this)
+activate b
+b --> ap
+deactivate b
+
+else tiles.get((i + position) % tiles.size()) instanceof GoToJail
+
 ap -> gtj: passHandler(sb, this)
 activate gtj
 gtj --> ap
 deactivate gtj
+
+else tiles.get((i + position) % tiles.size()) instanceof Jail
+
 ap -> j: passHandler(sb, this)
 activate j
 j --> ap
 deactivate j
 
+end
+end
+
+alt tiles.get(distance) instanceof GoTile
+
 ap -> g: landHandler(sb, this)
 activate g
 g --> ap
 deactivate g
+
+else tiles.get(distance) instanceof Buyable
 
 ap -> b: landHandler(sb, this)
 activate b
@@ -99,6 +123,29 @@ ap --> b
 b --> ap
 deactivate b
 
+else tiles.get(distance) instanceof GoToJail
+
+ap -> gtj: landHandler(sb, this)
+activate gtj
+gtj -> ap: setLandedOnGoToJail(true)
+ap -->gtj
+gtj -> ap: setPosition(10)
+ap --> gtj
+gtj --> ap
+deactivate gtj
+
+else tiles.get(distance) instanceof Jail
+
+ap -> j: landHandler(sb, this)
+activate j
+
+j --> ap
+deactivate j
+
+end
+
+ap --> m
+deactivate ap
 
 m -> m: notifyViews()
 m -> mf: handleMonopolyUpdate(new MonopolyEvent(this))

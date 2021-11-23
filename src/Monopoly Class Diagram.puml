@@ -69,11 +69,12 @@ class Monopoly {
     + Monopoly()
     + addView(mv: MonopolyView): void
     + removeView(mv: MonopolyView): void
+    + getNumBuildablesInGroup(group: String): int
     + getEventString(): String
     + playerMoveNeeded(): boolean
-    + isRunning: boolean
+    + isRunning(): boolean
     + getPlayers(): ArrayList<Player>
-    + getNumSolventPlayers: int
+    + getNumSolventPlayers(): int
     + getActivePlayer(): Player
     + getTILES(): ArrayList<Tile>
     + start(numPlayers: int, numBots: int): void
@@ -144,6 +145,18 @@ class RollController {
     + actionPerformed(e: ActionEvent): void
 }
 
+class BuildController {
+    + BuildController(model: Monopoly)
+    + actionPerformed(e: ActionEvent): void
+}
+
+class SetBuildableTilesController {
+    - buildable: Buildable
+    - frame: JFrame
+    + BuildController(model: Monopoly, frame: JFrame, buildable: Buildable)
+    + actionPerformed(e: ActionEvent): void
+}
+
 class MonopolyFrame {
     - numPlayerMenu: JFrame
     - numPanelText: JLabel
@@ -164,15 +177,21 @@ class MonopolyFrame {
     + <u>main(args: String[]): void</u>
 }
 
+class SetBuildableTilesFrame {
+    - model: Monopoly
+    + SetBuildableTilesFrame(model: Monopoly)
+    + handleMonopolyUpdate(e: MonopolyEvent): void
+}
+
 class MonopolyView <<Interface>> {
     + handleMonopolyUpdate(e: MonopolyEvent): void
 }
 
 interface Buildable <<Interface>> {
-
+    + buildHandler(sb: StringBuilder): void
+    + getGroup(): String
+    + getDevLevel: int
 }
-
-
 
 interface Buyable <<Interface>> {
        + getFine(): int
@@ -252,9 +271,10 @@ class SelectActionsEvent {
     + getPlayer(): Player
 }
 
-Monopoly --o Player
-Monopoly o-- Player
+Monopoly o--o Player
 Monopoly o-- Tile
+BuildController --|> MonopolyController
+SetBuildableTilesController --|> MonopolyController
 PassController --|> MonopolyController
 BuyController --|> MonopolyController
 HelpController --|> MonopolyController
@@ -262,11 +282,10 @@ PlayerStateController --|> MonopolyController
 RollController --|> MonopolyController
 JFrame --|> MonopolyFrame
 MonopolyFrame --> MonopolyView
+SetBuildableTilesFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
-
-House --|> Building
-Hotel --|> Building
+Monopoly o-- TwoDice
 
 GoTile --|> Tile
 Jail --|> Tile
@@ -281,5 +300,8 @@ Property --> Buildable
 Property --> Buyable
 
 Player o-- Buyable
+
+SelectActionsEvent o-- Player
+SelectActionsEvent o-- Monopoly
 
 @enduml

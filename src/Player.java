@@ -12,7 +12,7 @@ import java.util.Objects;
  * St# 101145902
  * (M2 and M3 changes) Ethan Leir
  * St# 101146422
- * @version 5.0
+ * @version 6.0
  */
 public class Player{
     private final String ID;
@@ -268,9 +268,7 @@ public class Player{
         }
 
         for(String color: numOfSameColorOwned.keySet()){
-            if ((numOfSameColorOwned.containsKey("Brown") || numOfSameColorOwned.containsKey("Purple")) && numOfSameColorOwned.containsValue(2)) {
-                colorsPlayerCanBuild.add(color);
-            } else if (numOfSameColorOwned.containsValue(3)) {
+            if (numOfSameColorOwned.get(color) == monopoly.getNumBuildablesInGroup(color)) {
                 colorsPlayerCanBuild.add(color);
             }
         }

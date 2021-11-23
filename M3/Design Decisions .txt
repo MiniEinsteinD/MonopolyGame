@@ -13,12 +13,6 @@ Player
 ------
     - 
 
-Tile
------
-    - 
-Property (extends Tile)
-------------------------
-    - 
 
 RailroadTile
 --------------
@@ -34,3 +28,6 @@ UtilityTile
 
 Buyable interface
 ------------------------
+    - A buyable interface allows for polymorphism within the Tile class which was necessary as more than one
+    implementation of the Tile class was purchasable by the player and multiple others cannot be purchased by the
+    player.

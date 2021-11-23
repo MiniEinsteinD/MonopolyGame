@@ -6,7 +6,7 @@ import java.awt.Color;
 /**
  * A class to set up and play a game of Monopoly.
  * @author Ethan Leir 101146422
- * @version 4.0
+ * @version 5.0
  */
 public class Monopoly {
     private final ArrayList<Tile> TILES;
@@ -82,6 +82,26 @@ public class Monopoly {
     }
 
     /**
+     * Counts the number of Buildable's stored in TILES who are a part of a given group.
+     * @param group String, the group to check for.
+     * @return int, the number of Buildable's in the group in TILES.
+     */
+    public int getNumBuildablesInGroup(String group) {
+        /*
+        Space complexity is beginning to be a concern so instead of making this fast and storing the computed numbers
+        in a HashMap for O(1) lookup I decided to calculate the value each time the function is called. It should only
+        be used whenever the build command is called, which should be infrequent anyway.
+         */
+        int count = 0;
+        for (Tile tile : TILES) {
+            if (tile instanceof Buildable && ((Buildable) tile).getGroup().equals(group)) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    /**
      * A getter method to get the last roll value
      * @return last roll value rep using int
      */
@@ -141,7 +161,7 @@ public class Monopoly {
 
     /**
      * Get all the tiles on the board, listed in order.
-     * @return
+     * @return ArrayList<Tile>, the playing board.
      */
     public ArrayList<Tile> getTILES() {
         return TILES;

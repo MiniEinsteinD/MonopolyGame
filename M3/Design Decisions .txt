@@ -20,4 +20,17 @@ Property (extends Tile)
 ------------------------
     - 
 
+RailroadTile
+--------------
+    - Although the RailroadTile utilizes many of the same methods and attributes of the property tile it was deemed
+    that using a separate class rather than practicing inheritance from the Property class would be the best direction
 
+
+UtilityTile
+------------
+    - Although the UtilityTile utilizes many of the same methods and attributes of the property tile it was deemed
+    that using a separate class rather than practicing inheritance from the Property class would be the best direction
+
+
+Buyable interface
+------------------------

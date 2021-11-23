@@ -21,3 +21,19 @@ MonopolyView (Milestone 3/Daniah Mohammed 101145902):
 
 JUnit Test (Milestone 3/Daniah Mohammed 101145902):
 	- Test classes for the additionoal model classes have been added to this iteration of the program (JUnit 4).
+
+RailroadTile (Ethan Houlahan 101145675)
+    - New tile that doubles the rent of the tile for every tile owned by the player
+    - cannot be built upon but can be purchased as a buyable tile
+
+UtilityTile (Ethan Houlahan 101145675)
+    - New tile that has rent of (4 * diceroll) if a player owns 1 utility tile or (10 * diceroll) for a player owning
+    both utilities
+    - cannot be built upon but can be purchased as a buyable tile
+
+GoTile (Ethan Houlahan 101145675)
+    - First tile on the board. cannot be purchased or built on
+    - collect $200 every time tile is passed by player
+
+Buyable interface (Ethan Houlahan 101145675)
+    - an interface created to facilitate polymorphism within the different types of tiles a player can buy

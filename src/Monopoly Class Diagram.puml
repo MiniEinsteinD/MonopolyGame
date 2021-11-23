@@ -194,9 +194,17 @@ class GoTile {
 }
 
 class Jail {
+    -Group: String
+    -twoDice: TwoDice
+    +Jail(String name, TwoDice twoDice):void
+    +getGroup(): String
+    +toString():String
+    +landHandler(StringBuilder sb, Player player): void
 }
 
 class GoToJail {
+    +GoToJail()
+    +landHandler(StringBuilder sb, Player player): void
 }
 
 class RailroadTile {

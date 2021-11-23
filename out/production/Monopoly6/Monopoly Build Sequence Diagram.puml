@@ -12,6 +12,7 @@ participant "<u>m:Monopoly" as m
 participant "<u>ap:Player" as ap
 participant "<u>:Buildable" as b
 participant "<u>p1:Property" as p1
+participant "<u>sbtf:SetBuildableTilesFrame" as sbtf
 participant "<u>sbtc1:SetBuildableTilesController" as sbtc
 
 activate User
@@ -32,20 +33,36 @@ ap -> b: getGroup()
 activate b
 b --> ap
 deactivate b
+ap -> m: getNumBuildablesInGroup(group)
+activate m
+m --> ap
+deactivate m
 ap --> bc
 deactivate ap
-bc -> sbtc ** : create
+bc -> sbtf ** : create
+activate sbtf
+sbtf -> sbtc ** : create
+deactivate sbtf
+
+bc -> m : addView(sbtf)
+activate m
+m --> bc
+deactivate m
 
 bc --> mf
 deactivate bc
 mf --> User
 deactivate mf
 
-User -> bc: Select Property 1
-activate bc
-bc -> sbtc: actionPerformed(e: ActionEvent)
+User -> sbtf: Select Property 1
+activate sbtf
+sbtf -> sbtc: actionPerformed(e: ActionEvent)
 activate sbtc
 
+sbtc -> m: removeView(sbtf)
+activate m
+m --> sbtc
+deactivate m
 sbtc -> m: build(p1)
 activate m
 m -> p1: buildHandler(new StringBuilder())
@@ -53,6 +70,8 @@ activate p1
 
 p1 -> ap: getGroupsCanBeBuilt()
 activate ap
+ap -> m: getNumBuildablesInGroup(color)
+m --> ap
 ap --> p1
 deactivate ap
 p1 -> ap: getBuildables()
@@ -78,10 +97,10 @@ deactivate mf
 m --> sbtc
 deactivate m
 
-sbtc --> bc
+sbtc --> sbtf
 deactivate sbtc
 
-bc --> User
-deactivate bc
+sbtf --> User
+deactivate sbtf
 
 @enduml

@@ -292,10 +292,10 @@ public class Monopoly {
         Random rand = new Random();
         activePlayerIndex = rand.nextInt(numPlayers);
         numSolventPlayers = numPlayers;
-        sb.append("Player colors to choose from are ");
+        sb.append("Players:\n");
         for (int i = 0; i < numPlayers; i++){
             if (i < numPlayers - numBots){
-                sb.append(COLORS.get(i) + " ");
+                sb.append(COLORS.get(i) + "\n");
                 players.add(new Player(String.valueOf(i + 1), COLORS.get(i), COLORCODES.get(i),
                         this, Player.Type.HUMAN));
             }

@@ -4,9 +4,16 @@
  * @version 1.0
  */
 public class GoToJail extends Tile{
+    private int jailPosition;
 
     GoToJail() {
         super("GO TO JAIL");
+        this.jailPosition = 10;
+    }
+
+    GoToJail(int jailPosition) {
+        super("GO TO JAIL");
+        this.jailPosition = jailPosition;
     }
 
     /**
@@ -21,10 +28,9 @@ public class GoToJail extends Tile{
                 "You are now at tile:\n" + this + "\n"
         );
 
-        if(player.getPosition() == 30){
-            player.setLandedOnGoToJail(true);
-            player.setPosition(10);
-        }
+
+        player.setLandedOnGoToJail(true);
+        player.setPosition(jailPosition);
 
     }
 }

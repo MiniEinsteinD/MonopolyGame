@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * MonopolyFrame is used to generate a graphical interface for user input and display.
@@ -47,6 +49,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         Monopoly model = new Monopoly();
         model.addView(this);
+        model.addView(new JailFrame(model));
         this.setSize(new Dimension(1200, 800));
 
         //Create Standard font
@@ -148,7 +151,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         //Adding Board Image
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/FinalMonopolyBoard.png"));
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            URL resource = classLoader.getResource("FinalMonopolyBoard.png");
+            img = ImageIO.read(resource);
         } catch (IOException e) {
             e.printStackTrace();
         }

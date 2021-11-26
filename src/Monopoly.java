@@ -208,15 +208,30 @@ public class Monopoly {
      */
     public void roll(){
         StringBuilder sb= new StringBuilder();
-        if (playerMoveNeeded()) {
-            generateRoll(sb);
-            move(sb);
-            moved = true;
-        } else {
-            sb.append("You have already rolled.");
+        if (!activePlayer.getLandedOnGoToJail()) {
+            if (playerMoveNeeded()) {
+                generateRoll(sb);
+                move(sb);
+                moved = true;
+            } else {
+                sb.append("You have already rolled.");
+            }
+            eventString = sb.toString();
+            notifyViews();
         }
-        eventString = sb.toString();
-        notifyViews();
+        else {
+            generateRoll(sb);
+            if (dice.isDouble()) {
+                sb.append("You made it out of jail!");
+                move(sb);
+
+                activePlayer.setLandedOnGoToJail(false);
+                moved = true;
+            }
+            else {
+                sb.append("You did not make it out of jail!");
+            }
+        }
     }
 
     /**

@@ -18,6 +18,7 @@ public class TwoDice {
      */
     public boolean isDouble () {
         if (firstRoll != secondRoll) {return false;}
+        else if (firstRoll == 0) {return false;}
         else {return true;}
     }
 

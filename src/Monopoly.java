@@ -39,7 +39,7 @@ public class Monopoly {
                 new Property("Tokyo-1",100,"Light Blue"),
                 new Property("Tokyo-2",100,"Light Blue"),
                 new Property("Tokyo-3",120,"Light Blue"),
-                new Jail("Jail", dice),
+                new Jail("Jail"),
                 new Property("Lavina Crescent",140,"Pink"),
                 new Property("Banner Road",140,"Pink"),
                 new Property("Bronson Avenue",160,"Pink"),

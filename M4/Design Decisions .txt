@@ -1,0 +1,33 @@
+
+Project
+--------
+    - Decided to allow only active player to purches houses/hotels to make the process simpler. 
+
+Monopoly
+---------
+    - Changing generateRoll method from private to public for testing purposes. 
+
+PlayerBot
+----------
+    - Player AI implemented in its own class because it has the behaviour of a controller (with the key difference
+    that Monopoly is calling its methods and they are not a response to user input).
+    - Methods and attributes are static because its behaviour does not depend on information specific to a particular
+    Player (that can't be accessed from the Player with getters and setters).
+
+RailroadTile
+--------------
+    - Although the RailroadTile utilizes many of the same methods and attributes of the property tile it was deemed
+    that using a separate class rather than practicing inheritance from the Property class would be the best direction
+
+
+UtilityTile
+------------
+    - Although the UtilityTile utilizes many of the same methods and attributes of the property tile it was deemed
+    that using a separate class rather than practicing inheritance from the Property class would be the best direction
+
+
+Buyable interface
+------------------------
+    - A buyable interface allows for polymorphism within the Tile class which was necessary as more than one
+    implementation of the Tile class was purchasable by the player and multiple others cannot be purchased by the
+    player.

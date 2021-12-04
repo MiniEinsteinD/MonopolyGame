@@ -1,0 +1,44 @@
+UML Diagram Changes (From Milestone 1):
+	- Implemented buildHandler method in Property class taking inspiration from Observer Pattern
+	for better cohesion.
+	- Adjusted isBankrupt method in the Player class so that the Player return all the properties the owned before going banckrupt.
+	- Added a new function to Monopoly to calculate the number of Tiles of a given group. Added a new ArrayList of Color's COLORCODES
+	
+
+
+
+Data Structure Changes (Ethan Leir 101146422):
+	- Added a new ArrayList named COLORCODES to Monopoly to store the Color class corresponding to a color String in the ArrayList COLORS.
+
+MonopolyFrame (Ethan Leir 101146422):
+	- Refactored to remove smelly hardcoded switch statement in handleMonopolyUpdate().
+	- Added makeForegroundColor() to return white if an inputed Color is below half brightness and black if not. (used in handleMonopolyUpdate())
+
+MonopolyView (Milestone 3/Daniah Mohammed 101145902):
+	- A new button called "Buy Buidling" is added 
+
+JUnit Test (Milestone 3/Daniah Mohammed 101145902):
+	- Test classes for the additionoal model classes have been added to this iteration of the program (JUnit 4).
+
+RailroadTile (Ethan Houlahan 101145675)
+    - New tile that doubles the rent of the tile for every tile owned by the player
+    - cannot be built upon but can be purchased as a buyable tile
+
+UtilityTile (Ethan Houlahan 101145675)
+    - New tile that has rent of (4 * diceroll) if a player owns 1 utility tile or (10 * diceroll) for a player owning
+    both utilities
+    - cannot be built upon but can be purchased as a buyable tile
+
+GoTile (Ethan Houlahan 101145675)
+    - First tile on the board. cannot be purchased or built on
+    - collect $200 every time tile is passed by player
+
+Buyable interface (Ethan Houlahan 101145675)
+    - an interface created to facilitate polymorphism within the different types of tiles a player can buy
+
+Player (Daniah Mohammed 101145902, Ethan Leir 101146422)
+    - Boought Tile's stored as Buyable and Buildable, rather than Property.
+    - Stores Player type (HUMAN, BOT)
+
+PlayerBot (Ethan Leir 101146422)
+    - A controller class to act as AI for a Player of type Player.BOT.

@@ -25,7 +25,8 @@ public class Player{
     private ArrayList<Buildable> buildables;
     protected enum Type {HUMAN, BOT}
     private Type type;
-    private boolean LandedOnGoToJail;
+    private int jailId;
+    private int daysJailed;
 
 
     /**
@@ -42,7 +43,8 @@ public class Player{
         this.buyables = new ArrayList<Buyable>();
         this.type = Type.HUMAN;
         this.buildables = new ArrayList<>();
-        this.LandedOnGoToJail = false;
+        this.jailId = 0;
+        this.daysJailed = 0;
     }
 
     /**
@@ -60,7 +62,8 @@ public class Player{
         this.type = type;
         this.buyables = new ArrayList<>();
         this.buildables = new ArrayList<>();
-        this.LandedOnGoToJail = false;
+        this.jailId = 0;
+        this.daysJailed = 0;
     }
 
     /**
@@ -133,27 +136,49 @@ public class Player{
     }
 
     /**
+     * Gets the id of the jail that the player is in.
+     * @return int, the id of the jail that the player is in. 0 if the player is not in jail.
+     */
+    public int getJailId() {
+        return this.jailId;
+    }
+
+    /**
+     * This is a setter for the method jailId.
+     * @param jailId, boolean value set to the jailId attribute.
+     */
+    public void setJailId(int jailId){
+        this.jailId = jailId;
+    }
+
+    /**
+     * Gets the number of days the player has been in jail.
+     * @return int, the number of days the player has been in jail.
+     */
+    public int getDaysJailed() {
+        return daysJailed;
+    }
+
+    /**
+     * Increments the number of days the player has been in jail.
+     */
+    public void incrementDaysJailed() {
+        daysJailed++;
+    }
+
+    /**
+     * Makes the player a free man.
+     */
+    public void escapedJail() {
+        this.jailId = 0;
+        this.daysJailed = 0;
+    }
+
+    /**
      * Checks if the player is bankrupt and returns true if they are.
      * @return  true if the player is bankrupt,
      *          false if the player isn't bankrupt.
      */
-
-    /**
-     * This is a getter for the method LandedOnGoToJail
-     * @return LandedOnGoToJail, boolean value
-     */
-    public boolean getLandedOnGoToJail(){
-        return this.LandedOnGoToJail;
-    }
-
-    /**
-     * This is a setter for the method LandedOnGoToJail
-     * @param b, boolean value set to the LandedOnGoToJail
-     */
-    public void setLandedOnGoToJail(boolean b){
-        this.LandedOnGoToJail = b;
-    }
-
     public boolean isBankrupt() {
         return wallet < 0;
     }
@@ -236,6 +261,21 @@ public class Player{
     }
 
     /**
+     * Pay the fine required to be released from jail.
+     * @return boolean, true if the player has enough money and successfully paid the fine,
+     *                  false if the player does not have enough money and cannot pay the fine.
+     */
+    public boolean payJailFine() {
+        if (wallet >= Jail.FINE) {
+            wallet = wallet - Jail.FINE;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
      * A method that moves the player from his current position to the new position after rolling the die
      * Updated for M2 by Ethan Leir
      * @param sb, stores the string to be displayed to the user.
@@ -248,7 +288,9 @@ public class Player{
             tiles.get((i + position) % tiles.size()).passHandler(sb,this);
         }
         tiles.get(distance).landHandler(sb, this);
-        this.setPosition(distance);
+        if (!(tiles.get(distance) instanceof GoToJail)) { //GoToJail sets the position to Jail so we need this check to not overwrite the change.
+            this.setPosition(distance);
+        }
     }
 
     /**

@@ -25,12 +25,14 @@ public class Monopoly {
     private static final ArrayList<Color> COLORCODES = new ArrayList<Color>(Arrays.asList(Color.RED, Color.GREEN,
         Color.BLUE, Color.YELLOW, new Color(128, 0, 128), Color.ORANGE, Color.WHITE, Color.BLACK));
     private ArrayList<MonopolyView> views;
+    private ArrayList<Jail> jails; // Required to correctly set up the JailViews.
     protected static int lastRoll;
 
     /**
      * Constructs a Monopoly object.
      */
     public Monopoly(){
+        Jail jail = new Jail("Jail", 1, this);
         TILES = new ArrayList<Tile>(Arrays.asList(
                 new GoTile(),
                 new Property("Dunton Tower",60,"Brown"),
@@ -39,7 +41,7 @@ public class Monopoly {
                 new Property("Tokyo-1",100,"Light Blue"),
                 new Property("Tokyo-2",100,"Light Blue"),
                 new Property("Tokyo-3",120,"Light Blue"),
-                new Jail("Jail", dice),
+                jail,
                 new Property("Lavina Crescent",140,"Pink"),
                 new Property("Banner Road",140,"Pink"),
                 new Property("Bronson Avenue",160,"Pink"),
@@ -62,6 +64,8 @@ public class Monopoly {
                 new Property("Howling Abyss",350,"Purple"),
                 new Property("Summoner's Rift",400,"Purple")
         ));
+        jails = new ArrayList<>();
+        jails.add(jail);
         activePlayer = null;
         players = new ArrayList<>();
         dice = new TwoDice();
@@ -69,7 +73,7 @@ public class Monopoly {
         activePlayerIndex = 0;
         running = false;
         eventString = "";
-        views = new ArrayList<MonopolyView>();
+        views = new ArrayList<>();
     }
 
     /**
@@ -86,6 +90,12 @@ public class Monopoly {
      */
     public void removeView(MonopolyView mv){
         views.remove(mv);
+    }
+
+    public void setupJailViews() {
+        for (Jail jail : jails) {
+            this.addView(new JailFrame(this, jail));
+        }
     }
 
     /**
@@ -106,6 +116,24 @@ public class Monopoly {
             }
         }
         return count;
+    }
+
+    /**
+     * Sets whether the active player has moved or not.
+     * @param moved boolean, true if the active player has moved,
+     *                       false if the active player has not moved.
+     */
+    public void setMoved(boolean moved) {
+        this.moved = moved;
+    }
+
+    /**
+     * Gets whether the active player has moved or not.
+     * @return boolean, true if the active player has moved,
+     *                  false if the active player has not moved.
+     */
+    public boolean isMoved() {
+        return moved;
     }
 
     /**
@@ -139,7 +167,7 @@ public class Monopoly {
      *                  false if the player can end their turn.
      */
     public boolean playerMoveNeeded() {
-        return !moved || dice.isDouble();
+        return (!moved || dice.isDouble()) && activePlayer.getJailId() == 0;
     }
 
     /**
@@ -207,31 +235,16 @@ public class Monopoly {
      * Rolls two dice then moves the player based on the result.
      */
     public void roll(){
-        StringBuilder sb= new StringBuilder();
-        if (!activePlayer.getLandedOnGoToJail()) {
-            if (playerMoveNeeded()) {
-                generateRoll(sb);
-                move(sb);
-                moved = true;
-            } else {
-                sb.append("You have already rolled.");
-            }
-            eventString = sb.toString();
-            notifyViews();
-        }
-        else {
+        StringBuilder sb = new StringBuilder();
+        if (playerMoveNeeded()) {
             generateRoll(sb);
-            if (dice.isDouble()) {
-                sb.append("You made it out of jail!");
-                move(sb);
-
-                activePlayer.setLandedOnGoToJail(false);
-                moved = true;
-            }
-            else {
-                sb.append("You did not make it out of jail!");
-            }
+            moved = true;
+            move(sb);
+        } else {
+            sb.append("You have already rolled.");
         }
+        eventString = sb.toString();
+        notifyViews();
     }
 
     /**
@@ -276,6 +289,25 @@ public class Monopoly {
     }
 
     /**
+     * Moves the player, prints the new location, and pays any rent.
+     * @param steps int, the number of steps to move the player.
+     */
+    public void directMove(int steps) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
+        activePlayer.movePlayer(sb, steps, TILES);
+        moved = true;
+        eventString = sb.toString();
+    }
+
+    /**
+     * Clear the values on the dice.
+     */
+    private void resetDice() {
+        this.dice = new TwoDice();
+    }
+
+    /**
      * Passes the active player's turn to the next solvent player.
      */
     public void passTurn() {
@@ -290,6 +322,7 @@ public class Monopoly {
                 activePlayer = players.get(activePlayerIndex + 1);
             }
             moved = false;
+            resetDice();
 
             sb.append(activePlayer.getCOLOR() + " player's turn!\n" );
 
@@ -303,7 +336,7 @@ public class Monopoly {
     /**
      * Update the information in all of the Monopoly's views.
      */
-    private void notifyViews(){
+    public void notifyViews(){
         for (MonopolyView mv : views){
             mv.handleMonopolyUpdate(new MonopolyEvent(this));
         }

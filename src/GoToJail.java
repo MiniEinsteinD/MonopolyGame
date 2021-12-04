@@ -5,15 +5,18 @@
  */
 public class GoToJail extends Tile{
     private int jailPosition;
+    private int jailId;
 
     GoToJail() {
         super("GO TO JAIL");
         this.jailPosition = 10;
+        this.jailId = 1;
     }
 
-    GoToJail(int jailPosition) {
+    GoToJail(int jailPosition, int jailId) {
         super("GO TO JAIL");
         this.jailPosition = jailPosition;
+        this.jailId = jailId;
     }
 
     /**
@@ -29,7 +32,7 @@ public class GoToJail extends Tile{
         );
 
 
-        player.setLandedOnGoToJail(true);
+        player.setJailId(jailId);
         player.setPosition(jailPosition);
 
     }

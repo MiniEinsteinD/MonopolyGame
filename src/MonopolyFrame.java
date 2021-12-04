@@ -49,7 +49,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         Monopoly model = new Monopoly();
         model.addView(this);
-        model.addView(new JailFrame(model));
+        model.setupJailViews();
+
         this.setSize(new Dimension(1200, 800));
 
         //Create Standard font
@@ -153,10 +154,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             URL resource = classLoader.getResource("FinalMonopolyBoard.png");
+            assert resource != null;
             img = ImageIO.read(resource);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert img != null;
         Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
         ImageIcon boardImage = new ImageIcon(scaledImg);
 

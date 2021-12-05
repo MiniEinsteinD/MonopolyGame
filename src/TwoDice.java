@@ -1,9 +1,12 @@
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * This class represents the two dice rolled by the player.
  * @author Umniyah Mohammed (101158792)
  * @version 1.0
  */
-public class TwoDice {
+public class TwoDice implements Serializable {
     private int firstRoll = 0;
     private int secondRoll = 0;
 

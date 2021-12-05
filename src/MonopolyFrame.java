@@ -132,31 +132,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 model.exportMonopoly(JOptionPane.showInputDialog("Enter filename"));
             } catch (Exception ex) {
                 ex.printStackTrace();
-                try {
-                    throw new Exception("SAVE FAILED");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
             }
         });
 
         loadMenuItem.addActionListener(e -> { //load game
             try {
                 new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                try {
-                    throw new Exception("LOAD FAILED");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-                try {
-                    throw new Exception("LOAD FAILED");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
 
@@ -276,21 +259,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 model.exportMonopoly(JOptionPane.showInputDialog("Enter filename"));
             } catch (Exception ex) {
                 ex.printStackTrace();
-                try {
-                    throw new Exception("SAVE FAILED");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
             }
         });
 
         loadMenuItem.addActionListener(e -> { //load game
             try {
                 new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
 

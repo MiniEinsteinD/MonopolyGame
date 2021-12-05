@@ -379,6 +379,11 @@ public class Monopoly implements Serializable {
         notifyViews();
     }
 
+    /**
+     * save a Monopoly game (object) using serialization
+     * @param fileName
+     * @throws Exception
+     */
     public void exportMonopoly(String fileName) throws Exception {
         FileOutputStream fos = null;
         StringBuilder sb = new StringBuilder();
@@ -421,12 +426,50 @@ public class Monopoly implements Serializable {
         eventString = sb.toString();
     }
 
-    public Monopoly importMonopoly(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fileName + ".ser");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        Monopoly monopoly = (Monopoly) ois.readObject();
-        ois.close();
-        fis.close();
+    /**
+     * load a previously saved monopoly game from files using serialization
+     * @param fileName
+     * @return the saved Monopoly object
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static Monopoly importMonopoly(String fileName) throws Exception {
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(fileName + ".ser");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: FILE NOT FOUND");
+        }
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: OBJECT INPUT FAILED");
+        }
+        Monopoly monopoly = null;
+        try {
+            monopoly = (Monopoly) ois.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: OBJECT READ FAILED");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: OBJECT \"Monopoly\" NOT FOUND");
+        }
+        try {
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: OBJECT INPUT STREAM CLOSE FAILED");
+        }
+        try {
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("importMonopoly: FILE INPUT STREAM CLOSE FAILED");
+        }
         return monopoly;
     }
 }

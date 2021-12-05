@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /**
  * The tile class represents the tiles that the players land on in the game.
@@ -5,7 +6,7 @@
  * @author Ethan Houlahan 101145675, (M2 changes) Ethan Leir 101146422
  * @version 3.0
  */
-public abstract class Tile {
+public abstract class Tile implements Serializable {
 
     private final String NAME;
 

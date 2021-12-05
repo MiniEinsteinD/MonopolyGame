@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * St# 101146422
  * @version 6.0
  */
-public class Player{
+public class Player implements Serializable {
     private final String ID;
     private int wallet = 5000;
     private List<Buyable> buyables;

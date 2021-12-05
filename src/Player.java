@@ -288,10 +288,8 @@ public class Player implements Serializable {
         for (int i = 1; i <= steps; i++) {
             tiles.get((i + position) % tiles.size()).passHandler(sb,this);
         }
+        this.setPosition(distance);
         tiles.get(distance).landHandler(sb, this);
-        if (!(tiles.get(distance) instanceof GoToJail)) { //GoToJail sets the position to Jail so we need this check to not overwrite the change.
-            this.setPosition(distance);
-        }
     }
 
     /**

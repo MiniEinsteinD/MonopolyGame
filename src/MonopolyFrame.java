@@ -43,7 +43,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel boardPane;
     private JPanel infoPane;
 
-
     /**
      * Initializes the GUI, Two frames - 1. Number of players, 2. Monopoly game
      */
@@ -202,7 +201,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         infoPane.add(passButton);
         infoPane.add(buildButton);
         infoPane.add(helpButton);
-
         boardPane.add(boardMap, BorderLayout.CENTER);
 
 

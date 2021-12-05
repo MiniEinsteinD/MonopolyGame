@@ -1,5 +1,6 @@
 /* Monopoly class */
 /* Ethan Leir 101146422 */
+import java.io.*;
 import java.util.*;
 import java.awt.Color;
 
@@ -8,7 +9,7 @@ import java.awt.Color;
  * @author Ethan Leir 101146422
  * @version 5.0
  */
-public class Monopoly {
+public class Monopoly implements Serializable {
     private final ArrayList<Tile> TILES;
     private Player activePlayer;
     private ArrayList<Player> players;
@@ -376,5 +377,56 @@ public class Monopoly {
         buildable.buildHandler(sb);
         eventString = sb.toString();
         notifyViews();
+    }
+
+    public void exportMonopoly(String fileName) throws Exception {
+        FileOutputStream fos = null;
+        StringBuilder sb = new StringBuilder();
+        File f = new File("fileName.ser");
+        if(f.exists() && !f.isDirectory()) {
+            sb.append(fileName + " has been overwritten\n");
+        }
+        try {
+            fos = new FileOutputStream(fileName + ".ser");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new Exception("exportMonopoly:FILE OUTPUT STREAM CREATION FAILED");
+        }
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("exportMonopoly: OBJECT STREAM CREATION FAILED");
+        }
+        try {
+            oos.writeObject(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("exportMonopoly: OBJECT WRITE FAILED");
+        }
+        try {
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("exportMonopoly: OBJECT OUTPUT STREAM CLOSE FAILED");
+        }
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("exportMonopoly: FILE OUTPUT STREAM CLOSE FAILED");
+        }
+        sb.append(fileName + " has been successfully saved");
+        eventString = sb.toString();
+    }
+
+    public Monopoly importMonopoly(String fileName) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName + ".ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Monopoly monopoly = (Monopoly) ois.readObject();
+        ois.close();
+        fis.close();
+        return monopoly;
     }
 }

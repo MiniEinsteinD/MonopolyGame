@@ -30,6 +30,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JButton buildButton;
     private JButton helpButton;
 
+    private JMenuBar slMenuBar; // save/load menu bar
+    private JMenu saveLoadMenu;
+    private JMenuItem saveMenuItem;
+    private JMenuItem loadMenuItem;
 
 
     private JLabel walletStateText;
@@ -117,6 +121,45 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         MonopolyController buildCont = new BuildController(model);
         MonopolyController stateCont = new PlayerStateController(model);
 
+        //Create save/load menu
+        slMenuBar = new JMenuBar();
+        saveLoadMenu = new JMenu("Save/Load");
+        saveMenuItem = new JMenuItem("Save Current Game");
+        loadMenuItem = new JMenuItem("Load Previous Game");
+        saveMenuItem.addActionListener(e -> { // save game
+
+            try {
+                model.exportMonopoly(JOptionPane.showInputDialog("Enter filename"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                try {
+                    throw new Exception("SAVE FAILED");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            }
+        });
+
+        loadMenuItem.addActionListener(e -> { //load game
+            try {
+                new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                try {
+                    throw new Exception("LOAD FAILED");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+                try {
+                    throw new Exception("LOAD FAILED");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            }
+        });
+
         //Button Initialization
         rollButton = new JButton("Roll Dice");
         rollButton.addActionListener(rollCont);
@@ -153,7 +196,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         BufferedImage img = null;
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL resource = classLoader.getResource("FinalMonopolyBoard.png");
+            URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
             assert resource != null;
             img = ImageIO.read(resource);
         } catch (IOException e) {
@@ -196,6 +239,132 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         //Display
         numPlayerMenu.setVisible(true);
         numPlayerBotMenu.setVisible(false);
+    }
+
+    /**
+     * Initializes the GUI from a previously saved game, One Frame - Monopoly game
+     */
+    public MonopolyFrame(Monopoly model) {
+        super("Group 6 Monopoly");
+        this.setLayout(new BorderLayout());
+
+        model.addView(this);
+        model.setupJailViews();
+
+        this.setSize(new Dimension(1200, 800));
+
+        //Create Standard font
+        Font stdFont = new Font("Comic Sans MS",Font.BOLD,20);
+
+
+        MonopolyController rollCont = new RollController(model);
+        MonopolyController helpCont = new HelpController(model);
+        MonopolyController buyCont = new BuyController(model);
+        MonopolyController passCont = new PassController(model);
+        MonopolyController buildCont = new BuildController(model);
+        MonopolyController stateCont = new PlayerStateController(model);
+
+        //Create save/load menu
+        slMenuBar = new JMenuBar();
+        saveLoadMenu = new JMenu("Save/Load");
+        saveMenuItem = new JMenuItem("Save Current Game");
+        loadMenuItem = new JMenuItem("Load Previous Game");
+
+
+        saveMenuItem.addActionListener(e -> { // save game
+            try {
+                model.exportMonopoly(JOptionPane.showInputDialog("Enter filename"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                try {
+                    throw new Exception("SAVE FAILED");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            }
+        });
+
+        loadMenuItem.addActionListener(e -> { //load game
+            try {
+                new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+
+        //Button Initialization
+        rollButton = new JButton("Roll Dice");
+        rollButton.addActionListener(rollCont);
+        buyButton = new JButton("Buy Current Property");
+        buyButton.addActionListener(buyCont);
+        passButton = new JButton("End Turn");
+        passButton.addActionListener(passCont);
+        playerOverviewButton = new JButton("View Player Portfolio");
+        playerOverviewButton.addActionListener(stateCont);
+        buildButton = new JButton("View Available Tile To Build");
+        buildButton.addActionListener(buildCont);
+        helpButton = new JButton("Help");
+        helpButton.addActionListener(helpCont);
+
+
+        //Panel Initialization
+        boardPane = new JPanel();
+        infoPane = new JPanel();
+        infoPane.setPreferredSize(new Dimension(500, 800));
+        boardPane.setLayout(new BorderLayout());
+        infoPane.setLayout(new GridLayout(0, 1));
+        boardPane.setBackground(Color.BLACK);
+        infoPane.setBackground(Color.YELLOW);
+
+        //Label initialization
+
+        activePlayerText = new JLabel("", SwingConstants.CENTER);
+        activePlayerText.setFont(stdFont);
+        walletStateText = new JLabel("", SwingConstants.CENTER);
+        walletStateText.setFont(stdFont);
+
+
+        //Adding Board Image
+        BufferedImage img = null;
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+            assert resource != null;
+            img = ImageIO.read(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert img != null;
+        Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+        ImageIcon boardImage = new ImageIcon(scaledImg);
+
+        boardMap = new JLabel(boardImage);
+
+        //Component Addition
+        infoPane.add(activePlayerText);
+        infoPane.add(walletStateText);
+        infoPane.add(rollButton);
+        infoPane.add(buyButton);
+        infoPane.add(playerOverviewButton);
+        infoPane.add(passButton);
+        infoPane.add(buildButton);
+        infoPane.add(helpButton);
+
+        boardPane.add(boardMap, BorderLayout.CENTER);
+
+
+        this.add(boardPane, BorderLayout.CENTER);
+        this.add(infoPane, BorderLayout.EAST);
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.pack();
+        this.setLocationRelativeTo(null);
+
+        //Display
+        this.setVisible(true);
     }
 
     /**

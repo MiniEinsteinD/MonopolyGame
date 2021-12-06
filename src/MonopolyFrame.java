@@ -213,7 +213,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         loadMenuItem.addActionListener(e -> { //load game
             try {
-                new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
+                Monopoly temp = Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game"));
+                new MonopolyFrame(temp);
+                temp.notifyViews();
+                this.dispose();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -347,7 +350,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         loadMenuItem.addActionListener(e -> { //load game
             try {
-                new MonopolyFrame(Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game")));
+                Monopoly temp = Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game"));
+                new MonopolyFrame(temp);
+                temp.notifyViews();
+                this.dispose();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

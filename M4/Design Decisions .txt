@@ -1,11 +1,12 @@
 
 Project
 --------
-    -  
+    - we exchanged all the hardcoded currency signs to a static variable in the Monopoly class in order to change depending on the version chosen.
 
 Monopoly
 ---------
-    - 
+    -  We decided to create a new class called VersionFormate to handle the implementation of the international versions feature. 
+	The reason for creating this new class is to reduce coupling within the Monopoly class. 
 
 
 ----------

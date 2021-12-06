@@ -1,17 +1,17 @@
 UML Diagram Changes:
-	- 
+	- Adding a new class called VersionFormat to handle the 
+	implemntations of the international versions added. 
 	
 Data Structure Changes:
-	- 
+	- tiles attribute in Monopoly class was changed from private final to 
+	private only since the creation of tiles is based on the monooly version chosen. 
+
 
 MonopolyFrame :
-	- 
+	- A new frame is added to ask the user for their desired version of Monopoly
+	to play at the very beginning. 
 
-MonopolyView:
-	- 
 
-JUnit Test:
-	- 
 
 
    

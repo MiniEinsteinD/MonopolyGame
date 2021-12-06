@@ -14,7 +14,25 @@ abstract class Tile {
     + landHandler(sb: StringBuilder, player: Player): void
     + toString(): String
 }
-
+class VersionFormat{
+    - tiles: ArrayList<Tile>
+    - elementStacks: Stack<String>
+    - currencySign: String
+    - propertyName: String
+    - propertyPrice: int
+    - group: String
+    - utilityName: String
+    - utilityPrice: int
+    - railRoadName: String
+    - railRoadPrice: int
+    + VersionFormat()
+    + importFormat(filename: String): void
+    + getTiles(): ArrayList<Tile>
+    + getCurrencySign(): String
+    + startElement(uri: java.lang.String ,localName: java.lang.String , qName: java.lang.String , attributes: org.xml.sax.Attributes ): void
+    + endElement(uri: String , localName: String, qName: String): void
+    + characters(ch: char[], start: int, length: int): void
+}
 class TwoDice {
     - firstRoll: int
     - secondRoll: int
@@ -52,7 +70,7 @@ class Player {
 }
 
 class Monopoly {
-    - TILES: ArrayList<Tile>
+    - tiles: ArrayList<Tile>
     - activePlayer: Player
     - players: ArrayList<Player>
     - dice: TwoDice
@@ -66,9 +84,16 @@ class Monopoly {
     - <u>COLORS: ArrayList<String></u>
     - <u>COLORCODES: ArrayList<Color></u>
     - views: ArrayList<MonopolyView>
+    # <u>lastRoll: int </u>
+    + <u>currencySign: String</u>
     + Monopoly()
+    + importFormat(filename: String): void
     + addView(mv: MonopolyView): void
     + removeView(mv: MonopolyView): void
+    + setupJailViews(): void
+    + setMoved(moved: boolean): void
+    + isMoved(): boolean
+    + <u> getLastRoll: int </u>
     + getNumBuildablesInGroup(group: String): int
     + getEventString(): String
     + playerMoveNeeded(): boolean
@@ -76,7 +101,7 @@ class Monopoly {
     + getPlayers(): ArrayList<Player>
     + getNumSolventPlayers(): int
     + getActivePlayer(): Player
-    + getTILES(): ArrayList<Tile>
+    + getTiles(): ArrayList<Tile>
     + start(numPlayers: int, numBots: int): void
     + state(): void
     + buy(): void
@@ -88,6 +113,9 @@ class Monopoly {
     - notifyViews(): void
     + help(): void
     - handleBotActions(): void
+    + build(buildable: Buildable): void
+    + exportMonopoly(filename: String): void
+    + importMonopoly(filename: String): void
 }
 
 class MonopolyEvent(){
@@ -167,11 +195,24 @@ class MonopolyFrame {
     - numPlayerMenu: JFrame
     - numPanelText: JLabel
     - numPanel: JPanel
+    - numPlayerBotMenu: JFrame
+    - numBotPanel: JPanel
+    - numBotPanelText: JLabel
+    - internationalVersionMenu: JFrame
+    - internationalVersionPanel: JPanel
+    - englishVersion: JButton
+    - arabicVersion: JButton
+    - versionPanelText: JLabel
     - rollButton: JButton
     - buyButton: JButton
     - passButton: JButton
     - playerOverviewButton: JButton
     - helpButton: JButton
+    - buildButton: JButton
+    - slMenuBar: JMenuBar
+    - saveLoadMenu: JMenu
+    - saveMenuItem: JMenuItem
+    - loadMenuItem: JMenuItem
     - walletStateText: JLabel
     - activePlayerText: JLabel
     - boardMap: JLabel
@@ -314,6 +355,7 @@ Property --> Buildable
 Property --> Buyable
 
 Player o-- Buyable
+Monopoly o-- VersionFormat
 
 SelectActionsEvent o-- Player
 SelectActionsEvent o-- Monopoly

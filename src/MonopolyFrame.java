@@ -79,6 +79,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numPlayerMenu.add(numPanelText,BorderLayout.NORTH);
         numPlayerMenu.add(numPanel,BorderLayout.CENTER);
 
+        //Number of Bots
         numPlayerBotMenu = new JFrame("Select Number of Bots");
         numPlayerBotMenu.setSize(new Dimension(300, 600));
         numPlayerBotMenu.setLayout(new BorderLayout());
@@ -91,6 +92,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numPlayerBotMenu.add(numBotPanelText,BorderLayout.NORTH);
         numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
 
+
+        //International Versions
         internationalVersionMenu = new JFrame("Select the international version desired");
         internationalVersionMenu.setSize(new Dimension(400, 200));
         internationalVersionMenu.setLayout(new BorderLayout());
@@ -113,7 +116,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         englishVersion.addActionListener(e ->{
             internationalFrame.setVisible(false);
             numPlayerMenu.setVisible(true);
-            versionFormat.importFormat("englishVersionXML.txt", "$");
+            model.importFormat("englishVersionXML.txt");
 
             //Adding Board Image
             BufferedImage img = null;
@@ -128,18 +131,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             assert img != null;
             Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
             ImageIcon boardImage = new ImageIcon(scaledImg);
-
             boardMap = new JLabel(boardImage);
-
-
-
         });
 
 
         arabicVersion.addActionListener(e ->{
             internationalFrame.setVisible(false);
             numPlayerMenu.setVisible(true);
-            versionFormat.importFormat("arabicVersionXML.txt", "Fils");
+            model.importFormat("arabicVersionXML.txt");
 
             //Adding Board Image
             BufferedImage img = null;

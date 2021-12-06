@@ -27,15 +27,17 @@ public class Monopoly implements Serializable {
         Color.BLUE, Color.YELLOW, new Color(128, 0, 128), Color.ORANGE, Color.WHITE, Color.BLACK));
     private ArrayList<MonopolyView> views;
     private ArrayList<Jail> jails; // Required to correctly set up the JailViews.
+    public VersionFormat versionFormat;
     protected static int lastRoll;
     public static String currencySign;
+
 
     /**
      * Constructs a Monopoly object.
      */
     public Monopoly(){
         Jail jail = new Jail("Jail", 1, this);
-        tiles = new ArrayList<Tile>(Arrays.asList(
+        /*tiles = new ArrayList<Tile>(Arrays.asList(
                 new GoTile(),
                 new Property("Dunton Tower",60,"Brown"),
                 new Property("Jack's Truss",60,"Brown"),
@@ -66,6 +68,7 @@ public class Monopoly implements Serializable {
                 new Property("Howling Abyss",350,"Purple"),
                 new Property("Summoner's Rift",400,"Purple")
         ));
+         */
         jails = new ArrayList<>();
         jails.add(jail);
         activePlayer = null;
@@ -76,6 +79,13 @@ public class Monopoly implements Serializable {
         running = false;
         eventString = "";
         views = new ArrayList<>();
+        versionFormat = new VersionFormat();
+        currencySign = versionFormat.getCurrencySign();
+    }
+
+    public void importFormat(String fileName){
+        versionFormat.importFormat(fileName);
+        this.tiles = versionFormat.getTiles();
     }
 
     /**

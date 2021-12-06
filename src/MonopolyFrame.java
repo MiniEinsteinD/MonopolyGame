@@ -142,6 +142,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             }
         });
 
+        saveLoadMenu.add(saveMenuItem);
+        saveLoadMenu.add(loadMenuItem);
+        slMenuBar.add(saveLoadMenu);
+
         //Button Initialization
         rollButton = new JButton("Roll Dice");
         rollButton.addActionListener(rollCont);
@@ -252,6 +256,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         loadMenuItem = new JMenuItem("Load Previous Game");
 
 
+
         saveMenuItem.addActionListener(e -> { // save game
             try {
                 model.exportMonopoly(JOptionPane.showInputDialog("Enter filename"));
@@ -268,6 +273,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             }
         });
 
+        saveLoadMenu.add(saveMenuItem);
+        saveLoadMenu.add(loadMenuItem);
+        slMenuBar.add(saveLoadMenu);
 
         //Button Initialization
         rollButton = new JButton("Roll Dice");

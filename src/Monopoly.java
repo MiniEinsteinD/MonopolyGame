@@ -448,7 +448,7 @@ public class Monopoly implements Serializable {
         FileInputStream fis = null;
         File f = new File(fileName + ".ser");
         if(!f.exists() && !f.isDirectory()) {
-            throw new Exception("FILE DOES NOT EXIST");
+            throw new Exception("FILE "+ fileName +" DOES NOT EXIST");
         }
         fis = new FileInputStream(fileName + ".ser");
         ObjectInputStream ois = null;

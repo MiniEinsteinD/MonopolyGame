@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
+ * Version Format Class Handles parsing the XML files for international versions of Monopoly
  *
+ * @version 1.0
+ * @author Daniah Mohammed - 101145902
  */
 public class VersionFormat extends DefaultHandler {
 
@@ -29,11 +32,18 @@ public class VersionFormat extends DefaultHandler {
     private String railRoadName;
     private int railRoadPrice;
 
-
+    /**
+     * VersionFormat Constructor
+     */
     public VersionFormat(){
         this.elementStacks = new Stack<>();
         this.tiles = new ArrayList<>();
     }
+
+    /**
+     * Importing the XML files and assigning it to the tiles & currency sign
+     * @param filename, the name of the XML file
+     */
     public void importFormat(String filename){
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -71,20 +81,45 @@ public class VersionFormat extends DefaultHandler {
         }
     }
 
+    /**
+     * Getter method for tiles
+     * @return list of parsed tiles from the XML
+     */
+
     public ArrayList<Tile> getTiles(){
         return tiles;
     }
+
+    /**
+     * Getter method for currency sign
+     * @return String of parsed currency sign from the XML
+     */
 
     public String getCurrencySign() {
         return currencySign;
     }
 
-
+    /**
+     * Adding qName to the elementStacks
+     * @param uri
+     * @param localName
+     * @param qName
+     * @param attributes
+     * @throws SAXException
+     */
     @Override
     public void startElement(java.lang.String uri, java.lang.String localName, java.lang.String qName, org.xml.sax.Attributes attributes) throws SAXException {
         elementStacks.add(qName);
     }
 
+
+    /**
+     * Creating the list of tiles depending on element tags
+     * @param uri
+     * @param localName
+     * @param qName
+     * @throws SAXException
+     */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equals("Property")) {
@@ -103,6 +138,13 @@ public class VersionFormat extends DefaultHandler {
 
     }
 
+    /**
+     * Assign the characters withing the XML file to their corresponding attribute
+     * @param ch
+     * @param start
+     * @param length
+     * @throws SAXException
+     */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         int price = Integer.parseInt(new String(ch, start, length));
@@ -132,6 +174,5 @@ public class VersionFormat extends DefaultHandler {
                 currencySign = new String(ch, start, length);
                 break;
         }
-
     }
 }

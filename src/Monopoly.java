@@ -83,6 +83,12 @@ public class Monopoly implements Serializable {
         currencySign = versionFormat.getCurrencySign();
     }
 
+    /**
+     * importing the XMl format from VersionFormat Class
+     *
+     * @author Daniah Mohammed - 101145902
+     * @param fileName, string of the file name that contains the corresponding XML
+     */
     public void importFormat(String fileName){
         versionFormat.importFormat(fileName);
         this.tiles = versionFormat.getTiles();

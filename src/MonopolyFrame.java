@@ -210,7 +210,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         this.add(boardPane, BorderLayout.CENTER);
         this.add(infoPane, BorderLayout.EAST);
-        this.add(slMenuBar);
+        this.add(slMenuBar, BorderLayout.NORTH);
 
         //Packing
         numPlayerBotMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -342,7 +342,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         this.add(boardPane, BorderLayout.CENTER);
         this.add(infoPane, BorderLayout.EAST);
-        this.add(slMenuBar);
+        this.add(slMenuBar, BorderLayout.NORTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);

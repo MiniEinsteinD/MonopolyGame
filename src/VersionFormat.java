@@ -7,6 +7,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -16,7 +17,7 @@ import java.util.Stack;
  * @version 1.0
  * @author Daniah Mohammed - 101145902
  */
-public class VersionFormat extends DefaultHandler {
+public class VersionFormat extends DefaultHandler implements Serializable {
 
     private ArrayList<Tile> tiles;
     private Stack<String> elementStacks;

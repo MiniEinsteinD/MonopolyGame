@@ -28,7 +28,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JButton englishVersion;
     private JButton arabicVersion;
     private JLabel versionPanelText;
-    private VersionFormat versionFormat;
 
     private JButton rollButton;
     private JButton buyButton;

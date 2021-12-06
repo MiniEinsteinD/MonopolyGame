@@ -37,12 +37,12 @@ public class JailFrame extends JFrame implements MonopolyView {
                 case JOptionPane.CLOSED_OPTION -> System.out.println("Closed");
             }
             if (result1 != JOptionPane.YES_OPTION) {
-                int result2 = JOptionPane.showConfirmDialog(null, String.format("Do you want to pay fine ($%d)", Jail.FINE));
+                int result2 = JOptionPane.showConfirmDialog(null, String.format("Do you want to pay fine (" + Monopoly.currencySign + "%d)", Jail.FINE));
                 switch (result2) {
                     case JOptionPane.YES_OPTION -> {
                         System.out.println("Yes");
                         if (jail.fineEscape(activePlayer)) {
-                            JOptionPane.showMessageDialog(this, String.format("You paid $%d and got out of Jail!", Jail.FINE));
+                            JOptionPane.showMessageDialog(this, String.format("You paid " + Monopoly.currencySign + "%d and got out of Jail!", Jail.FINE));
                         } else {
                             JOptionPane.showMessageDialog(this, "You failed to pay the fine and are still in Jail!");
                         }

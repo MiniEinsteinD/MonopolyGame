@@ -10,7 +10,7 @@ import java.awt.Color;
  * @version 5.0
  */
 public class Monopoly implements Serializable {
-    private final ArrayList<Tile> TILES;
+    private ArrayList<Tile> tiles;
     private Player activePlayer;
     private ArrayList<Player> players;
     private TwoDice dice;
@@ -28,13 +28,14 @@ public class Monopoly implements Serializable {
     private ArrayList<MonopolyView> views;
     private ArrayList<Jail> jails; // Required to correctly set up the JailViews.
     protected static int lastRoll;
+    public static String currencySign;
 
     /**
      * Constructs a Monopoly object.
      */
     public Monopoly(){
         Jail jail = new Jail("Jail", 1, this);
-        TILES = new ArrayList<Tile>(Arrays.asList(
+        tiles = new ArrayList<Tile>(Arrays.asList(
                 new GoTile(),
                 new Property("Dunton Tower",60,"Brown"),
                 new Property("Jack's Truss",60,"Brown"),
@@ -132,7 +133,7 @@ public class Monopoly implements Serializable {
         be used whenever the build command is called, which should be infrequent anyway.
          */
         int count = 0;
-        for (Tile tile : TILES) {
+        for (Tile tile : tiles) {
             if (tile instanceof Buildable && ((Buildable) tile).getGroup().equals(group)) {
                 count += 1;
             }
@@ -202,8 +203,8 @@ public class Monopoly implements Serializable {
      * Get all the tiles on the board, listed in order.
      * @return ArrayList<Tile>, the playing board.
      */
-    public ArrayList<Tile> getTILES() {
-        return TILES;
+    public ArrayList<Tile> getTiles() {
+        return tiles;
     }
 
     /**
@@ -224,7 +225,7 @@ public class Monopoly implements Serializable {
         if (!moved){
             sb.append("You haven't rolled yet.\n");
         } else {
-            Tile t = TILES.get(activePlayer.getPosition());
+            Tile t = tiles.get(activePlayer.getPosition());
             if (t instanceof Property) {
                 activePlayer.buyProperty(sb, (Property) t);
             } else {
@@ -289,7 +290,7 @@ public class Monopoly implements Serializable {
      */
     private void move(StringBuilder sb){
         sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
-        activePlayer.movePlayer(sb, dice.dieSum(), TILES);
+        activePlayer.movePlayer(sb, dice.dieSum(), tiles);
     }
 
     /**
@@ -299,7 +300,7 @@ public class Monopoly implements Serializable {
     public void directMove(int steps) {
         StringBuilder sb = new StringBuilder();
         sb.append("Moving the " + activePlayer.getCOLOR() + " player...\n" );
-        activePlayer.movePlayer(sb, steps, TILES);
+        activePlayer.movePlayer(sb, steps, tiles);
         moved = true;
         eventString = sb.toString();
     }
@@ -367,6 +368,7 @@ public class Monopoly implements Serializable {
      * @param numPlayers int, the selected number of players.
      */
     public void start(int numPlayers, int numBots) {
+        assert tiles.size() != 0;
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
         activePlayerIndex = rand.nextInt(numPlayers);

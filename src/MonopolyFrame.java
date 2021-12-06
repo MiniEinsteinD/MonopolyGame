@@ -23,6 +23,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel numBotPanel;
     private JLabel numBotPanelText;
 
+    private JFrame internationalVersionMenu;
+    private JPanel internationalVersionPanel;
+    private JButton englishVersion;
+    private JButton arabicVersion;
+    private JLabel versionPanelText;
+    private VersionFormat versionFormat;
+
     private JButton rollButton;
     private JButton buyButton;
     private JButton passButton;
@@ -84,6 +91,74 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         numPlayerBotMenu.add(numBotPanelText,BorderLayout.NORTH);
         numPlayerBotMenu.add(numBotPanel,BorderLayout.CENTER);
 
+        internationalVersionMenu = new JFrame("Select the international version desired");
+        internationalVersionMenu.setSize(new Dimension(400, 200));
+        internationalVersionMenu.setLayout(new BorderLayout());
+        internationalVersionPanel = new JPanel();
+        internationalVersionPanel.setBackground(Color.WHITE);
+        internationalVersionPanel.setPreferredSize(new Dimension(300,300));
+        internationalVersionPanel.setLayout(new GridLayout(2,3));
+        englishVersion = new JButton("English Version");
+        arabicVersion = new JButton("Arabic Version");
+        versionPanelText = new JLabel("What version would you like to play?", SwingConstants.CENTER);
+        versionPanelText.setFont(stdFont);
+        internationalVersionMenu.add(versionPanelText,BorderLayout.NORTH);
+
+        internationalVersionPanel.add(englishVersion);
+        internationalVersionPanel.add(arabicVersion);
+        internationalVersionMenu.add(internationalVersionPanel,BorderLayout.CENTER);
+        JFrame internationalFrame = internationalVersionMenu;
+
+
+        englishVersion.addActionListener(e ->{
+            internationalFrame.setVisible(false);
+            numPlayerMenu.setVisible(true);
+            versionFormat.importFormat("englishVersionXML.txt", "$");
+
+            //Adding Board Image
+            BufferedImage img = null;
+            try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                assert resource != null;
+                img = ImageIO.read(resource);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+            assert img != null;
+            Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+            ImageIcon boardImage = new ImageIcon(scaledImg);
+
+            boardMap = new JLabel(boardImage);
+
+
+
+        });
+
+
+        arabicVersion.addActionListener(e ->{
+            internationalFrame.setVisible(false);
+            numPlayerMenu.setVisible(true);
+            versionFormat.importFormat("arabicVersionXML.txt", "Fils");
+
+            //Adding Board Image
+            BufferedImage img = null;
+            try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                assert resource != null;
+                img = ImageIO.read(resource);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+            assert img != null;
+            Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+            ImageIcon boardImage = new ImageIcon(scaledImg);
+
+            boardMap = new JLabel(boardImage);
+
+
+        });
 
         for (int i = Monopoly.MIN_PLAYERS; Monopoly.MAX_PLAYERS >= i; i++) {
             JButton numButton = new JButton();
@@ -94,6 +169,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 numPlayerMenu.setVisible(false);
 
                 for (int j = 0; numPlayers > j; j++) {
+
                     JButton numBotButton = new JButton();
                     numBotButton.setText(Integer.toString(j));
                     numBotButton.setSize(new Dimension(20, 20));
@@ -112,6 +188,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             numButton.setBackground(Color.GRAY);
             numPanel.add(numButton);
         }
+
+
 
         MonopolyController rollCont = new RollController(model);
         MonopolyController helpCont = new HelpController(model);
@@ -224,7 +302,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         //Display
 
-        numPlayerMenu.setVisible(true);
+        numPlayerMenu.setVisible(false);
+        internationalFrame.setVisible(true);
         numPlayerBotMenu.setVisible(false);
     }
 

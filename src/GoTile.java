@@ -33,6 +33,6 @@ public class GoTile extends Tile{
     public void passHandler(StringBuilder sb, Player player){
         player.setWallet(player.getWallet() + 200);
 
-        sb.append("You Passed Go and collected $200!\n");
+        sb.append("You Passed Go and collected " + Monopoly.currencySign +"200!\n");
     }
 }

@@ -17,7 +17,7 @@ public class PlayerBot {
      */
     public static void selectActions(SelectActionsEvent sae) { // something funky is still happening here
         Monopoly monopoly = (Monopoly) sae.getSource();
-        ArrayList<Tile> tiles = monopoly.getTILES();
+        ArrayList<Tile> tiles = monopoly.getTiles();
 
         Tile tileAtPosition = tiles.get(sae.getPlayer().getPosition());
         do {

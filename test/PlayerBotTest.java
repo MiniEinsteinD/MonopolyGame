@@ -1,4 +1,3 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -28,7 +27,7 @@ public class PlayerBotTest {
         }
         //Move as many times as needed to confirm that the BOT lands on a Buyable Tile.
         int last_index = monopoly.getPlayers().get(bot_index).getPosition();
-        while (!(monopoly.getTILES().get(monopoly.getPlayers().get(bot_index).getPosition()) instanceof Buyable)){
+        while (!(monopoly.getTiles().get(monopoly.getPlayers().get(bot_index).getPosition()) instanceof Buyable)){
             while (monopoly.playerMoveNeeded()) {
                 monopoly.roll();
             }
@@ -71,7 +70,7 @@ public class PlayerBotTest {
             //Make sure that the bot is moving on their turn.
             assertNotEquals(last_index, monopoly.getPlayers().get(bot_index).getPosition());
             last_index = monopoly.getPlayers().get(bot_index).getPosition();
-        } while (!(monopoly.getTILES().get(monopoly.getPlayers().get(bot_index).getPosition()) instanceof Buyable));
+        } while (!(monopoly.getTiles().get(monopoly.getPlayers().get(bot_index).getPosition()) instanceof Buyable));
 
         assertEquals(FAIL_STARTING_WALLET, monopoly.getPlayers().get(bot_index).getWallet());
     }

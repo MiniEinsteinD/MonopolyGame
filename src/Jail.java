@@ -24,6 +24,12 @@ public class Jail extends Tile {
         this.dice = new TwoDice();
     }
 
+    /**
+     * Allow the player to escape Jail if they have waited enough days.
+     * @param activePlayer Player, the player who is currently in Jail.
+     * @return boolean, true if the Player was let out of Jail,
+     *                  false if the Player was not let out of Jail.
+     */
     public boolean waitEscape(Player activePlayer) {
         if (activePlayer.getDaysJailed() == WAIT_RELEASE_NUM_DAYS) {
             activePlayer.escapedJail();
@@ -32,6 +38,12 @@ public class Jail extends Tile {
         return false;
     }
 
+    /**
+     * Allow the player to escape Jail if they roll doubles.
+     * @param activePlayer Player, the player who is currently in Jail.
+     * @return boolean, true if the Player was let out of Jail,
+     *                  false if the Player was not let out of Jail.
+     */
     public boolean rollEscape(Player activePlayer) {
         dice.roll();
         if (dice.isDouble()) {
@@ -46,6 +58,12 @@ public class Jail extends Tile {
         return false;
     }
 
+    /**
+     * Allow the player to escape Jail if they pay a fine.
+     * @param activePlayer Player, the player who is currently in Jail.
+     * @return boolean, true if the Player was let out of Jail,
+     *                  false if the Player was not let out of Jail.
+     */
     public boolean fineEscape(Player activePlayer) {
         if (activePlayer.payJailFine()) {
             activePlayer.escapedJail();

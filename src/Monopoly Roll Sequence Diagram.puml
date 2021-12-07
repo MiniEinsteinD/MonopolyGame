@@ -127,9 +127,9 @@ else tiles.get(distance) instanceof GoToJail
 
 ap -> gtj: landHandler(sb, this)
 activate gtj
-gtj -> ap: setLandedOnGoToJail(true)
+gtj -> ap: setJailId(jailId)
 ap -->gtj
-gtj -> ap: setPosition(10)
+gtj -> ap: setPosition(jailPosition)
 ap --> gtj
 gtj --> ap
 deactivate gtj

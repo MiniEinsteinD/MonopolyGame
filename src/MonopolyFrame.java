@@ -213,7 +213,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         loadMenuItem.addActionListener(e -> { //load game
             try {
                 Monopoly temp = Monopoly.importMonopoly(JOptionPane.showInputDialog("Enter filename of saved game"));
-                this.dispose()
+                this.dispose();
                 new MonopolyFrame(temp);
                 temp.notifyViews();
 

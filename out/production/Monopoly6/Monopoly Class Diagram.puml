@@ -14,7 +14,25 @@ abstract class Tile {
     + landHandler(sb: StringBuilder, player: Player): void
     + toString(): String
 }
-
+class VersionFormat{
+    - tiles: ArrayList<Tile>
+    - elementStacks: Stack<String>
+    - currencySign: String
+    - propertyName: String
+    - propertyPrice: int
+    - group: String
+    - utilityName: String
+    - utilityPrice: int
+    - railRoadName: String
+    - railRoadPrice: int
+    + VersionFormat()
+    + importFormat(filename: String): void
+    + getTiles(): ArrayList<Tile>
+    + getCurrencySign(): String
+    + startElement(uri: java.lang.String ,localName: java.lang.String , qName: java.lang.String , attributes: org.xml.sax.Attributes ): void
+    + endElement(uri: String , localName: String, qName: String): void
+    + characters(ch: char[], start: int, length: int): void
+}
 class TwoDice {
     - firstRoll: int
     - secondRoll: int
@@ -32,8 +50,9 @@ class Player {
     - COLOR: String
     - COLORCODE: Color
     - monopoly: Monopoly
-    # Type {HUMAN, BOT}: enum
     - type: Type
+    - jailId: int
+    - daysJailed: int
     + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly)
     + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly, type: Type)
     + getCOLORCODE(): Color
@@ -43,6 +62,10 @@ class Player {
     + setPosition(position: int): void
     + getWallet(): int
     + setWallet(wallet: int): void
+    + getJailId(): int
+    + setJailId(jailId: int): void
+    + getDaysJailed(): int
+    + escapedJail(): void
     + buyProperty(sb: StringBuilder, property: Property): boolean
     + payFine(sb: StringBuilder, property: Property): boolean
     + movePlayer(sb: StringBuilder, steps: int, tiles: ArrayList<Tile>): void
@@ -51,8 +74,13 @@ class Player {
     + hashCode(): int
 }
 
+enum Type {
+    HUMAN
+    BOT
+}
+
 class Monopoly {
-    - TILES: ArrayList<Tile>
+    - tiles: ArrayList<Tile>
     - activePlayer: Player
     - players: ArrayList<Player>
     - dice: TwoDice
@@ -66,9 +94,17 @@ class Monopoly {
     - <u>COLORS: ArrayList<String></u>
     - <u>COLORCODES: ArrayList<Color></u>
     - views: ArrayList<MonopolyView>
+    - jails: ArrayList<Jail>
+    # <u>lastRoll: int </u>
+    + <u>currencySign: String</u>
     + Monopoly()
+    + importFormat(filename: String): void
     + addView(mv: MonopolyView): void
     + removeView(mv: MonopolyView): void
+    + setupJailViews(): void
+    + setMoved(moved: boolean): void
+    + isMoved(): boolean
+    + <u> getLastRoll: int </u>
     + getNumBuildablesInGroup(group: String): int
     + getEventString(): String
     + playerMoveNeeded(): boolean
@@ -76,18 +112,23 @@ class Monopoly {
     + getPlayers(): ArrayList<Player>
     + getNumSolventPlayers(): int
     + getActivePlayer(): Player
-    + getTILES(): ArrayList<Tile>
+    + getTiles(): ArrayList<Tile>
     + start(numPlayers: int, numBots: int): void
     + state(): void
     + buy(): void
     + roll(): void
     - generateRoll(sb: StringBuilder): void
     - move(sb: StringBuilder): void
+    + directMove(int steps): void
+    - resetDice(): void
     + bankrupt(sb: StringBuilder): void
     + passTurn(): void
-    - notifyViews(): void
+    + notifyViews(): void
     + help(): void
     - handleBotActions(): void
+    + build(buildable: Buildable): void
+    + exportMonopoly(filename: String): void
+    + importMonopoly(filename: String): void
 }
 
 class MonopolyEvent(){
@@ -167,11 +208,24 @@ class MonopolyFrame {
     - numPlayerMenu: JFrame
     - numPanelText: JLabel
     - numPanel: JPanel
+    - numPlayerBotMenu: JFrame
+    - numBotPanel: JPanel
+    - numBotPanelText: JLabel
+    - internationalVersionMenu: JFrame
+    - internationalVersionPanel: JPanel
+    - englishVersion: JButton
+    - arabicVersion: JButton
+    - versionPanelText: JLabel
     - rollButton: JButton
     - buyButton: JButton
     - passButton: JButton
     - playerOverviewButton: JButton
     - helpButton: JButton
+    - buildButton: JButton
+    - slMenuBar: JMenuBar
+    - saveLoadMenu: JMenu
+    - saveMenuItem: JMenuItem
+    - loadMenuItem: JMenuItem
     - walletStateText: JLabel
     - activePlayerText: JLabel
     - boardMap: JLabel
@@ -219,15 +273,21 @@ class GoTile {
 }
 
 class Jail {
-    -Group: String
-    -twoDice: TwoDice
-    +Jail(String name, TwoDice twoDice):void
-    +getGroup(): String
+    +<u>FINE: int</u>
+    +<u>WAIT_RELEASE_NUM_DAYS: int</u>
+    -ID: int
+    -monopoly: Monopoly
+    -dice: TwoDice
+    +Jail(name: String, id: int, monopoly: Monopoly)
+    +waitEscape(activePlayer: Player): boolean
+    +rollEscape(activePlayer: Player): boolean
+    +fineEscape(activePlayer: Player): boolean
     +toString():String
-    +landHandler(StringBuilder sb, Player player): void
 }
 
 class GoToJail {
+    -jailPosition: int
+    -jailId: int
     +GoToJail()
     +landHandler(StringBuilder sb, Player player): void
 }
@@ -300,6 +360,7 @@ SetBuildableTilesFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
 Monopoly o-- TwoDice
+Player *-- Type
 
 GoTile --|> Tile
 Jail --|> Tile
@@ -314,6 +375,7 @@ Property --> Buildable
 Property --> Buyable
 
 Player o-- Buyable
+Monopoly o-- VersionFormat
 
 SelectActionsEvent o-- Player
 SelectActionsEvent o-- Monopoly

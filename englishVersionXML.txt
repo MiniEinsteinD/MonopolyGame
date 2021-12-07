@@ -1,0 +1,160 @@
+<Monopoly>
+    <currencySign> $ <currencySign>
+    <Tiles>
+        <GoTile> </GoTile>
+
+        <Property>
+            <propertyName> Dunton Tower </propertyName>
+            <propertyPrice> 60 </propertyPrice>
+            <group> Brown </group>
+        </Property>
+        <Property>
+            <propertyName> Jack's Truss </propertyName>
+            <propertyPrice> 60 </propertyPrice>
+            <group> Brown </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Train Station </railRoadName>
+            <railRoadPrice> 100 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Tokyo-1 </propertyName>
+            <propertyPrice> 100 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+        <Property>
+            <propertyName> Tokyo-2 </propertyName>
+            <propertyPrice> 100 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+        <Property>
+            <propertyName> Tokyo-3 </propertyName>
+            <propertyPrice> 120 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+
+        <Jail>
+            <name> Jail </name>
+            <id> 1 </id>
+            <Monopoly()> </Monopoly()>
+        </Jail>
+
+        <Property>
+            <propertyName> Lavina Crescent </propertyName>
+            <propertyPrice> 140 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+        <UtilityTile>
+            <utilityName> Electric </utilityName>
+            <utilityPrice> 150 </utilityPrice>
+        </UtilityTile>
+        <Property>
+            <propertyName> Banner Road </propertyName>
+            <propertyPrice> 140 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+        <Property>
+            <propertyName> Bronson Avenue </propertyName>
+            <propertyPrice> 160 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Bus Station </railRoadName>
+            <railRoadPrice> 100 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Mondstadt </propertyName>
+            <propertyPrice> 180 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+        <Property>
+            <propertyName> Liyue </propertyName>
+            <propertyPrice> 180 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+        <Property>
+            <propertyName> Inazuma </propertyName>
+            <propertyPrice> 200 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+
+        <Property>
+            <propertyName> East Blue </propertyName>
+            <propertyPrice> 220 </propertyPrice>
+            <group> Red </group>
+        </Property>
+        <Property>
+            <propertyName> West Blue </propertyName>
+            <propertyPrice> 220 </propertyPrice>
+            <group> Red </group>
+        </Property>
+        <Property>
+            <propertyName> Grand Line </propertyName>
+            <propertyPrice> 240 </propertyPrice>
+            <group> Red </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Train Station </railRoadName>
+            <railRoadPrice> 100 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> North Blue </propertyName>
+            <propertyPrice> 260 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+        <Property>
+            <propertyName> South Blue </propertyName>
+            <propertyPrice> 260 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+        <UtilityTile>
+            <utilityName> Water Works </utilityName>
+            <utilityPrice> 280 </utilityPrice>
+        </UtilityTile>
+        <Property>
+            <propertyName> Red Line </propertyName>
+            <propertyPrice> 160 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+
+        <GoToJail> </GoToJail>
+
+        <Property>
+            <propertyName> Umniyah Crescent </propertyName>
+            <propertyPrice> 300 </propertyPrice>
+            <group> Green </group>
+        </Property>
+        <Property>
+            <propertyName> Daniah Road </propertyName>
+            <propertyPrice> 300 </propertyPrice>
+            <group> Green </group>
+        </Property>
+        <Property>
+            <propertyName> Ethan Avenue </propertyName>
+            <propertyPrice> 320 </propertyPrice>
+            <group> Green </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Bus Station </railRoadName>
+            <railRoadPrice> 100 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Howling Abyss </propertyName>
+            <propertyPrice> 350 </propertyPrice>
+            <group> Purple </group>
+        </Property>
+        <Property>
+            <propertyName> Summoner's Rift </propertyName>
+            <propertyPrice> 400 </propertyPrice>
+            <group> Purple </group>
+        </Property>
+    </Tiles>
+</Monopoly>

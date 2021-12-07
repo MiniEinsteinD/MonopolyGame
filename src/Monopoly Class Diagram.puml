@@ -50,8 +50,9 @@ class Player {
     - COLOR: String
     - COLORCODE: Color
     - monopoly: Monopoly
-    # Type {HUMAN, BOT}: enum
     - type: Type
+    - jailId: int
+    - daysJailed: int
     + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly)
     + Player(id: String, color: String, colorCode: Color, monopoly: Monopoly, type: Type)
     + getCOLORCODE(): Color
@@ -61,12 +62,21 @@ class Player {
     + setPosition(position: int): void
     + getWallet(): int
     + setWallet(wallet: int): void
+    + getJailId(): int
+    + setJailId(jailId: int): void
+    + getDaysJailed(): int
+    + escapedJail(): void
     + buyProperty(sb: StringBuilder, property: Property): boolean
     + payFine(sb: StringBuilder, property: Property): boolean
     + movePlayer(sb: StringBuilder, steps: int, tiles: ArrayList<Tile>): void
     + toString(): String
     + equals(o: Object): boolean
     + hashCode(): int
+}
+
+enum Type {
+    HUMAN
+    BOT
 }
 
 class Monopoly {
@@ -84,6 +94,7 @@ class Monopoly {
     - <u>COLORS: ArrayList<String></u>
     - <u>COLORCODES: ArrayList<Color></u>
     - views: ArrayList<MonopolyView>
+    - jails: ArrayList<Jail>
     # <u>lastRoll: int </u>
     + <u>currencySign: String</u>
     + Monopoly()
@@ -108,9 +119,11 @@ class Monopoly {
     + roll(): void
     - generateRoll(sb: StringBuilder): void
     - move(sb: StringBuilder): void
+    + directMove(int steps): void
+    - resetDice(): void
     + bankrupt(sb: StringBuilder): void
     + passTurn(): void
-    - notifyViews(): void
+    + notifyViews(): void
     + help(): void
     - handleBotActions(): void
     + build(buildable: Buildable): void
@@ -260,15 +273,21 @@ class GoTile {
 }
 
 class Jail {
-    -Group: String
-    -twoDice: TwoDice
-    +Jail(String name, TwoDice twoDice):void
-    +getGroup(): String
+    +<u>FINE: int</u>
+    +<u>WAIT_RELEASE_NUM_DAYS: int</u>
+    -ID: int
+    -monopoly: Monopoly
+    -dice: TwoDice
+    +Jail(name: String, id: int, monopoly: Monopoly)
+    +waitEscape(activePlayer: Player): boolean
+    +rollEscape(activePlayer: Player): boolean
+    +fineEscape(activePlayer: Player): boolean
     +toString():String
-    +landHandler(StringBuilder sb, Player player): void
 }
 
 class GoToJail {
+    -jailPosition: int
+    -jailId: int
     +GoToJail()
     +landHandler(StringBuilder sb, Player player): void
 }
@@ -341,6 +360,7 @@ SetBuildableTilesFrame --> MonopolyView
 MonopolyView --o Monopoly
 MonopolyController o-- Monopoly
 Monopoly o-- TwoDice
+Player *-- Type
 
 GoTile --|> Tile
 Jail --|> Tile

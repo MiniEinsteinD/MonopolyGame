@@ -1,0 +1,160 @@
+<Monopoly>
+    <currencySign> د.ع <currencySign>
+    <Tiles>
+        <GoTile> </GoTile>
+
+        <Property>
+            <propertyName> Burj Dunton </propertyName>
+            <propertyPrice> 65 </propertyPrice>
+            <group> Brown </group>
+        </Property>
+        <Property>
+            <propertyName> Jack's Msar </propertyName>
+            <propertyPrice> 65 </propertyPrice>
+            <group> Brown </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Qtar </railRoadName>
+            <railRoadPrice> 150 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Tokyo-1 </propertyName>
+            <propertyPrice> 150 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+        <Property>
+            <propertyName> Tokyo-2 </propertyName>
+            <propertyPrice> 150 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+        <Property>
+            <propertyName> Tokyo-3 </propertyName>
+            <propertyPrice> 170 </propertyPrice>
+            <group> Light Blue </group>
+        </Property>
+
+        <Jail>
+            <name> Jail </name>
+            <id> 1 </id>
+            <Monopoly()> </Monopoly()>
+        </Jail>
+
+        <Property>
+            <propertyName> Shar3 Lavina </propertyName>
+            <propertyPrice> 190 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+        <UtilityTile>
+            <utilityName> Electric </utilityName>
+            <utilityPrice> 200 </utilityPrice>
+        </UtilityTile>
+        <Property>
+            <propertyName> Shar3 Banner </propertyName>
+            <propertyPrice> 190 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+        <Property>
+            <propertyName> Shar3 Bronson </propertyName>
+            <propertyPrice> 210 </propertyPrice>
+            <group> Pink </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Bus Station </railRoadName>
+            <railRoadPrice> 150 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Mondstadt </propertyName>
+            <propertyPrice> 230 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+        <Property>
+            <propertyName> Liyue </propertyName>
+            <propertyPrice> 230 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+        <Property>
+            <propertyName> Inazuma </propertyName>
+            <propertyPrice> 250 </propertyPrice>
+            <group> Orange </group>
+        </Property>
+
+        <Property>
+            <propertyName> Sharq Blue </propertyName>
+            <propertyPrice> 270 </propertyPrice>
+            <group> Red </group>
+        </Property>
+        <Property>
+            <propertyName> Gharb Blue </propertyName>
+            <propertyPrice> 270 </propertyPrice>
+            <group> Red </group>
+        </Property>
+        <Property>
+            <propertyName> Grand Line </propertyName>
+            <propertyPrice> 290 </propertyPrice>
+            <group> Red </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Qtar Station </railRoadName>
+            <railRoadPrice> 150 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Shmal Blue </propertyName>
+            <propertyPrice> 310 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+        <Property>
+            <propertyName> Janoob Blue </propertyName>
+            <propertyPrice> 310 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+        <UtilityTile>
+            <utilityName> Water Works </utilityName>
+            <utilityPrice> 200 </utilityPrice>
+        </UtilityTile>
+        <Property>
+            <propertyName> Red Line </propertyName>
+            <propertyPrice> 330 </propertyPrice>
+            <group> Yellow </group>
+        </Property>
+
+        <GoToJail> </GoToJail>
+
+        <Property>
+            <propertyName> Shar3 Umniyah </propertyName>
+            <propertyPrice> 350 </propertyPrice>
+            <group> Green </group>
+        </Property>
+        <Property>
+            <propertyName> Shar3 Daniah </propertyName>
+            <propertyPrice> 350 </propertyPrice>
+            <group> Green </group>
+        </Property>
+        <Property>
+            <propertyName> Shar3 Ethan </propertyName>
+            <propertyPrice> 370 </propertyPrice>
+            <group> Green </group>
+        </Property>
+
+        <RailroadTile>
+            <railRoadName> Bus Station </railRoadName>
+            <railRoadPrice> 150 </railRoadPrice>
+        </RailroadTile>
+
+        <Property>
+            <propertyName> Howling Abyss </propertyName>
+            <propertyPrice> 400 </propertyPrice>
+            <group> Purple </group>
+        </Property>
+        <Property>
+            <propertyName> Summoner's Rift </propertyName>
+            <propertyPrice> 450 </propertyPrice>
+            <group> Purple </group>
+        </Property>
+    </Tiles>
+</Monopoly>

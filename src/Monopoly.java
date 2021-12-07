@@ -243,8 +243,8 @@ public class Monopoly implements Serializable {
             sb.append("You haven't rolled yet.\n");
         } else {
             Tile t = tiles.get(activePlayer.getPosition());
-            if (t instanceof Property) {
-                activePlayer.buyProperty(sb, (Property) t);
+            if (t instanceof Buyable) {
+                activePlayer.buyProperty(sb, (Buyable) t);
             } else {
                 sb.append("That is not for sale!\n");
             }
@@ -478,5 +478,12 @@ public class Monopoly implements Serializable {
         fis.close();
 
         return monopoly;
+    }
+
+    /**
+     * Clear all views
+     */
+    public void clearViews(){
+        this.views.clear();
     }
 }

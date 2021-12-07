@@ -58,7 +58,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         Monopoly model = new Monopoly();
         model.addView(this);
-        model.setupJailViews();
 
         this.setSize(new Dimension(1200, 800));
 
@@ -116,12 +115,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             internationalFrame.setVisible(false);
             numPlayerMenu.setVisible(true);
             model.importFormat("englishVersionXML.txt");
+            model.setupJailViews();
 
             //Adding Board Image
             BufferedImage img = null;
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                URL resource = classLoader.getResource("EnglishPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
                 assert resource != null;
                 img = ImageIO.read(resource);
             } catch (IOException exception) {
@@ -138,12 +138,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             internationalFrame.setVisible(false);
             numPlayerMenu.setVisible(true);
             model.importFormat("arabicVersionXML.txt");
+            model.setupJailViews();
 
             //Adding Board Image
             BufferedImage img = null;
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                URL resource = classLoader.getResource("ArabicPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
                 assert resource != null;
                 img = ImageIO.read(resource);
             } catch (IOException exception) {

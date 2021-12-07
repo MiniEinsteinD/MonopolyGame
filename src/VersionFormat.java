@@ -20,6 +20,7 @@ import java.util.Stack;
 public class VersionFormat extends DefaultHandler implements Serializable {
 
     private ArrayList<Tile> tiles;
+    private ArrayList<Jail> jails;
     private Stack<String> elementStacks;
     private String currencySign;
 
@@ -33,12 +34,16 @@ public class VersionFormat extends DefaultHandler implements Serializable {
     private String railRoadName;
     private int railRoadPrice;
 
+    private Monopoly monopoly;
+
     /**
      * VersionFormat Constructor
      */
-    public VersionFormat(){
+    public VersionFormat(Monopoly monopoly){
         this.elementStacks = new Stack<>();
         this.tiles = new ArrayList<>();
+        this.jails = new ArrayList<>();
+        this.monopoly = monopoly;
     }
 
     /**
@@ -101,6 +106,15 @@ public class VersionFormat extends DefaultHandler implements Serializable {
     }
 
     /**
+     * Getter method for jails
+     * @return list of parsed jails from the XML
+     */
+
+    public ArrayList<Jail> getJails() {
+        return jails;
+    }
+
+    /**
      * Adding qName to the elementStacks
      * @param uri
      * @param localName
@@ -126,7 +140,9 @@ public class VersionFormat extends DefaultHandler implements Serializable {
         if (qName.equals("Property")) {
             tiles.add(new Property(propertyName,propertyPrice,group));
         }else if(qName.equals("Jail")){
-            tiles.add(new Jail("Jail", 1, new Monopoly()));
+            Jail jail = new Jail("Jail", 1, monopoly);
+            tiles.add(jail);
+            jails.add(jail);
         }else if(qName.equals("RailroadTile")){
             tiles.add(new RailroadTile(railRoadName, railRoadPrice));
         }else if(qName.equals("GoToJail")){
@@ -136,6 +152,7 @@ public class VersionFormat extends DefaultHandler implements Serializable {
         }else if(qName.equals("GoTile")){
             tiles.add(new GoTile());
         }
+        elementStacks.pop();
 
     }
 
@@ -148,31 +165,31 @@ public class VersionFormat extends DefaultHandler implements Serializable {
      */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        int price = Integer.parseInt(new String(ch, start, length));
+        String input = new String(ch, start, length).trim();
         switch (elementStacks.peek()) {
             case "propertyName":
-                propertyName = new String(ch, start, length);
+                propertyName = input;
                 break;
             case "propertyPrice":
-                this.propertyPrice = price;
+                this.propertyPrice = Integer.parseInt(input);
                 break;
             case "group":
                 group = new String(ch, start, length);
                 break;
             case "railRoadName":
-                railRoadName = new String(ch, start, length);
+                railRoadName = input;
                 break;
             case "railRoadPrice":
-                railRoadPrice = price;
+                railRoadPrice = Integer.parseInt(input);
                 break;
             case "utilityName":
-                utilityName = new String(ch, start, length);
+                utilityName = input;
                 break;
             case "utilityPrice":
-                utilityPrice = price;
+                utilityPrice = Integer.parseInt(input);
                 break;
             case "currencySign":
-                currencySign = new String(ch, start, length);
+                currencySign = input;
                 break;
         }
     }

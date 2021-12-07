@@ -79,7 +79,7 @@ public class Monopoly implements Serializable {
         running = false;
         eventString = "";
         views = new ArrayList<>();
-        versionFormat = new VersionFormat();
+        versionFormat = new VersionFormat(this);
         currencySign = versionFormat.getCurrencySign();
     }
 
@@ -92,6 +92,7 @@ public class Monopoly implements Serializable {
     public void importFormat(String fileName){
         versionFormat.importFormat(fileName);
         this.tiles = versionFormat.getTiles();
+        this.jails = versionFormat.getJails();
     }
 
     /**

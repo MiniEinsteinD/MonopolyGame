@@ -38,7 +38,6 @@
         <Jail>
             <name> Jail </name>
             <id> 1 </id>
-            <Monopoly()> </Monopoly()>
         </Jail>
 
         <Property>

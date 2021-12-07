@@ -1,4 +1,5 @@
 <Monopoly>
+    <currencySign> $ <currencySign>
     <Tiles>
         <GoTile> </GoTile>
 

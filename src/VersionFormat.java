@@ -4,10 +4,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -64,20 +62,21 @@ public class VersionFormat extends DefaultHandler implements Serializable {
             return;
         }
 
-        FileInputStream fileInputStream;
-        try{
-            fileInputStream = new FileInputStream(filename);
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
+
+        URL resource;
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        resource = classLoader.getResource(filename);
+        InputStream fileInputStream;
 
         try {
+            fileInputStream = resource.openStream();
             saxParser.parse(fileInputStream, this);
         } catch (SAXException e) {
             e.printStackTrace();
+            return;
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
         try {

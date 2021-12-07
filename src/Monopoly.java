@@ -478,17 +478,4 @@ public class Monopoly implements Serializable {
 
         return monopoly;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Monopoly monopoly = (Monopoly) o;
-        return running == monopoly.running && moved == monopoly.moved && numSolventPlayers == monopoly.numSolventPlayers && activePlayerIndex == monopoly.activePlayerIndex && Objects.equals(tiles, monopoly.tiles) && Objects.equals(activePlayer, monopoly.activePlayer) && Objects.equals(players, monopoly.players) && Objects.equals(dice, monopoly.dice) && Objects.equals(eventString, monopoly.eventString) && Objects.equals(views, monopoly.views) && Objects.equals(jails, monopoly.jails) && Objects.equals(versionFormat, monopoly.versionFormat);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(tiles, activePlayer, players, dice, running, moved, eventString, numSolventPlayers, activePlayerIndex, views, jails, versionFormat);
-    }
 }

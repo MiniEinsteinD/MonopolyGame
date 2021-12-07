@@ -140,7 +140,7 @@ public class MonopolyTest {
         monopoly.exportMonopoly(testName);
         Monopoly newMonopoly = Monopoly.importMonopoly(testName);
 
-        assertEquals(monopoly,newMonopoly);
+        assertTrue(monopoly.equals(newMonopoly));
 
         File f = new File(testName);
         f.delete();

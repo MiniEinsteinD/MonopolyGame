@@ -1,5 +1,5 @@
 <Monopoly>
-    <currencySign> د.ع <currencySign>
+    <currencySign> د.ع </currencySign>
     <Tiles>
         <GoTile> </GoTile>
 

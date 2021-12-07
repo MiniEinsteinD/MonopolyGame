@@ -1,10 +1,12 @@
 UML Diagram Changes:
 	- Adding a new class called VersionFormat to handle the 
-	implemntations of the international versions added. 
+	implemntations of the international versions added.
+	- Added a separate box in class diagram for enum Type.
+	- Updated roll sequence diagram for changes made to GoToJail.
 	
 Data Structure Changes:
 	- tiles attribute in Monopoly class was changed from private final to 
-	private only since the creation of tiles is based on the monooly version chosen. 
+	private only since the creation of tiles is based on the monooly version chosen.
 
 
 MonopolyFrame :

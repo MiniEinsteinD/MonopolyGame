@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * This class tests Monopoly class
- * @author (Umniyah Mohammed (101158792) - M2); (Daniah Mohammed - 101145902 - M3)
+ * @author (Umniyah Mohammed (101158792) - M2); (Daniah Mohammed - 101145902 - M3) (Ethan Houlahan - 101145675 - M4(serialization test))
  * @version 2.0
  *
  * Note: Some methods were not tested because rolling dice can not be expected,

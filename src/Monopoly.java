@@ -6,7 +6,7 @@ import java.awt.Color;
 
 /**
  * A class to set up and play a game of Monopoly.
- * @author Ethan Leir 101146422
+ * @author Ethan Leir 101146422 (Ethan Houlahan - 101145675 - M4(serialization))
  * @version 5.0
  */
 public class Monopoly implements Serializable {

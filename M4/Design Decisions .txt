@@ -8,13 +8,28 @@ Monopoly
     -  We decided to create a new class called VersionFormate to handle the implementation of the international versions feature. 
 	The reason for creating this new class is to reduce coupling within the Monopoly class. 
 
+Player
+------
+    - We decided to store the id of the jail that the player is in and the number of days the player has been in jail. If the player is not in a
+    jail, the id of the jail is set to an invalid id (i.e. 0).
+
+Jail
+----
+    - We decided to have each Jail correspond to a unique JailFrame so that the GUI for a Jail would be in a view, not a model.
+    - Program is structured so that multiple Jails can be added.
+
+JailFrame
+---------
+    - Uses lambdas so that JOptionPanes can be used for the display. The Jail class contains the implementation of how each command
+    should be handled.
+
 Serialization
 -------------
-    - 
+    -
 
 XML
 ---
-    - XML files were added in this milestone; it uses human, not computer, language, and it is readable and understandable. Also, XML is 
+    - XML files were added in this milestone; it uses human, not computer, language, and it is readable and understandable. Also, XML is
 	completely compatible with Java and 100% portable.
     - Two XML files were added to store international Monopoly boards. The first one is the English version of the board and the second
 	one is the Arabic version of the board; both have different currencies (US dollar and Iraqi Dinar respectively).

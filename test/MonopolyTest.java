@@ -3,6 +3,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -127,6 +128,22 @@ public class MonopolyTest {
     public void start() {
         monopoly.start(2, 0);
         assertEquals(2, monopoly.getNumSolventPlayers());
+    }
+
+    /**
+     * Test if serialization export and import returns an equivalent monopoly object
+     * @throws Exception
+     */
+    @Test
+    public void serializationTest() throws Exception {
+        String testName = "SerialTestFile";
+        monopoly.exportMonopoly(testName);
+        Monopoly newMonopoly = Monopoly.importMonopoly(testName);
+
+        assertEquals(monopoly,newMonopoly);
+
+        File f = new File(testName);
+        f.delete();
     }
 
 }

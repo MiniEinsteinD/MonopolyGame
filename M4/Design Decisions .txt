@@ -8,20 +8,20 @@ Monopoly
     -  We decided to create a new class called VersionFormate to handle the implementation of the international versions feature. 
 	The reason for creating this new class is to reduce coupling within the Monopoly class. 
 
-
-----------
+Serialization
+-------------
     - 
 
+XML (U.M. 101158792)
+--------------------
+    - XML files were added in this milestone; it uses human, not computer, language, and it is readable and understandable. Also, XML is 
+	completely compatible with Java and 100% portable.
+    - Two XML files were added to store international Monopoly boards. The first one is the English version of the board and the second
+	one is the Arabic version of the board; both have different currencies (US dollar and Iraqi Dinar respectively).
 
---------------
-    - 
-
-
-
-------------
-    - 
-
-
+Board Drawings (U.M. 101158792)
+-------------------------------
+    - The two board drawings (English and Arabic versions) were drawn using a tablet (Sketchboook software).
 
 ------------------------
     - 

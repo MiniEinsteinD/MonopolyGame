@@ -21,20 +21,20 @@ Usage:
 The player will be welcomed and asked to choose the number of players and the number of bot players; then, colors are assigned to players.
 The controllers available for the player to enter are as follows:
 choose the number of players: Displays the numbers from 2-8 and allow the player to select the number of players.
-roll Dice: Rolls two dice to determine how many steps to move the active player, dipalys the new location, 
+roll Dice: Rolls two dice to determine how many steps to move the active player, displays the new location,
 	and pays any rent. If you rolled doubles, roll again.
 Buy Current Property: Buys a property for the active player. Does not work if you don't have enough money, or the property 
 	is already owned.
-View Player Protfolio: Displays the state of the active player.
+View Player Portfolio: Displays the state of the active player.
 End Turn: Passes the active player's turn to the next solvent player.
-View Avaliable Tile To Build: Displays the tiles that the player may build on. 
+View Available Tile To Build: Displays the tiles that the player may build on.
 Help: Provides the player with a guide to understand the controllers provided.
 The player loses when their total amount is a negative number.
 
 Known issues:
 --------------
-	- 
-	-
+	- VersionFormat type not stored in XML file (required some extra code for implementation in frame)
+	- When player bot in jail: does not display actions of bot to user
 
 Roadmap ahead:
 --------------
@@ -42,7 +42,7 @@ Roadmap ahead:
 
 Authors:
 --------
-Daniah  Mohammed
+Daniah Mohammed
 Umniyah Mohammed
 Ethan Leir
 Ethan Houlahan

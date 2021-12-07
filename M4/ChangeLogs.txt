@@ -9,9 +9,13 @@ Data Structure Changes:
 
 MonopolyFrame :
 	- A new frame is added to ask the user for their desired version of Monopoly
-	to play at the very beginning. 
+	to play at the very beginning.
 
+	-Added new save and load menu bar at top of frame
 
+Monopoly:
+
+    - Added serialization features
 
 
    

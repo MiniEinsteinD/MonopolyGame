@@ -5,12 +5,10 @@ Project
 
 Monopoly
 ---------
-    -  We decided to create a new class called VersionFormate to handle the implementation of the international versions feature. 
+    -  We decided to create a new class called Version Format to handle the implementation of the international versions feature.
 	The reason for creating this new class is to reduce coupling within the Monopoly class. 
 
-Serialization
--------------
-    - 
+    -Added clear views method to facilitate loading serialized monopoly objects without creating two views (E.H. 101145675)
 
 XML (U.M. 101158792)
 --------------------
@@ -23,5 +21,10 @@ Board Drawings (U.M. 101158792)
 -------------------------------
     - The two board drawings (English and Arabic versions) were drawn using a tablet (Sketchboook software).
 
-------------------------
-    - 
+Monopoly Serialization( E.H. 101145675)
+---------------------------------------
+    - Added serialization to monopoly to facilitate loading and saving previous and current games respectively
+
+MonopolyFrame (E.H. 101145675)
+------------------------------
+    - Added second constructor with model input required for use in loading saved games.

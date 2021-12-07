@@ -459,14 +459,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     @Override
     public void handleMonopolyUpdate(MonopolyEvent e){
         Monopoly model = (Monopoly) e.getSource();
-        if (e.getActivePlayer().getWallet() <= 0){
-            walletStateText.setText(model.versionFormat.getCurrencySign() + e.getActivePlayer().getWallet());
-            walletStateText.updateUI();
-            JOptionPane.showMessageDialog(this,"You Are Bankrupt!\nThanks for playing!","Bankruptcy!",4);
-        }else{
-            walletStateText.setText("Wallet: $" + e.getActivePlayer().getWallet());
-            walletStateText.updateUI();
-        }
+
+        walletStateText.setText(model.versionFormat.getCurrencySign() + e.getActivePlayer().getWallet());
+        walletStateText.updateUI();
+
         activePlayerText.setText("Current Player: " + e.getActivePlayer().getCOLOR());
         activePlayerText.updateUI();
 

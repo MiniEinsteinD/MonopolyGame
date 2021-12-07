@@ -131,6 +131,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
             ImageIcon boardImage = new ImageIcon(scaledImg);
             boardMap = new JLabel(boardImage);
+            boardPane.remove(0);
             boardPane.add(boardMap, BorderLayout.CENTER);
         });
 
@@ -155,6 +156,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
             ImageIcon boardImage = new ImageIcon(scaledImg);
             boardMap = new JLabel(boardImage);
+            boardPane.remove(0); //REMOVE LATER
             boardPane.add(boardMap, BorderLayout.CENTER);
 
         });
@@ -257,12 +259,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         activePlayerText.setFont(stdFont);
         walletStateText = new JLabel("", SwingConstants.CENTER);
         walletStateText.setFont(stdFont);
-/*
-        //Adding Board Image
+
+        //Adding Default Board Image
         BufferedImage img = null;
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+            URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //Default board image
             assert resource != null;
             img = ImageIO.read(resource);
         } catch (IOException e) {
@@ -272,7 +274,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
         ImageIcon boardImage = new ImageIcon(scaledImg);
         boardMap = new JLabel(boardImage);
- */
+        boardPane.add(boardMap,BorderLayout.CENTER);
 
         //Component Addition
         infoPane.add(activePlayerText);

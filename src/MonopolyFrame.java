@@ -413,7 +413,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             ImageIcon boardImage = new ImageIcon(scaledImg);
             boardMap = new JLabel(boardImage);
         }
-        if (model.versionFormat.getCurrencySign() == "د.ع"){
+        if (model.versionFormat.getCurrencySign() == "fils"){
             BufferedImage img = null;
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

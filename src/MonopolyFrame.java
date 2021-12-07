@@ -397,20 +397,40 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
 
         //Adding Board Image
-        BufferedImage img = null;
-        try {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL resource = classLoader.getResource("FinalMonopolyBoard.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
-            assert resource != null;
-            img = ImageIO.read(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert img != null;
-        Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
-        ImageIcon boardImage = new ImageIcon(scaledImg);
 
-        boardMap = new JLabel(boardImage);
+        if (model.versionFormat.getCurrencySign() == "$"){
+            BufferedImage img = null;
+            try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                URL resource = classLoader.getResource("EnglishPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                assert resource != null;
+                img = ImageIO.read(resource);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert img != null;
+            Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+            ImageIcon boardImage = new ImageIcon(scaledImg);
+            boardMap = new JLabel(boardImage);
+        }
+        if (model.versionFormat.getCurrencySign() == "د.ع"){
+            BufferedImage img = null;
+            try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                URL resource = classLoader.getResource("EnglishPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                assert resource != null;
+                img = ImageIO.read(resource);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert img != null;
+            Image scaledImg = img.getScaledInstance(800,800,Image.SCALE_SMOOTH);
+            ImageIcon boardImage = new ImageIcon(scaledImg);
+            boardMap = new JLabel(boardImage);
+        }
+
+
+
 
         //Component Addition
         infoPane.add(activePlayerText);

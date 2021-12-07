@@ -398,7 +398,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         //Adding Board Image
 
-        if (model.versionFormat.getCurrencySign() == "$"){
+        if (model.versionFormat.getCurrencySign().equals("$") ){
             BufferedImage img = null;
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -413,11 +413,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             ImageIcon boardImage = new ImageIcon(scaledImg);
             boardMap = new JLabel(boardImage);
         }
-        if (model.versionFormat.getCurrencySign() == "fils"){
+
+        if (model.versionFormat.getCurrencySign().equals("fils")){
             BufferedImage img = null;
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                URL resource = classLoader.getResource("EnglishPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
+                URL resource = classLoader.getResource("ArabicPicture.png"); //TO BE FIXED: WILL CHANGE WITH INTERNATIONAL VERSIONS
                 assert resource != null;
                 img = ImageIO.read(resource);
             } catch (IOException e) {

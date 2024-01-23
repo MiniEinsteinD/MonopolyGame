@@ -1,4 +1,5 @@
-# Monopoly6
+# Monopoly
+
 SYSC 3110 Project - Monopoly
 
 Project Description
